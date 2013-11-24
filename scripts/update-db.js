@@ -104,7 +104,7 @@ function getEventsForBill(billName) {
                 var event = {};                
                 // Accessing the GUID value is kind of funky.
                 // As it's actually a URL, we make our own from an SHA1 hash of the strong.
-                event.id = crypto.createHash('sha1').update( row.event_date + row.title).digest("hex");
+                event.id = crypto.createHash('sha1').update( row.event_date + row.title ).digest("hex");
                 event.name = row.title;
                 event.url = row.link_external
                 event.date = row.event_date;

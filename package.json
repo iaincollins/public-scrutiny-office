@@ -8,6 +8,7 @@
     "express-partials": "*",
     "ejs": "*",
     "mongojs": "*",
-    "xml2js": "*"
+    "xml2js": "*",
+    "date-utils": "*"
   }
 }

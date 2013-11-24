@@ -2,6 +2,8 @@ var express = require('express');
 var partials = require('express-partials');
 var ejs = require('ejs');
 
+require('date-utils');
+
 var app = express();
 
 app.use(partials());

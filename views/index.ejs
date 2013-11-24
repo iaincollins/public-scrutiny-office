@@ -1,18 +1,18 @@
-<h1>
-    <div class="row">
-        <div class="col-xs-4 col-sm-2">
-            <span class="fa-stack fa-lg pull-right">
-              <i class="fa fa-sun-o fa-stack-2x"></i>
-              <i class="fa fa-bullhorn fa-stack-1x"></i>
+<div class="row">
+    <div class="col-sm-12">
+        <h1>
+            <span class="fa-stack fa-lg pull-left" style="display: inline-block; width: 100px; margin-right: 20px;">
+                <i class="fa fa-gavel fa-stack-1x" style="color: #00a676; text-shadow: 0px 2px 0px #008860; position: absolute; top: 2px;"></i>
+                <i class="fa fa-sun-o fa-stack-2x" style="color: #00a676; text-shadow: 0px 2px 0px #008860;"></i>
             </span>
-        </div>
-        <div class="col-xs-8 col-sm-10" style="padding-top: 10px;">
-            Public Scrutiny Office
-            <br>
-            <small>What's going on in Parliament</small>
-        </div>
+            <span class="pull-left" style="display: inline-block;">
+                Public Scrutiny Office
+                <br/>
+                <small>What's going on in Parliament</small>
+            </span>
+        </h1>
     </div>
-</h1>
+</div>
 <hr/>
 <div class="row">
     <div class="col-sm-8">
@@ -29,12 +29,23 @@
         <h2>Upcoming events</h2>
         <ul class="list-unstyled">
         <%
-            for(var i=0; i<events.length; i++) {
+            var lastEvent = null;
+            for (var i=0; i<events.length; i++) {
+                var date = new Date(Date.parse(events[i].date));
+                var formattedDate = date.toFormat('DDDD, D MMMM');
          %>
-           <li>
-               <h4><i class="fa fa-calendar"></i> <%= events[i].date %></h4>
-               <a href="<%= events[i].url %>"><%= events[i].name %></a>
-           </li>
+            <%
+                if (lastEvent != events[i].date) {
+                        lastEvent = events[i].date;
+                
+             %>
+            <li>
+                <h4><i class="fa fa-calendar"></i> <%= formattedDate %></h4>
+            </li>
+            <% } %>
+            <li>
+                <p><a href="<%= events[i].url %>"><%= events[i].name %></a></p>
+            </li>
         <% } %>
         </ul>
     </div>
