@@ -1,0 +1,11 @@
+{
+  "name": "public-scrutiny-office",
+  "description": "Public Scrutiny Office",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.*",
+    "express-partials": "*",
+    "ejs": "*",
+  }
+}
