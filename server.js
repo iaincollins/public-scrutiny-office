@@ -13,12 +13,16 @@ app.engine('ejs', ejs.__express);
 partials.register('.ejs', ejs);
 
 app.get('/', function(req, res, next) {
+    // @fixme Obviously these queries should happen synchronously!
     var bills = require(__dirname + '/lib/bills');
     var b = new bills();
-    b.billsBeforeParliament(function(bills) {
-        res.render('index', { bills: bills });
+    b.billsBeforeParliament(function(billsBeforeParliament) {
+        var events = require(__dirname + '/lib/events');
+        var e = new events();
+        e.upcomingEvents(function(upcomingEvents) {
+            res.render('index', { bills: billsBeforeParliament, events: upcomingEvents });
+        });
     });
-
 });
 
 app.get('/about', function(req, res, next) {
