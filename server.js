@@ -31,6 +31,10 @@ app.get('/about', function(req, res, next) {
     res.render('about', {});
 });
 
+app.get('/members', function(req, res, next) {
+    res.render('members', {});
+});
+
 app.get('/bill', function(req, res, next) {
     res.redirect('/');
 });

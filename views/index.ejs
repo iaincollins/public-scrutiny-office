@@ -13,9 +13,12 @@
         </h1>
     </div>
 </div>
-<hr/>
+<hr class="invisible" />
 <div class="row">
     <div class="col-sm-8">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#">Bills before Parliament</a></li>
+        </ul>
         <ul class="list-unstyled">
         <% for(var i=0; i<bills.length; i++) { %>
            <li>
@@ -26,7 +29,7 @@
         </ul>
     </div>
     <div class="col-sm-4">
-        <h2>Upcoming events</h2>
+        <h2>Events in Parliament</h2>
         <ul class="list-unstyled">
         <%
             var lastEvent = null;
