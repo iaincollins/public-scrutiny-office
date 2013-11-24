@@ -9,6 +9,6 @@
     "ejs": "*",
     "mongojs": "*",
     "xml2js": "*",
-    "date-utils": "*"
+    "phpjs": "*"
   }
 }

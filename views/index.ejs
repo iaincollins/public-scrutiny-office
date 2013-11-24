@@ -1,55 +1,61 @@
-<div class="row">
-    <div class="col-sm-12">
-        <h1>
-            <span class="fa-stack fa-lg pull-left" style="display: inline-block; width: 100px; margin-right: 20px;">
-                <i class="fa fa-gavel fa-stack-1x" style="color: #00a676; text-shadow: 0px 2px 0px #008860; position: absolute; top: 2px;"></i>
-                <i class="fa fa-sun-o fa-stack-2x" style="color: #00a676; text-shadow: 0px 2px 0px #008860;"></i>
-            </span>
-            <span class="pull-left" style="display: inline-block;">
-                Public Scrutiny Office
-                <br/>
-                <small>What's going on in Parliament</small>
-            </span>
-        </h1>
+<div class="container-fluid" style="position: relative; top: -20px;">
+    <div style="padding: 20px; margin-bottom: 10px; background: #f5f5f5;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1>
+                        <span class="fa-stack fa-lg pull-left" style="display: inline-block; width: 100px; margin-right: 20px; position: relative; top: -10px;">
+                            <i class="fa fa-gavel fa-stack-1x" style="color: #00a676; text-shadow: 0px 2px 0px #008860; position: absolutex; top: 2px;"></i>
+                            <i class="fa fa-sun-o fa-stack-2x" style="color: #00a676; text-shadow: 0px 2px 0px #008860;"></i>
+                        </span>
+                        <span class="pull-left" style="display: inline-block;">
+                            Public Scrutiny Office
+                            <br/>
+                            <small>What's going on in Parliament</small>
+                        </span>
+                    </h1>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<hr class="invisible" />
-<div class="row">
-    <div class="col-sm-8">
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#">Bills before Parliament</a></li>
-        </ul>
-        <ul class="list-unstyled">
-        <% for(var i=0; i<bills.length; i++) { %>
-           <li>
-               <h3><%= bills[i].name %></h3>
-               <p><%= bills[i].description %></p>
-           </li>
-        <% } %>
-        </ul>
-    </div>
-    <div class="col-sm-4">
-        <h2>Events in Parliament</h2>
-        <ul class="list-unstyled">
-        <%
-            var lastEvent = null;
-            for (var i=0; i<events.length; i++) {
-                var date = new Date(Date.parse(events[i].date));
-                var formattedDate = date.toFormat('DDDD, D MMMM');
-         %>
-            <%
-                if (lastEvent != events[i].date) {
-                        lastEvent = events[i].date;
-                
-             %>
-            <li>
-                <h4><i class="fa fa-calendar"></i> <%= formattedDate %></h4>
-            </li>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#">Bills before Parliament</a></li>
+            </ul>
+            <ul class="list-unstyled">
+            <% for(var i=0; i<bills.length; i++) { %>
+               <li>
+                   <h3><%= bills[i].name %></h3>
+                   <p><%= bills[i].description %></p>
+               </li>
             <% } %>
-            <li>
-                <p><a href="<%= events[i].url %>"><%= events[i].name %></a></p>
-            </li>
-        <% } %>
-        </ul>
+            </ul>
+        </div>
+        <div class="col-sm-4">
+            <h2>Events in Parliament</h2>
+            <ul class="list-unstyled">
+            <%
+                var lastEvent = null;
+                for (var i=0; i<events.length; i++) {
+                    var date = phpjs.date('l, jS F', new Date(Date.parse(events[i].date)) );
+             %>
+                <%
+                    if (lastEvent != events[i].date) {
+                            lastEvent = events[i].date;
+                
+                 %>
+                <li>
+                    <h4><i class="fa fa-calendar"></i> <%= date %></h4>
+                </li>
+                <% } %>
+                <li>
+                    <p><a href="<%= events[i].url %>"><%= events[i].name %></a></p>
+                </li>
+            <% } %>
+            </ul>
+        </div>
     </div>
 </div>

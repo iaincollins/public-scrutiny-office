@@ -2,7 +2,8 @@ var express = require('express');
 var partials = require('express-partials');
 var ejs = require('ejs');
 
-require('date-utils');
+// Oh yeah, php.js. I went there.
+var phpjs = require('phpjs');
 
 var app = express();
 
