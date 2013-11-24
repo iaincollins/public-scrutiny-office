@@ -12,16 +12,28 @@ app.set('view engine', 'ejs');
 app.engine('ejs', ejs.__express);
 partials.register('.ejs', ejs);
 
-app.get('/', function(req, res) {
-  res.render('index', { });
+app.get('/', function(req, res, next) {
+    res.render('index', {});
 });
 
-app.get('/about', function(req, res) {
-  res.render('about', { });
+app.get('/about', function(req, res, next) {
+    res.render('about', {});
 });
 
-app.get('/bill', function(req, res) {
-  res.render('bill', { });
+app.get('/bill', function(req, res, next) {
+    res.redirect('/');
+});
+
+app.get('/bill/:name', function(req, res, next) {
+    // NB: Bill name in req.params.name
+    res.render('bill', {});
+});
+
+// Handle 404 Errors
+app.use(function(req, res, next) {
+    res.status(404).render('page-not-found', {
+        title: "Page not found"
+    });
 });
 
 app.listen(3000);

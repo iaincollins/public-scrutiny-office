@@ -7,5 +7,6 @@
     "express": "3.*",
     "express-partials": "*",
     "ejs": "*",
+    "mongojs": "*"
   }
 }
