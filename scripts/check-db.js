@@ -14,5 +14,6 @@ db.bills.find({}, function(err, bills) {
             console.log(bill);
         });
     }
+    console.log(bills.length + " bills found.")
     db.close();
 });

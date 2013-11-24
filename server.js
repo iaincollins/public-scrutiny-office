@@ -13,7 +13,12 @@ app.engine('ejs', ejs.__express);
 partials.register('.ejs', ejs);
 
 app.get('/', function(req, res, next) {
-    res.render('index', {});
+    var bills = require(__dirname + '/lib/bills');
+    var b = new bills();
+    b.billsBeforeParliament(function(bills) {
+        res.render('index', { bills: bills });
+    });
+
 });
 
 app.get('/about', function(req, res, next) {

@@ -1,1 +1,24 @@
-<h1>The Public Scrutiny Office</h1>
+<h1>
+    <div class="row">
+        <div class="col-xs-2 col-sm-2">
+            <span class="fa-stack fa-lg pull-right">
+              <i class="fa fa-sun-o fa-stack-2x"></i>
+              <i class="fa fa-bullhorn fa-stack-1x"></i>
+            </span>
+        </div>
+        <div class="col-xs-8 col-sm-10" style="padding-top: 10px;">
+            Public Scrutiny Office
+            <br>
+            <small>Review and comment on new legislation</small>
+        </div>
+    </div>
+</h1>
+<hr/>
+<ul class="list-unstyled">
+<% for(var i=0; i<bills.length; i++) { %>
+   <li>
+       <h3><%= bills[i].title %></h3>
+       <p><%= bills[i].description %></p>
+   </li>
+<% } %>
+</ul>
