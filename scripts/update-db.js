@@ -11,8 +11,8 @@ console.log("Updating Public Scrutiny Office database...");
 var databaseUrl = "127.0.0.1/public-scrutiny-office";
 var collections = ["bills", "members", "events"];
 var db = mongoJs.connect(databaseUrl, collections);
-//db.bills.drop();
-//db.events.drop();
+// db.bills.drop();
+// db.events.drop();
 
 // Get all bills currently before parliament from the RSS feed
 http.get({ host: 'services.parliament.uk', port: 80, path: '/bills/AllBills.rss' }, function(res) {
@@ -42,7 +42,7 @@ http.get({ host: 'services.parliament.uk', port: 80, path: '/bills/AllBills.rss'
                 // Accessing the GUID value is kind of funky.
                 // As it's actually a URL, we make our own from an SHA1 hash of the strong.
                 bill.id = crypto.createHash('sha1').update( item.guid[0]._ ).digest("hex");
-                bill.name = item.title + ' Bill';
+                bill.name = item.title;
                 bill.url = item.link;
                 bill.description = item.description;
                 bill.year = date.getFullYear();
@@ -51,7 +51,7 @@ http.get({ host: 'services.parliament.uk', port: 80, path: '/bills/AllBills.rss'
                 addBill(bill);
                 
                 // Find all events that match the name of this bill (even if just similar) and add them to events
-                getEventsForBill(item.title);
+                getEventsForBill(bill);
             }
         });
     });
@@ -73,11 +73,11 @@ function addBill(bill) {
     });
 }
 
-function getEventsForBill(billName) {
+function getEventsForBill(bill) {
     
     // Get events matching the keywords string from TheyWorkForYou
     http.get({ host: 'www.theyworkforyou.com', port: 80,
-               path: '/api/getHansard?key=GfmMVnCm29fQEqvFS7CgLHLJ&search='+encodeURIComponent(billName)+'&output=js'
+               path: '/api/getHansard?key=GfmMVnCm29fQEqvFS7CgLHLJ&search='+encodeURIComponent(bill.name)+'&output=js'
     }, function(res) {
 
         // Check the response seems okay
@@ -105,13 +105,16 @@ function getEventsForBill(billName) {
                 // Accessing the GUID value is kind of funky.
                 // As it's actually a URL, we make our own from an SHA1 hash of the strong.
                 event.id = crypto.createHash('sha1').update( row.event_date + row.title ).digest("hex");
-                event.name = row.title;
-                event.url = row.link_external
-                event.date = row.event_date;
-        
+                // Special case handling to create more readable event names
+                event.name = row.title;                
                 if (event.name == "to consider the Bill")
-                    event.name = "Consideration of the "+billName+" Bill";
-
+                    event.name = "Consideration of the "+bill.name+" Bill";
+                if (event.name == bill.name)
+                    event.name = bill.name+" Bill";
+                event.url = row.link_external;
+                event.date = row.event_date;
+                event.bill = bill;
+                
                 // Add event to database
                 addEvent(event);
             }
@@ -124,7 +127,8 @@ function addEvent(event) {
         _id: event.id,
         name: event.name,
         url: event.url,
-        date: event.date
+        date: event.date,
+        bill: event.bill
     }, function(err, saved) {
         if (err || !saved) {
             console.log("Could not add event to DB"+err);

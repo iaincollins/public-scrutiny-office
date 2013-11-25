@@ -1,12 +1,12 @@
 <div class="container-fluid" style="position: relative; top: -20px;">
-    <div style="padding: 20px; margin-bottom: 10px; background: #f5f5f5;">
+    <div class="heading">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
                     <h1>
-                        <span class="fa-stack fa-lg pull-left" style="display: inline-block; width: 100px; margin-right: 20px; position: relative; top: -10px;">
-                            <i class="fa fa-gavel fa-stack-1x" style="color: #00a676; text-shadow: 0px 2px 0px #008860; position: absolutex; top: 2px;"></i>
-                            <i class="fa fa-sun-o fa-stack-2x" style="color: #00a676; text-shadow: 0px 2px 0px #008860;"></i>
+                        <span class="fa-stack fa-lg pull-left logo hidden-xs">
+                            <i class="fa fa-user fa-stack-1x"></i>
+                            <i class="fa fa-sun-o fa-stack-2x"></i>
                         </span>
                         <span class="pull-left" style="display: inline-block;">
                             Public Scrutiny Office
@@ -28,7 +28,7 @@
             <ul class="list-unstyled">
             <% for(var i=0; i<bills.length; i++) { %>
                <li>
-                   <h3><%= bills[i].name %></h3>
+                   <a class="unstyled" href="<%= bills[i].url %>"><h3><%= bills[i].name %> Bill</h3></a>
                    <p><%= bills[i].description %></p>
                </li>
             <% } %>
@@ -36,23 +36,28 @@
         </div>
         <div class="col-sm-4">
             <h2>Events in Parliament</h2>
-            <ul class="list-unstyled">
-            <%
-                var lastEvent = null;
+            <% var lastEvent = null;
                 for (var i=0; i<events.length; i++) {
                     var date = phpjs.date('l, jS F', new Date(Date.parse(events[i].date)) );
-             %>
-                <%
+                    
                     if (lastEvent != events[i].date) {
-                            lastEvent = events[i].date;
-                
-                 %>
+                    
+                        if (lastEvent != null) { %></ul><% }
+                        
+                        lastEvent = events[i].date;
+            %>
+            <h4><i class="fa fa-calendar"></i> <%= date %></h4>
+            <ul class="fa-ul">
+            <%      }   %>
                 <li>
-                    <h4><i class="fa fa-calendar"></i> <%= date %></h4>
-                </li>
-                <% } %>
-                <li>
-                    <p><a href="<%= events[i].url %>"><%= events[i].name %></a></p>
+                    <%  // Link to the bill the event relates to if the URL ends in .cfm
+                        // (for some reason event URLs ending in .cfm URL's all 404)
+                        if (/.cfm$/.test(events[i].url)) {
+                    %>
+                    <p><i class="fa-li fa fa-angle-right"></i><a href="<%= events[i].bill.url %>"><%= events[i].name %></a></p>
+                    <% } else { %>
+                    <p><i class="fa-li fa fa-angle-right"></i><a href="<%= events[i].url %>"><%= events[i].name %></a></p>
+                    <% } %>
                 </li>
             <% } %>
             </ul>

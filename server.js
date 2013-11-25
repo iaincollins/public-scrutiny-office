@@ -7,12 +7,15 @@ var phpjs = require('phpjs');
 
 var app = express();
 
+app.use(express.static(__dirname + '/public'))
 app.use(partials());
 
 app.set('title', 'Public Scrutiny Office');
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+
 app.engine('ejs', ejs.__express);
+
 partials.register('.ejs', ejs);
 
 app.get('/', function(req, res, next) {

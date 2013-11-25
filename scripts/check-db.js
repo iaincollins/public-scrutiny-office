@@ -22,7 +22,7 @@ db.events.find({}, function(err, events) {
         console.log("No events found.");
     } else {
         events.forEach(function(event) {
-            //console.log(event);
+            console.log(event);
         });
     }
     console.log(events.length + " events found.")
