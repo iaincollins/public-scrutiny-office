@@ -28,7 +28,7 @@
             <ul class="list-unstyled">
             <% for(var i=0; i<bills.length; i++) { %>
                <li>
-                   <a class="unstyled" href="<%= bills[i].url %>"><h3><%= bills[i].name %> Bill</h3></a>
+                   <a class="unstyled" href="<%= bills[i].url %>"><h3><i class="fa fa-file-text-o"></i> <%= bills[i].name %> Bill</h3></a>
                    <p><%= bills[i].description %></p>
                </li>
             <% } %>
