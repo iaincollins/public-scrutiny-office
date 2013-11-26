@@ -35,7 +35,10 @@
             </ul>
         </div>
         <div class="col-sm-4">
-            <h2>Events in Parliament</h2>
+            <h2>What's going on</h2>
+            <p class="text-muted">
+                Bills before Parliament and other discussions.
+            </p>
             <% var lastEvent = null;
                 for (var i=0; i<events.length; i++) {
                     var date = phpjs.date('l, jS F', new Date(Date.parse(events[i].date)) );
@@ -53,8 +56,10 @@
                     <%  // Link to the bill the event relates to if the URL ends in .cfm
                         // (for some reason event URLs ending in .cfm URL's all 404)
                         if (/.cfm$/.test(events[i].url)) {
+                        // @fixme They are not always linking to relevant bills, so skipping this for now.
+                        // @todo Check out the raw event object and work out why some events are like this.
                     %>
-                    <p><i class="fa-li fa fa-angle-right"></i><a href="<%= events[i].bill.url %>"><%= events[i].name %></a></p>
+                    <!--<p><i class="fa-li fa fa-angle-right"></i><a href="<%= events[i].bill.url %>"><%= events[i].name %></a></p>-->
                     <% } else { %>
                     <p><i class="fa-li fa fa-angle-right"></i><a href="<%= events[i].url %>"><%= events[i].name %></a></p>
                     <% } %>
