@@ -37,12 +37,12 @@
         <div class="col-sm-4">
             <h2>What's going on</h2>
             <p class="text-muted">
-                Bills before Parliament and other discussions.
+                Discussions related to bills before Parliament.
             </p>
             <% var lastEvent = null;
                 for (var i=0; i<events.length; i++) {
                     var date = phpjs.date('l, jS F', new Date(Date.parse(events[i].date)) );
-                    
+
                     if (lastEvent != events[i].date) {
                     
                         if (lastEvent != null) { %></ul><% }

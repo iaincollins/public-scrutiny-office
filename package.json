@@ -9,6 +9,8 @@
     "ejs": "*",
     "mongojs": "*",
     "xml2js": "*",
-    "phpjs": "*"
+    "phpjs": "*",
+    "request": "*",
+    "cheerio": "*"
   }
 }
