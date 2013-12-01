@@ -17,19 +17,20 @@ var databaseUrl = "127.0.0.1/public-scrutiny-office";
 var collections = ["bills", "members", "events"];
 var db = mongoJs.connect(databaseUrl, collections);
 // db.bills.drop();
-// db.events.drop();
+//db.events.drop();
 
 // Get bill details (involves several lookups, hence promises)
 // @fixme close DB connection when all bills have been added.
 return getBills()
 .then(function(bills) {    
     return bills.forEach(function(bill, index) {
-         return billParser.getBillDetails(bill)
-         .then(function(bill) {
-             // Add bill to database
-             addBill(bill);
-             getEventsForBill(bill);
-         });         
+         // return billParser.getBillDetails(bill)
+         // .then(function(bill) {
+         //     // Add bill to database
+         //     addBill(bill);
+         //     getEventsForBill(bill);
+         // });         
+        getEventsForBill(bill);
     });
 });
 
@@ -131,7 +132,12 @@ function getEventsForBill(bill) {
             
             event.url = row.link_external;
             event.date = row.event_date;
-            event.bill = bill;
+        
+            // Not logging the full bill object, just what's needed.
+            event.bill = {};
+            event.bill.id = bill.id;
+            event.bill.name = bill.name;
+            event.bill.url = bill.url;
             
             // Add event to database
             addEvent(event);
