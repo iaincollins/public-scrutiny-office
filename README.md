@@ -3,14 +3,17 @@ Public Scrutiny Office
 
 This is the source for a project designed to enable greater public scrutiny of Parliament in the UK.
 
-This project stems from hack I did for Parliament Hack 2013 (at the start of Parliament week), an event run by 
-Rewired State (see the hashtag #RSPARLY2013 on Twitter for more).
+It's a port of a hack I did for Parliament Hack 2013 from PHP to nodejs and mongodb.
 
-As the concept was well received (the hack won an award) and because I liked the idea myself, I've decided to 
-keep it going. The code was pretty awful though so I decided to re-write the hack (origionally in PHP) in 
-nodejs and mongodb. It uses ejs and express-patials for templating and layout.
+See the "about" page for more info.
 
-Once I've got the basic functionality ported over I'll start working on adding new functionality like viewing MP's
-and a more sophisticated way of viewing events.
+To run a copy of this site on your own system:
 
-If you have any suggestions or questions, you can reach me at me@iaincollins.com (or as @iaincollins on Twitter).
+1) install nodejs and mongodb.
+2) run 'npm install' to get dependancies.
+3) run './scripts/get-bills.js' to populate the DB.
+4) run 'node server.js' and connect to 'localhost:3000' to view the site.
+
+Contributions most welcome! :)
+
+Thank you to Parliament and Rewired State for putting on the hack, to the Parliament folks for being on hand to provide domain expertise and MySociety for the TheyWorkForYou API's.

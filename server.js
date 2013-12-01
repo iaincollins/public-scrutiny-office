@@ -19,13 +19,11 @@ app.engine('ejs', ejs.__express);
 partials.register('.ejs', ejs);
 
 app.get('/', function(req, res, next) {
-    // @fixme Obviously these queries should happen synchronously!
+    // @fixme Use promises instead of callbacks here
     var bills = require(__dirname + '/lib/bills');
-    var b = new bills();
-    b.billsBeforeParliament(function(billsBeforeParliament) {
+    bills.billsBeforeParliament(function(billsBeforeParliament) {
         var events = require(__dirname + '/lib/events');
-        var e = new events();
-        e.upcomingEvents(function(upcomingEvents) {
+        events.upcomingEvents(function(upcomingEvents) {
             res.render('index', { bills: billsBeforeParliament, events: upcomingEvents });
         });
     });
@@ -39,13 +37,16 @@ app.get('/members', function(req, res, next) {
     res.render('members', {});
 });
 
-app.get('/bill', function(req, res, next) {
+app.get('/bills', function(req, res, next) {
     res.redirect('/');
 });
 
-app.get('/bill/:name', function(req, res, next) {
-    // NB: Bill name in req.params.name
-    res.render('bill', {});
+app.get('/bills/:year/:name', function(req, res, next) {
+    // @fixme Use promises instead of callbacks here
+    var bills = require(__dirname + '/lib/bills'); 
+    bills.getBillByYearAndName(req.params.year, req.params.name, function(bill) {
+        res.render('bill', { bill: bill });
+    });
 });
 
 // Handle 404 Errors

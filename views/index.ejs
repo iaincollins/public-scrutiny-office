@@ -26,10 +26,24 @@
               <li class="active"><a href="#">Bills before Parliament</a></li>
             </ul>
             <ul class="list-unstyled">
-            <% for(var i=0; i<bills.length; i++) { %>
+            <% for (var i=0; i<bills.length; i++) { %>
                <li>
-                   <a class="unstyled" href="<%= bills[i].url %>"><h3><i class="fa fa-file-text-o"></i> <%= bills[i].name %> Bill</h3></a>
-                   <p><%= bills[i].description %></p>
+                   <a class="unstyled" href="/bills<%= bills[i].path %>">
+                       <h3><i class="fa fa-file-text-o"></i> <%= bills[i].name %> Bill</h3>
+                   </a>
+                   <p>
+                   <% for (var j=0; j<bills[i].sponsors.length; j++) { %>
+                        <span class="fa-stack">
+                        <i class="fa fa-user fa-stack-1x"></i>
+                        <i class="fa fa-circle-o fa-stack-2x"></i>
+                        </span>
+                      <%= bills[i].sponsors[j] %></span>
+                   <% } %>
+                   </p>
+                   <p><a class="unstyled" href="/bills<%= bills[i].path %>"><%= bills[i].description %></a></p>
+                   <p>
+                       <span class="label label-info"><%= bills[i].type %></span>
+                   </p>
                </li>
             <% } %>
             </ul>

@@ -31,7 +31,7 @@ var db = mongoJs.connect(databaseUrl, collections);
 // Get bill details (involves several lookups, hence promises)
 // @fixme close DB connection when all bills have been added.
 var bills;
-return getBills()
+getBills()
 .then(function(bills) {    
     var promises = [];
     bills.forEach(function(bill, index) {
@@ -43,15 +43,25 @@ return getBills()
 .then(function(bills) {
     var promises = [];
     bills.forEach(function(bill, index) {
+        // Add Bill to DB
+        var promise = addBill(bill);
+        promises.push(promise);
+        
         // Look for events for related to each bill
         var promise = getEventsForBill(bill);
         promises.push(promise);
+        
     });
     return Q.all(promises);
 })
 .then(function() {
-    console.log("*** Finished updating the Public Scrutiny Office database");
+    // Make sure appropriate indexes exist
+    db.bills.ensureIndex( { "path": 1 } );
+    db.bills.ensureIndex( { "hasHtml": 1 } );
+    db.events.ensureIndex( { "date": 1 } );
+    
     db.close();
+    console.log("*** Finished updating the Public Scrutiny Office database");
 });
 
 function getBills() {
@@ -72,7 +82,7 @@ function getBills() {
         var parser = new xml2js.Parser();
         parser.parseString(body, function (err, result) {
             // console.log(result.rss.channel[0].item);
-            console.log("Found "+result.rss.channel[0].item.length+" bills");
+            console.log("Found "+result.rss.channel[0].item.length+" bills in the RSS feed on parliament.uk");
             for (i=0; i<result.rss.channel[0].item.length; i++) {
                 var item = result.rss.channel[0].item[i];
 
@@ -84,9 +94,20 @@ function getBills() {
                 bill.url = item.link[0];
                 bill.description = item.description;
                 bill.year = date.getFullYear();
-                
-                console.log("Bill found: "+bill.name);
-                
+
+                // Create "human friendly" path from the bill name
+                // e.g. For "Inheritance and Trustees' Powers" generates "/2013/inheritance-and-trustees-powers"
+                //
+                // @fixme Bill year can change over new year.
+                // @todo It doesn't check for duplicates (seems unlikely in a given year though).
+                bill.path = '/'+bill.year+'/';
+                // Convert to lower case and convert spaces to hyphens (stripping duplicate & stray hyphens)
+                // while removing any chars that are not alphanumeric (or hyphens)
+                bill.path += phpjs.strtolower( bill.name.replace(/ /g, '-').replace(/(--.*)/g, '-').replace(/[^A-z0-9-]/g, '') );
+                bill.path = bill.path.replace(/-$/, '');
+
+                //console.log("Bill found: "+bill.name);
+
                 bills.push(bill);
             }
         });
@@ -97,14 +118,20 @@ function getBills() {
 }
 
 function addBill(bill) {    
+    bill._id = bill.id;
+    
+    // Adding a bool value to bills to make it faster to determine if 
+    // HTML of the body of the bill is available yet (so can ingore
+    // bills that have not yet been uploaded).
+    bill.html = bill.html.toString();
+    if (bill.html == '') {
+        bill.hasHtml = false;
+    } else {
+        bill.hasHtml = true;
+    }
+
     var deferred = Q.defer();
-    db.bills.save({
-        _id: bill.id,
-        year: bill.year,
-        name: bill.name,
-        description: bill.description,
-        url: bill.url
-    }, function(err, saved) {
+    db.bills.save( bill, function(err, saved) {
         if (err || !saved) {
             console.log("Could not add bill to DB"+err);
         } else {
@@ -167,6 +194,7 @@ function getEventsForBill(bill) {
                 event.bill.id = bill.id;
                 event.bill.name = bill.name;
                 event.bill.url = bill.url;
+                event.bill.path = bill.path;
 
             } catch (exception) {
                 // Ignore exceptions
