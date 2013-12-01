@@ -25,10 +25,10 @@
             <ul class="nav nav-tabs">
               <li class="active"><a href="#">Bills before Parliament</a></li>
             </ul>
-            <ul class="list-unstyled">
+            <ul class="list-unstyled bills">
             <% for (var i=0; i<bills.length; i++) { %>
-               <li>
-                   <a class="unstyled" href="/bills<%= bills[i].path %>">
+               <li class="clearfix" data-href="/bills<%= bills[i].path %>">
+                   <a class="styled-link" href="/bills<%= bills[i].path %>">
                        <h3><i class="fa fa-file-text-o"></i> <%= bills[i].name %> Bill</h3>
                    </a>
                    <p>
@@ -40,7 +40,7 @@
                       <%= bills[i].sponsors[j] %></span>
                    <% } %>
                    </p>
-                   <p><a class="unstyled" href="/bills<%= bills[i].path %>"><%= bills[i].description %></a></p>
+                   <p><a class="styled-link" href="/bills<%= bills[i].path %>"><%= bills[i].description %></a></p>
                    <p>
                        <span class="label label-info"><%= bills[i].type %></span>
                    </p>
@@ -83,3 +83,8 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).on('click touch', 'ul.bills li', function(e){
+        window.location = $(this).data('href');
+    });
+</script>
