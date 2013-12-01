@@ -5,7 +5,7 @@ This is the source for a project designed to enable greater public scrutiny of P
 
 It's a port of a hack I did for Parliament Hack 2013 from PHP to nodejs and mongodb.
 
-See the "about" page for more info.
+It's up and running over at http://public-scrutiny-office.iaincollins.com
 
 To run a copy of this site on your own system:
 
