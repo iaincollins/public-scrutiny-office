@@ -36,7 +36,7 @@
                     <% for (var j=0; j<bills[i].sponsors.length; j++) { %>
                         <span class="fa-stack">
                         <i class="fa fa-user fa-stack-1x"></i>
-                        <i class="fa fa-circle-o fa-stack-2x"></i>
+                        <i class="fa fa-square-o fa-stack-2x"></i>
                         </span>
                       <%= bills[i].sponsors[j] %></span>
                    <% } %>
@@ -93,7 +93,15 @@
 </div>
 <script>
     $(document).on('click touch', 'ul.bills li', function(e){
-        window.location = $(this).data('href');
+        if ($(e.target).parents('.likebtn-wrapper').length) {
+            // ignore clicks on the voting buttons
+            return;
+        } else if ($(e.target).parents('*[href]').length || $(e.target).attr('href')) {
+            // ignore clicks on the links themselves (so people can still right click)
+            return;
+        } else {
+            window.location = $(this).data('href');
+        }
     });
     
     var disqus_shortname = 'publicscrutinyoffice';
