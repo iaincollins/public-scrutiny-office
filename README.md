@@ -3,9 +3,9 @@ Public Scrutiny Office
 
 This is the source for a project designed to enable greater public scrutiny of Parliament in the UK.
 
-It's a port of a hack I did for Parliament Hack 2013 from PHP to nodejs and mongodb.
+It's a port of a hack I did for Parliament Hack 2013 from PHP to nodejs and mongodb, using express, express-partials and ejs for templating and layout and varnish cache in production.
 
-It's up and running over at http://public-scrutiny-office.iaincollins.com
+It's up and running over at http://public-scrutiny-office.org
 
 To run a copy of this site on your own system:
 
