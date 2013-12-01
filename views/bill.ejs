@@ -26,7 +26,9 @@
             <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         </div>
         <div class="col-sm-3">
+            <% if (bill.sponsors.length > 0) { %>
             <h2 style="margin-bottom: 20px;">Sponsored by</h2>
+            <% } %>
             <% for (var i=0; i<bill.sponsors.length; i++) { %>
             <h4>
                 <span class="fa-stack">
