@@ -87,26 +87,27 @@ function getBills() {
                 var item = result.rss.channel[0].item[i];
 
                 var bill = {};
+                
                 // Accessing the GUID value is kind of funky.
                 // As it's actually a URL, we make our own from an SHA1 hash of the strong.
                 bill.id = crypto.createHash('sha1').update( item.guid[0]._ ).digest("hex");
                 bill.name = phpjs.trim(item.title);
                 bill.url = item.link[0];
                 bill.description = item.description;
-                bill.year = date.getFullYear();
+                
+                // @fixme The year range should not be hard coded!
+                // @todo Look at the current month and year and generate accordingly (e.g. either 2013-2014 or 2014-2015)
+                bill.year = '2013-2014';
 
                 // Create "human friendly" path from the bill name
-                // e.g. For "Inheritance and Trustees' Powers" generates "/2013/inheritance-and-trustees-powers"
+                // e.g. For "Inheritance and Trustees' Powers" generates "/2013-2014/inheritance-and-trustees-powers"
                 //
-                // @fixme Bill year can change over new year.
-                // @todo It doesn't check for duplicates (seems unlikely in a given year though).
+                // @todo It doesn't check for duplicates (SEEMS unlikely in a given session of Parliament though...).
                 bill.path = '/'+bill.year+'/';
                 // Convert to lower case and convert spaces to hyphens (stripping duplicate & stray hyphens)
                 // while removing any chars that are not alphanumeric (or hyphens)
                 bill.path += phpjs.strtolower( bill.name.replace(/ /g, '-').replace(/(--.*)/g, '-').replace(/[^A-z0-9-]/g, '') );
                 bill.path = bill.path.replace(/-$/, '');
-
-                //console.log("Bill found: "+bill.name);
 
                 bills.push(bill);
             }
