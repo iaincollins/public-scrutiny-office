@@ -1,20 +1,11 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-9">
             <h1><%= bill.name %></h1>
-            <p>
-            <% for (var j=0; j<bill.sponsors.length; j++) { %>
-                <span class="fa-stack">
-                <i class="fa fa-user fa-stack-1x"></i>
-                <i class="fa fa-circle-o fa-stack-2x"></i>
-                </span>
-              <%= bill.sponsors[j] %></span>
-            <% } %>            
-            </p>
+            <p class="lead"><%= bill.description %></p>
             <p>
                <span class="label label-info"><%= bill.type %></span>
             </p>
-            <p class="lead"><%= bill.description %></p>
             <h1>The Bill</h1>
             <hr/>
             <div class="bill-text">
@@ -23,18 +14,56 @@
             <hr/>
             <h2>Comments</h2>
             <div id="disqus_thread"></div>
-                <script type="text/javascript">
-                    var disqus_shortname = 'publicscrutinyoffice';
-                    (function() {
-                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                    })();
-                </script>
-                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-            </div>
+            <script type="text/javascript">
+                var disqus_shortname = 'publicscrutinyoffice';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         </div>
-        <div class=""></div>
+        <div class="col-sm-3">
+            <h2 style="margin-bottom: 20px;">Sponsored by</h2>
+            <% for (var i=0; i<bill.sponsors.length; i++) { %>
+            <h4>
+                <span class="fa-stack">
+                <i class="fa fa-user fa-stack-1x"></i>
+                <i class="fa fa-square-o fa-stack-2x"></i>
+                </span>
+              <%= bill.sponsors[i] %>
+            </h4>
+            <% } %>
+            <h2>Documents</h2>
+            <h3>Version history</h3>
+            <% for (var i=0; i<bill.documents.versions.length; i++) { %>
+            <p>                
+                <a href="<%= bill.documents.versions[i].url %>"><i class="fa fa-file-o fa-lg"></i> <%= bill.documents.versions[i].name %></a>
+            </p>
+            <% } %>
+            <% if (bill.documents.versions.length == 0) { %>
+            <p class="text-muted">The text for this bill is not yet available.</p>
+            <% } %>
+            <h3>Notes</h3>
+            <% for (var i=0; i<bill.documents.notes.length; i++) { %>
+            <p>
+                <a href="<%= bill.documents.notes[i].url %>"><i class="fa fa-file-o fa-lg"></i> <%= bill.documents.notes[i].name %></a>
+            </p>
+            <% } %>
+            <% if (bill.documents.notes.length == 0) { %>
+            <p class="text-muted">There are no notes available for this bill.</p>
+            <% } %>
+            <h3>Other documents</h3>
+            <% for (var i=0; i<bill.documents.other.length; i++) { %>
+            <p>
+                <a href="<%= bill.documents.other[i].url %>"><i class="fa fa-file-o fa-lg"></i> <%= bill.documents.other[i].name %></a>
+            </p>
+            <% } %>
+            <% if (bill.documents.other.length == 0) { %>
+            <p class="text-muted">There are no other documents available for this bill.</p>
+            <% } %>
+        </div>
     </div>
 </div>
