@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
-var mongoJs = require('mongojs');
-var xml2js = require('xml2js');
-var http = require('http');
+var util = require('util'); // For debugging
 var crypto = require('crypto');
-var phpjs = require('phpjs');
+var mongoJs = require('mongojs');
 var request = require('request');
+var xml2js = require('xml2js');
+var Q = require('q'); // For promises
+var phpjs = require('phpjs'); // Using this for string functions
+var billParser = require(__dirname + '/../lib/billparser');
 
 var date = new Date();
 
@@ -17,40 +19,62 @@ var db = mongoJs.connect(databaseUrl, collections);
 // db.bills.drop();
 // db.events.drop();
 
-// Get all bills currently before parliament from the RSS feed
-request('http://services.parliament.uk/bills/AllBills.rss', function (error, response, body) {
-    
-    // Check the response seems okay
-    if (response.statusCode != 200) {
-        console.log("Unable to fetch list of bills before parliament from services.parliament.uk");
-        return;
-    }
-
-    var parser = new xml2js.Parser();
-    parser.parseString(body, function (err, result) {
-        // console.log(result.rss.channel[0].item);
-        console.log("Found "+result.rss.channel[0].item.length+" bills");
-        for (i=0; i<result.rss.channel[0].item.length; i++) {
-            var item = result.rss.channel[0].item[i];
-            
-            var bill = {};                
-            // Accessing the GUID value is kind of funky.
-            // As it's actually a URL, we make our own from an SHA1 hash of the strong.
-            bill.id = crypto.createHash('sha1').update( item.guid[0]._ ).digest("hex");
-            bill.name = phpjs.trim(item.title);
-            bill.url = item.link;
-            bill.description = item.description;
-            bill.year = date.getFullYear();
-
-            // Add bill to database
-            addBill(bill);
-            
-            // Find all events that match the name of this bill (even if just similar) and add them to events
-            getEventsForBill(bill);
-        }
+// Get bill details (involves several lookups, hence promises)
+// @fixme close DB connection when all bills have been added.
+return getBills()
+.then(function(bills) {    
+    return bills.forEach(function(bill, index) {
+         return billParser.getBillDetails(bill)
+         .then(function(bill) {
+             // Add bill to database
+             addBill(bill);
+             getEventsForBill(bill);
+         });         
     });
 });
 
+function getBills() {
+    var deferred = Q.defer();
+
+    var bills = [];
+    
+    // Get all bills currently before parliament from the RSS feed
+    request('http://services.parliament.uk/bills/AllBills.rss', function (error, response, body) {
+    
+        // Check the response seems okay
+        if (response.statusCode != 200) {
+            console.log("Unable to fetch list of bills before parliament from services.parliament.uk");
+            return;
+        }
+
+        var parser = new xml2js.Parser();
+        parser.parseString(body, function (err, result) {
+            // console.log(result.rss.channel[0].item);
+            console.log("Found "+result.rss.channel[0].item.length+" bills");
+            for (i=0; i<result.rss.channel[0].item.length; i++) {
+                var item = result.rss.channel[0].item[i];
+            
+                var bill = {};                
+                // Accessing the GUID value is kind of funky.
+                // As it's actually a URL, we make our own from an SHA1 hash of the strong.
+                bill.id = crypto.createHash('sha1').update( item.guid[0]._ ).digest("hex");
+                bill.name = phpjs.trim(item.title);
+                bill.url = item.link[0];
+                bill.description = item.description;
+                bill.year = date.getFullYear();
+                
+                console.log("Bill found: "+bill.name);
+                
+                bills.push(bill);
+            }
+        });
+        
+        deferred.resolve(bills);
+        
+    });
+    
+    return deferred.promise;
+}
 
 function addBill(bill) {    
     db.bills.save({
@@ -132,6 +156,5 @@ function addEvent(event) {
     });
 }
 
-// @todo Extract names of members sponsoring the bill by screen scraping.
 // @todo Fetch details about the member if not found already (party, constituency, photo, etc)
 // @todo Extract the full text of the bill by screen scraping.
