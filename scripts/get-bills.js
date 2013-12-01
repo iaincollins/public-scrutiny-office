@@ -85,7 +85,7 @@ function getBills() {
             console.log("Found "+result.rss.channel[0].item.length+" bills in the RSS feed on parliament.uk");
             for (i=0; i<result.rss.channel[0].item.length; i++) {
                 var item = result.rss.channel[0].item[i];
-
+                
                 var bill = {};
                 
                 // Accessing the GUID value is kind of funky.
@@ -118,19 +118,8 @@ function getBills() {
     return deferred.promise;
 }
 
-function addBill(bill) {    
+function addBill(bill) {
     bill._id = bill.id;
-    
-    // Adding a bool value to bills to make it faster to determine if 
-    // HTML of the body of the bill is available yet (so can ingore
-    // bills that have not yet been uploaded).
-    bill.html = bill.html.toString();
-    if (bill.html == '') {
-        bill.hasHtml = false;
-    } else {
-        bill.hasHtml = true;
-    }
-
     var deferred = Q.defer();
     db.bills.save( bill, function(err, saved) {
         if (err || !saved) {

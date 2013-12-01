@@ -12,6 +12,7 @@
     "phpjs": "*",
     "request": "*",
     "cheerio": "*",
-    "q": "*"
+    "q": "*",
+    "htmltidy": "*"
   }
 }
