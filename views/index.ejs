@@ -5,7 +5,7 @@
                 <div class="col-sm-12">
                     <h1>
                         <span class="fa-stack fa-lg pull-left logo hidden-xs">
-                            <i class="fa fa-user fa-stack-1x"></i>
+                            <i class="fa fa-bullhorn fa-stack-1x"></i>
                             <i class="fa fa-sun-o fa-stack-2x"></i>
                         </span>
                         <span class="pull-left" style="display: inline-block;">
@@ -28,11 +28,12 @@
             <ul class="list-unstyled bills">
             <% for (var i=0; i<bills.length; i++) { %>
                <li class="clearfix" data-href="/bills<%= bills[i].path %>">
-                   <a class="unstyled" href="/bills<%= bills[i].path %>">
-                       <h3><i class="fa fa-file-text-o"></i> <%= bills[i].name %> Bill</h3>
-                   </a>
-                   <p>
-                   <% for (var j=0; j<bills[i].sponsors.length; j++) { %>
+                    <a class="unstyled" href="/bills<%= bills[i].path %>">
+                        <h3><i class="fa fa-file-text-o"></i> <%= bills[i].name %> Bill</h3>
+                    </a>      
+                    <p>
+                    <span class="label label-info"><%= bills[i].type %></span>
+                    <% for (var j=0; j<bills[i].sponsors.length; j++) { %>
                         <span class="fa-stack">
                         <i class="fa fa-user fa-stack-1x"></i>
                         <i class="fa fa-circle-o fa-stack-2x"></i>
@@ -42,12 +43,15 @@
                    </p>
                    <p><a class="unstyled" href="/bills<%= bills[i].path %>"><%= bills[i].description %></a></p>
                    <p>
-                       <span class="label label-info"><%= bills[i].type %></span>
                        <span class="pull-right">
                            <i class="fa fa-comment fa-flip-horizontal fa-lg"></i>
                            <a class="unstyled" href="/bills<%= bills[i].path %>#disqus_thread">0 Comments</a>
                        </span>
                    </p>
+                    <!-- LikeBtn.com BEGIN -->
+                    <span data-identifier="<%= bills[i].path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Yes" data-i18n_dislike="No" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
+                    <script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
+                    <!-- LikeBtn.com END -->
                </li>
             <% } %>
             </ul>

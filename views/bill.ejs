@@ -1,10 +1,13 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <h1><%= bill.name %></h1>
-            <p class="lead"><%= bill.description %></p>
+            <h1><%= bill.name %> Bill</h1>
+            <p style="margin-top: 20px;" class="lead"><%= bill.description %></p>
             <p>
-               <span class="label label-info"><%= bill.type %></span>
+                <!-- LikeBtn.com BEGIN -->
+                <span data-identifier="<%= bill.path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Yes" data-i18n_dislike="No" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
+                <script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
+                <!-- LikeBtn.com END -->
             </p>
             <h1>The Bill</h1>
             <hr/>
@@ -26,6 +29,9 @@
             <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         </div>
         <div class="col-sm-3">
+            <p style="margin-top: 30px;">
+               <h3 class="label label-info"><%= bill.type %></h3>
+            </p>
             <% if (bill.sponsors.length > 0) { %>
             <h2 style="margin-bottom: 20px;">Sponsored by</h2>
             <% } %>
