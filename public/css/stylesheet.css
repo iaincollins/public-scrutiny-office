@@ -27,14 +27,9 @@ ul.bills li:hover {
     cursor: pointer;
 }
 
-a.styled-link {
+a.unstyled {
     color: inherit;
     text-decoration: none !important;
-}
-
-a.styled-link:hover h3,
-a.styled-link:hover {
-    background: #f7ffea !important;
 }
 
 .navbar.navbar-default a {
