@@ -11,7 +11,7 @@ db.bills.find({}, function(err, bills) {
         console.log("No bills found.");
     } else {
         bills.forEach(function(bill) {
-            console.log(bill);
+           // console.log(bill);
         });
     }
     console.log(bills.length + " bills found.")
@@ -22,7 +22,7 @@ db.events.find({}, function(err, events) {
         console.log("No events found.");
     } else {
         events.forEach(function(event) {
-            // console.log(event);
+           // console.log(event);
         });
     }
     console.log(events.length + " events found.")
