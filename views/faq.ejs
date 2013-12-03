@@ -19,7 +19,12 @@
             <p>
             <p>
                 Occationally the wrong text may have been uploaded by Parliament. This is due to human error, unfortunately there is 
-                nothing I can do about it.
+                nothing I can do about it. Fortunately it's fairly rare.
+            </p>
+            <h3>Why doesn't the vote counter update when I vote?</h3>
+            <p>
+                New votes are incorporated into the tally every few minutes, after checking for duplicate votes in an attempt to minimise ballot stuffing.
+                Although as voting is anonymous, it's not possible to prevent this entirely.
             </p>
             <h3>Is there an API for this?</h3>
             <p>
@@ -30,13 +35,13 @@
             </p>
             <h4>Notes</h4>
             <p>
+                The API returns all Bills that are currently before Parliament (or have been in the last 48 hours). Unlike the website this also includes Bills for which no text has been submitted.
+            </p>
+            <p>
                 To get the full text of each Bill in the response add <strong>?fullText=true</strong> to the end of the URL.
             </p>
             <p>
                 You can also use the <strong>fullTextUrl</strong> property on each Bill object to get the full text of an individual Bill.
-            </p>
-            <p>
-                The API returns all Bills currently before Parliament, including Bills without any text yet. 
             </p>
             <p>
                 The parser attempts to clean up the HTML a little but because the raw HTML is occasionally malformed in such a 
