@@ -28,6 +28,7 @@ h2,h3,h4 {
 }
 
 ul.votes li:nth-child(1) {
+    color: #ca2335 !important;
     color: #eee !important;
 }
 

@@ -24,12 +24,12 @@
                             if (parseInt(bill.upVotes) == 0) {
                     %>
                     <ul data-pie-id="bill-<%= bill.id %>-votes" class="votes hidden">
-                        <li data-value="999" style="color: #eee !important;">Against</li>
-                        <li data-value="1" style="color: #eee !important;">For</li>
+                        <li data-value="999" style="color: #ca2335 !important;">Against</li>
+                        <li data-value="1" style="color: #ca2335 !important;">For</li>
                     </ul>
                     <h4 class="text-center">
-                        <%= percentage %>%<br/>
-                        support
+                        100%<br/>
+                        against
                     </h4>
                         <% } else if (parseInt(bill.downVotes) == 0) { %>
                     <ul data-pie-id="bill-<%= bill.id %>-votes" class="votes hidden">
@@ -39,6 +39,15 @@
                     <h4 class="text-center">
                         <%= percentage %>%<br/>
                         support
+                    </h4>
+                        <% } else if (parseInt(bill.downVotes) > parseInt(bill.upVotes)){ %>                                    
+                    <ul data-pie-id="bill-<%= bill.id %>-votes" class="votes hidden">
+                        <li data-value="<%= parseInt(bill.downVotes) %>" style="color: #ca2335 !important;">Against</li>
+                        <li data-value="<%= parseInt(bill.upVotes) %>" style="color: #eee !important;">For</li>
+                    </ul>
+                    <h4 class="text-center">
+                        <%= 100 - percentage %>%<br/>
+                        against
                     </h4>
                         <% } else { %>
                     <ul data-pie-id="bill-<%= bill.id %>-votes" class="votes hidden">

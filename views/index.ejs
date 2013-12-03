@@ -51,12 +51,12 @@
                                         if (parseInt(bills[i].upVotes) == 0) {
                                 %>
                                 <ul data-pie-id="bill-<%= bills[i].id %>-votes" class="votes hidden">
-                                    <li data-value="999" style="color: #eee !important;">Against</li>
-                                    <li data-value="1" style="color: #eee !important;">For</li>
+                                    <li data-value="999" style="color: #ca2335 !important;">Against</li>
+                                    <li data-value="1" style="color: #ca2335 !important;">For</li>
                                 </ul>
                                 <h4 class="text-center">
-                                    <%= percentage %>%<br/>
-                                    support
+                                    100%<br/>
+                                    against
                                 </h4>
                                     <% } else if (parseInt(bills[i].downVotes) == 0) { %>
                                 <ul data-pie-id="bill-<%= bills[i].id %>-votes" class="votes hidden">
@@ -66,6 +66,15 @@
                                 <h4 class="text-center">
                                     <%= percentage %>%<br/>
                                     support
+                                </h4>
+                                    <% } else if (parseInt(bills[i].downVotes) > parseInt(bills[i].upVotes)){ %>                                    
+                                <ul data-pie-id="bill-<%= bills[i].id %>-votes" class="votes hidden">
+                                    <li data-value="<%= parseInt(bills[i].downVotes) %>" style="color: #ca2335 !important;">Against</li>
+                                    <li data-value="<%= parseInt(bills[i].upVotes) %>" style="color: #eee !important;">For</li>
+                                </ul>
+                                <h4 class="text-center">
+                                    <%= 100 - percentage %>%<br/>
+                                    against
                                 </h4>
                                     <% } else { %>
                                 <ul data-pie-id="bill-<%= bills[i].id %>-votes" class="votes hidden">
