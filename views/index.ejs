@@ -26,34 +26,88 @@
               <li class="active"><a href="#">Bills before Parliament</a></li>
             </ul>
             <ul class="list-unstyled bills">
-            <% for (var i=0; i<bills.length; i++) { %>
-               <li class="clearfix" data-href="/bills<%= bills[i].path %>">
-                    <a class="unstyled" href="/bills<%= bills[i].path %>">
-                        <h3><i class="fa fa-file-text-o"></i> <%= bills[i].name %> Bill</h3>
-                    </a>      
-                    <p>
-                    <span class="label label-info"><%= bills[i].type %></span>
-                    <% for (var j=0; j<bills[i].sponsors.length; j++) { %>
-                        <span class="fa-stack">
-                        <i class="fa fa-user fa-stack-1x"></i>
-                        <i class="fa fa-square-o fa-stack-2x"></i>
-                        </span>
-                      <%= bills[i].sponsors[j] %></span>
-                   <% } %>
-                   </p>
-                   <p><a class="unstyled" href="/bills<%= bills[i].path %>"><%= bills[i].description %></a></p>
-                   <p>
-                       <span class="pull-right">
-                           <i class="fa fa-comment fa-flip-horizontal fa-lg"></i>
-                           <a class="unstyled" href="/bills<%= bills[i].path %>#disqus_thread">0 Comments</a>
-                       </span>
-                   </p>
-                    <!-- LikeBtn.com BEGIN -->
-                    <span data-identifier="<%= bills[i].path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Yes" data-i18n_dislike="No" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
-                    <script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
-                    <!-- LikeBtn.com END -->
-               </li>
-            <% } %>
+                <% for (var i=0; i<bills.length; i++) { %>
+                    <li class="clearfix" data-href="/bills<%= bills[i].path %>">
+                        <div class="media">
+                            <div class="media-object pull-left">
+                                <div class="votes-pie-wrapper">
+                                    <div id="bill-<%= bills[i].id %>-votes" class="votes-pie"></div>
+                                </div>
+                                <%
+                                    var total = parseInt(bills[i].upVotes) + parseInt(bills[i].downVotes);
+                                    if (total == 0) {
+                                %>
+                                <ul data-pie-id="bill-<%= bills[i].id %>-votes" class="votes hidden">
+                                    <li data-value="1" style="color: #eee !important;">Against</li>
+                                    <li data-value="1" style="color: #eee !important;">For</li>
+                                </ul>
+                                <h4 class="text-center text-muted">
+                                    No votes<br/>
+                                    cast
+                                </h4>
+                                <%
+                                    } else { 
+                                        var percentage = Math.floor( (parseInt(bills[i].upVotes) / total) * 100);                                    
+                                        if (parseInt(bills[i].upVotes) == 0) {
+                                %>
+                                <ul data-pie-id="bill-<%= bills[i].id %>-votes" class="votes hidden">
+                                    <li data-value="999" style="color: #eee !important;">Against</li>
+                                    <li data-value="1" style="color: #eee !important;">For</li>
+                                </ul>
+                                <h4 class="text-center">
+                                    <%= percentage %>%<br/>
+                                    support
+                                </h4>
+                                    <% } else if (parseInt(bills[i].downVotes) == 0) { %>
+                                <ul data-pie-id="bill-<%= bills[i].id %>-votes" class="votes hidden">
+                                    <li data-value="1" style="color: #009461 !important;">Against</li>
+                                    <li data-value="999" style="color: #009461 !important;">For</li>
+                                </ul>
+                                <h4 class="text-center">
+                                    <%= percentage %>%<br/>
+                                    support
+                                </h4>
+                                    <% } else { %>
+                                <ul data-pie-id="bill-<%= bills[i].id %>-votes" class="votes hidden">
+                                    <li data-value="<%= parseInt(bills[i].downVotes) %>">Against</li>
+                                    <li data-value="<%= parseInt(bills[i].upVotes) %>">For</li>
+                                </ul>
+                                <h4 class="text-center">
+                                    <%= percentage %>%<br/>
+                                    support
+                                </h4>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                            <div class="media-body">
+                                <a class="unstyled" href="/bills<%= bills[i].path %>">
+                                    <h3><i class="fa fa-file-text-o"></i> <%= bills[i].name %> Bill</h3>
+                                </a>      
+                                <p>
+                                <span class="label label-info"><%= bills[i].type %></span>
+                                <% for (var j=0; j<bills[i].sponsors.length; j++) { %>
+                                    <span class="fa-stack">
+                                    <i class="fa fa-user fa-stack-1x"></i>
+                                    <i class="fa fa-square-o fa-stack-2x"></i>
+                                    </span>
+                                  <%= bills[i].sponsors[j] %></span>
+                               <% } %>
+                               </p>
+                               <p><a class="unstyled" href="/bills<%= bills[i].path %>"><%= bills[i].description %></a></p>
+                               <p>
+                                   <span class="pull-right">
+                                       <i class="fa fa-comment fa-flip-horizontal fa-lg"></i>
+                                       <a class="unstyled" href="/bills<%= bills[i].path %>#disqus_thread">0 Comments</a>
+                                   </span>
+                               </p>
+                                <!-- LikeBtn.com BEGIN -->
+                                <span data-identifier="<%= bills[i].path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Yes" data-i18n_dislike="No" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
+                                <script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
+                                <!-- LikeBtn.com END -->
+                            </div>
+                        </div>
+                   </li>
+                <% } %>
             </ul>
         </div>
         <div class="col-sm-4">
@@ -102,6 +156,13 @@
         } else {
             window.location = $(this).data('href');
         }
+    });
+
+    $(function() {
+        Pizza.init(document.body, {
+            "show_percent": false,
+            "donut": true
+        });
     });
     
     var disqus_shortname = 'publicscrutinyoffice';

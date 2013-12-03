@@ -1,19 +1,79 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <h1><%= bill.name %> Bill</h1>
-            <p style="margin-top: 20px;" class="lead"><%= bill.description %></p>
-            <p>
-                <!-- LikeBtn.com BEGIN -->
-                <span data-identifier="<%= bill.path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Yes" data-i18n_dislike="No" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
-                <script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
-                <!-- LikeBtn.com END -->
-            </p>
+            <div class="media">
+                <div class="media-object pull-left">
+                    <div class="votes-pie-wrapper" style="margin-top: 20px;">
+                        <div id="bill-<%= bill.id %>-votes" class="votes-pie"></div>
+                    </div>
+                    <%
+                        var total = parseInt(bill.upVotes) + parseInt(bill.downVotes);
+                        if (total == 0) {
+                    %>
+                    <ul data-pie-id="bill-<%= bill.id %>-votes" class="votes hidden">
+                        <li data-value="1" style="color: #eee !important;">Against</li>
+                        <li data-value="1" style="color: #eee !important;">For</li>
+                    </ul>
+                    <h4 class="text-center text-muted">
+                        No votes<br/>
+                        cast
+                    </h4>
+                    <%
+                        } else { 
+                            var percentage = Math.floor( (parseInt(bill.upVotes) / total) * 100);                                    
+                            if (parseInt(bill.upVotes) == 0) {
+                    %>
+                    <ul data-pie-id="bill-<%= bill.id %>-votes" class="votes hidden">
+                        <li data-value="999" style="color: #eee !important;">Against</li>
+                        <li data-value="1" style="color: #eee !important;">For</li>
+                    </ul>
+                    <h4 class="text-center">
+                        <%= percentage %>%<br/>
+                        support
+                    </h4>
+                        <% } else if (parseInt(bill.downVotes) == 0) { %>
+                    <ul data-pie-id="bill-<%= bill.id %>-votes" class="votes hidden">
+                        <li data-value="1" style="color: #009461 !important;">Against</li>
+                        <li data-value="999" style="color: #009461 !important;">For</li>
+                    </ul>
+                    <h4 class="text-center">
+                        <%= percentage %>%<br/>
+                        support
+                    </h4>
+                        <% } else { %>
+                    <ul data-pie-id="bill-<%= bill.id %>-votes" class="votes hidden">
+                        <li data-value="<%= parseInt(bill.downVotes) %>">Against</li>
+                        <li data-value="<%= parseInt(bill.upVotes) %>">For</li>
+                    </ul>
+                    <h4 class="text-center">
+                        <%= percentage %>%<br/>
+                        support
+                    </h4>
+                        <% } %>
+                    <% } %>
+                </div>
+                <div class="media-body">
+                    <h1><%= bill.name %> Bill</h1>
+                    <p class="lead"><%= bill.description %></p>
+                    <p>
+                        <!-- LikeBtn.com BEGIN -->
+                        <span data-identifier="<%= bill.path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Yes" data-i18n_dislike="No" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
+                        <script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
+                        <!-- LikeBtn.com END -->
+                    </p>
+                </div>
+            </div>
             <h1>The Bill</h1>
             <script>
-              function resizeIframe(obj) {
-                obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-              }
+                function resizeIframe(obj) {
+                    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+                }
+                $(function() {
+                    Pizza.init(document.body, {
+                        "show_percent": false,
+                        "donut": true
+                    });
+                });
             </script>        
             <iframe name="bill-text" src="/bills<%= bill.path %>/text" frameborder="0" scrolling="no" id="bill-text" style="width: 100%; border: none;" onload="javascript:resizeIframe(this);"></iframe>            
             <hr/>
