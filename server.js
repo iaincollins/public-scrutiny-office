@@ -49,6 +49,14 @@ app.get('/bills/:year/:name', function(req, res, next) {
     });
 });
 
+app.get('/bills/:year/:name/text', function(req, res, next) {
+    // @fixme Use promises instead of callbacks here
+    var bills = require(__dirname + '/lib/bills'); 
+    bills.getBillByYearAndName(req.params.year, req.params.name, function(bill) {
+        res.render('bill-text', { layout: null, bill: bill });
+    });
+});
+
 // Handle 404 Errors
 app.use(function(req, res, next) {
     res.status(404).render('page-not-found', {

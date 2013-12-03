@@ -80,14 +80,28 @@ a.unstyled {
  * Overrides for Raw Parliament CSS so it displays nicely inline
  * (at least until I have time to get round to parsing it).
  */
+.bill-text {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 .bill-text .LegContents ol {
     list-style-type: none !important;
 }
 
+/* Hide page numbers and line numbers*/
+.bill-text .linenumber,
+.bill-txt div.newPage,
 .bill-text br {
     display: none;    
 }
 
-.bill-text .linenumber {
-    display: none;
+/**
+ * Anchor links in an iframe don't work in all browsers (e.g. Firefox).
+ * Should be able to work round that with some JavaScript.
+ * For now am using CSS to hide anchorn links to avoid confusion.
+*/
+.bill-text a {
+    text-decoration: none !important;
+    cursor: default !important;
+    color: inherit;
 }

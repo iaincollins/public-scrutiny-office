@@ -135,7 +135,7 @@ function addBill(bill) {
 function getEventsForBill(bill) {
     var deferred = Q.defer();
     var promises = [];
-    
+
     // Get events matching the keywords string from TheyWorkForYou
     request('http://www.theyworkforyou.com/api/getHansard?key=GfmMVnCm29fQEqvFS7CgLHLJ&search='+encodeURIComponent(bill.name)+'&output=js',
             function (error, response, body) {
