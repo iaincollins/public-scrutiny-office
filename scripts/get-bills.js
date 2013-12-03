@@ -44,10 +44,16 @@ getBills()
         console.log("Getting the latest vote count for "+bill.name);
         var promise = bills.getVotesForBill(bill)
         .then(function(votes) {
+            var deferred = Q.defer();
             if (votes != null) {
                 bill.upVotes = votes.likes;
                 bill.downVotes = votes.dislikes;
+            } else {
+                bill.upVotes = 0;
+                bill.downVotes = 0;
             }
+            deferred.resolve(bill);
+            return deferred.promise;
         });
         promises.push(promise);
     });
