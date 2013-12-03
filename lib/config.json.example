@@ -1,0 +1,10 @@
+{
+    "theyworkforyou": {
+        "apiKey" : ""
+    },
+    "likebtn": {
+        "emailAddress": "",
+        "apiKey": "",
+        "domainName": ""
+    }
+}

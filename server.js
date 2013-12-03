@@ -2,8 +2,11 @@ var express = require('express');
 var partials = require('express-partials');
 var ejs = require('ejs');
 
-// Oh yeah, php.js. I went there.
+// Using PHPJS sparingly for string and date functions.
 var phpjs = require('phpjs');
+
+// Load app config
+var config = require(__dirname + '/lib/config.json');
 
 var app = express();
 
@@ -28,7 +31,7 @@ app.get('/', function(req, res, next) {
     var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
     var options = { hasHtml: true, lastUpdated: { $gte: yesterday } };
 
-    bills.billsBeforeParliament(options, function(billsBeforeParliament) {
+    bills.getBills(options, function(billsBeforeParliament) {
         var events = require(__dirname + '/lib/events');
         events.upcomingEvents(function(upcomingEvents) {
             res.render('index', { bills: billsBeforeParliament, events: upcomingEvents });
@@ -57,7 +60,7 @@ app.get('/api/bills', function(req, res, next) {
     var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
     var options = { lastUpdated: { $gte: yesterday } };
 
-    bills.billsBeforeParliament(options, function(billsBeforeParliament) {
+    bills.getBills(options, function(billsBeforeParliament) {
         // Don't return the full text unless it's explicitly requested.
         if (!req.query.fullText || req.query.fullText != 'true') {
             billsBeforeParliament.forEach(function(bill, index) {
@@ -77,8 +80,9 @@ app.get('/bills', function(req, res, next) {
 
 app.get('/bills/:year/:name', function(req, res, next) {
     // @fixme Use promises instead of callbacks here
-    var bills = require(__dirname + '/lib/bills'); 
-    bills.getBillByYearAndName(req.params.year, req.params.name, function(bill) {
+    var bills = require(__dirname + '/lib/bills');
+    var path = '/'+req.params.year+'/'+req.params.name; 
+    bills.getBillByPath(path, function(bill) {
         res.render('bill', { bill: bill });
     });
 });
@@ -86,7 +90,8 @@ app.get('/bills/:year/:name', function(req, res, next) {
 app.get('/bills/:year/:name/text', function(req, res, next) {
     // @fixme Use promises instead of callbacks here
     var bills = require(__dirname + '/lib/bills'); 
-    bills.getBillByYearAndName(req.params.year, req.params.name, function(bill) {
+    var path = '/'+req.params.year+'/'+req.params.name;
+    bills.getBillByPath(path, function(bill) {
         res.render('bill-text', { layout: null, bill: bill });
     });
 });

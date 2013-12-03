@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
 /**
- * Get the latest bills from the parilament website,
- * related events from TheyWorkForYou and other info
- * related to bills (such as the sponsors).
+ * Get the latest bills from the parilament website, elated events from 
+ * TheyWorkForYou and other info related to bills - such as their sponsors and
+ * related documents. Also updates the latest voting information for the bill.
  *
  * @todo Fetch details about the member if not found already (party, constituency, photo, etc)
- * @todo Extract the full text of the bill by screen scraping.
  */
 
 var util = require('util'); // For debugging
@@ -16,7 +15,9 @@ var request = require('request');
 var xml2js = require('xml2js');
 var Q = require('q'); // For promises
 var phpjs = require('phpjs'); // Using this for string functions
+var bills = require(__dirname + '/../lib/bills');
 var billParser = require(__dirname + '/../lib/billparser');
+var config = require(__dirname + '/../lib/config.json');
 
 var date = new Date();
 
@@ -25,24 +26,31 @@ console.log("*** Updating the Public Scrutiny Office database");
 var databaseUrl = "127.0.0.1/public-scrutiny-office";
 var collections = ["bills", "members", "events"];
 var db = mongoJs.connect(databaseUrl, collections);
-// db.bills.drop();
-// db.events.drop();
 
 // Get bill details (involves several lookups, hence promises)
-// @fixme close DB connection when all bills have been added.
-var bills;
 getBills()
-.then(function(bills) {    
+.then(function(billsBeforeParliament) {    
     var promises = [];
-    bills.forEach(function(bill, index) {
+    billsBeforeParliament.forEach(function(bill, index) {
+        console.log("Getting details for "+bill.name);
         var promise = billParser.getBillDetails(bill);
         promises.push(promise);
     });
   return Q.all(promises);
 })
-.then(function(bills) {
+.then(function(billsBeforeParliament) {
     var promises = [];
-    bills.forEach(function(bill, index) {
+    billsBeforeParliament.forEach(function(bill, index) {
+        // Get the latest vote count for each bill
+        console.log("Getting the latest vote count for "+bill.name);
+        var promise = bills.getVotesForBill(bill);
+        promises.push(promise);
+    });
+    return Q.all(promises);
+})
+.then(function(billsBeforeParliament) {
+    var promises = [];
+    billsBeforeParliament.forEach(function(bill, index) {
         // Add Bill to DB
         var promise = addBill(bill);
         promises.push(promise);
@@ -50,7 +58,6 @@ getBills()
         // Look for events for related to each bill
         var promise = getEventsForBill(bill);
         promises.push(promise);
-        
     });
     return Q.all(promises);
 })
@@ -86,7 +93,7 @@ function getBills() {
             console.log("Found "+result.rss.channel[0].item.length+" bills in the RSS feed on parliament.uk");
             for (i=0; i<result.rss.channel[0].item.length; i++) {
                 var item = result.rss.channel[0].item[i];
-                
+
                 var bill = {};
                 
                 // Accessing the GUID value is kind of funky.
@@ -140,7 +147,7 @@ function getEventsForBill(bill) {
     var promises = [];
 
     // Get events matching the keywords string from TheyWorkForYou
-    request('http://www.theyworkforyou.com/api/getHansard?key=GfmMVnCm29fQEqvFS7CgLHLJ&search='+encodeURIComponent(bill.name)+'&output=js',
+    request('http://www.theyworkforyou.com/api/getHansard?key='+config.theyworkforyou.apiKey+'&search='+encodeURIComponent(bill.name)+'&output=js',
             function (error, response, body) {
 
         // Check the response seems okay

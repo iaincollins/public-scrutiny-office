@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// A development script to make debugging the parsing of bills easier.
+
 var util = require('util');
 var billParser = require(__dirname + '/../lib/billparser');
 

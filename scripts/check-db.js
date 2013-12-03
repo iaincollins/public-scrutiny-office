@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// A script to quickly check the number of bills and events currently in the DB.
+
 var mongoJs = require('mongojs');
 
 var databaseUrl = "127.0.0.1/public-scrutiny-office";
