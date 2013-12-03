@@ -41,9 +41,14 @@ getBills()
 .then(function(billsBeforeParliament) {
     var promises = [];
     billsBeforeParliament.forEach(function(bill, index) {
-        // Get the latest vote count for each bill
         console.log("Getting the latest vote count for "+bill.name);
-        var promise = bills.getVotesForBill(bill);
+        var promise = bills.getVotesForBill(bill)
+        .then(function(votes) {
+            if (votes != null) {
+                bill.upVotes = votes.likes;
+                bill.downVotes = votes.dislikes;
+            }
+        });
         promises.push(promise);
     });
     return Q.all(promises);
