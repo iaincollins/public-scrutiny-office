@@ -21,7 +21,14 @@ partials.register('.ejs', ejs);
 app.get('/', function(req, res, next) {
     // @fixme Use promises instead of callbacks here
     var bills = require(__dirname + '/lib/bills');
-    bills.billsBeforeParliament(function(billsBeforeParliament) {
+    
+    // Only fetch bills that (a) have text and (b) were updated recently
+    // (Bills that have not bene updated recently must not have been in the
+    // RSS the last time it was parsed so have been dropped or become law.)
+    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
+    var options = { hasHtml: true, lastUpdated: { $gte: yesterday } };
+
+    bills.billsBeforeParliament(options, function(billsBeforeParliament) {
         var events = require(__dirname + '/lib/events');
         events.upcomingEvents(function(upcomingEvents) {
             res.render('index', { bills: billsBeforeParliament, events: upcomingEvents });
@@ -33,8 +40,35 @@ app.get('/about', function(req, res, next) {
     res.render('about', {});
 });
 
+app.get('/faq', function(req, res, next) {
+    res.render('faq', {});
+});
+
 app.get('/members', function(req, res, next) {
     res.render('members', {});
+});
+
+app.get('/api/bills', function(req, res, next) {
+    var bills = require(__dirname + '/lib/bills');
+            
+    // Only fetch bills that were updated recently.
+    // (Bills that have not bene updated recently must not have been in the
+    // RSS the last time it was parsed so have been dropped or become law.)
+    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
+    var options = { lastUpdated: { $gte: yesterday } };
+
+    bills.billsBeforeParliament(options, function(billsBeforeParliament) {
+        // Don't return the full text unless it's explicitly requested.
+        if (!req.query.fullText || req.query.fullText != 'true') {
+            billsBeforeParliament.forEach(function(bill, index) {
+                billsBeforeParliament[index].html = undefined;
+            });
+        }
+        billsBeforeParliament.forEach(function(bill, index) {
+            billsBeforeParliament[index].fullTextUrl = "http://public-scrutiny-office.org/bills"+bill.path+"/text";
+        });
+        res.render('api/bills', { bills: billsBeforeParliament, layout: null });
+    });
 });
 
 app.get('/bills', function(req, res, next) {

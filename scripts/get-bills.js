@@ -58,6 +58,7 @@ getBills()
     // Make sure appropriate indexes exist
     db.bills.ensureIndex( { "path": 1 } );
     db.bills.ensureIndex( { "hasHtml": 1 } );
+    db.bills.ensureIndex( { "lastUpdated": 1 } );
     db.events.ensureIndex( { "date": 1 } );
     
     db.close();
@@ -120,6 +121,8 @@ function getBills() {
 
 function addBill(bill) {
     bill._id = bill.id;
+    bill.lastUpdated = phpjs.date('Y-m-d');
+    
     var deferred = Q.defer();
     db.bills.save( bill, function(err, saved) {
         if (err || !saved) {

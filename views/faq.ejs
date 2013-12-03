@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-7">
+            <h1>Frequently Asked Questions</h1>
+            <h3>Where does the information on this site come from?</h3>
+            <p>
+                The information on this site comes directly from <a href="http://www.parliament.uk">parliament.uk</a> website 
+                and indirectly via <a href="http://theyworkforyou.com">TheyWorkForYou.com</a>. The text for each Bill is joined
+                together from multiple pages and some reformatting done to make it easier to read.
+            </p>
+            <h3>Why can't I find a Bill I know is before Parliament?</h3>
+            <p>
+                Only Bills that have had text uploaded for them are displayed on this site. Sometimes it takes a day or two for text 
+                to be uploaded, in other cases no text is ever provided (and the the bill is dropped).
+            </p>
+            <h3>Why doesn't the text of a Bill match its description?</h3>
+            <p>
+                Sometimes Bills have names that don't entirely relate to what they seem to be about.
+            <p>
+            <p>
+                Occationally the wrong text may have been uploaded by Parliament. This is due to human error, unfortunately there is 
+                nothing I can do about it.
+            </p>
+            <h3>Is there an API for this?</h3>
+            <p>
+                A simple JSON API which returns a list of Bills and some metadata is now avalible.
+            </p>
+            <p>
+                The URL for the API is <a href="/api/bills">http://public-scrutiny-office.org/api/bills</a>
+            </p>
+            <h4>Notes</h4>
+            <p>
+                To get the full text of each Bill in the response add <strong>?fullText=true</strong> to the end of the URL.
+            </p>
+            <p>
+                You can also use the <strong>fullTextUrl</strong> property on each Bill object to get the full text of an individual Bill.
+            </p>
+            <p>
+                The API returns all Bills currently before Parliament, including Bills without any text yet. 
+            </p>
+            <p>
+                The parser attempts to clean up the HTML a little but because the raw HTML is occasionally malformed in such a 
+                way that parsers cannot automatically correct it. To cope with that this site displays the text wrapped inside an
+                iframe and uses CSS to help with the formatting.
+            </p>
+            <h3>Where I can download the source for this software?</h3>
+            <p>
+                 You can find the project on GitHub at 
+                <a href="https://github.com/iaincollins/public-scrutiny-office">https://github.com/iaincollins/public-scrutiny-office</a>
+            </p>
+        </div>
+    </div>
+</div>
