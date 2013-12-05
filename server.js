@@ -59,7 +59,6 @@ app.get('/api/bills', function(req, res, next) {
     // RSS the last time it was parsed so have been dropped or become law.)
     var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
     var options = { lastUpdated: { $gte: yesterday } };
-
     bills.getBills(options, function(billsBeforeParliament) {
         // Don't return the full text unless it's explicitly requested.
         if (!req.query.fullText || req.query.fullText != 'true') {
@@ -70,6 +69,7 @@ app.get('/api/bills', function(req, res, next) {
         billsBeforeParliament.forEach(function(bill, index) {
             billsBeforeParliament[index].fullTextUrl = "http://public-scrutiny-office.org/bills"+bill.path+"/text";
         });
+        res.setHeader('Content-Type', 'application/json');
         res.render('api/bills', { bills: billsBeforeParliament, layout: null });
     });
 });
