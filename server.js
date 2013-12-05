@@ -83,7 +83,13 @@ app.get('/bills/:year/:name', function(req, res, next) {
     var bills = require(__dirname + '/lib/bills');
     var path = '/'+req.params.year+'/'+req.params.name; 
     bills.getBillByPath(path, function(bill) {
-        res.render('bill', { bill: bill, title: bill.name+' Bill' });
+        if (bill == undefined) {
+            res.status(404).render('page-not-found', {
+                title: "Page not found"
+            });
+        } else {
+            res.render('bill', { bill: bill, title: bill.name+' Bill' });
+        }
     });
 });
 
@@ -92,7 +98,13 @@ app.get('/bills/:year/:name/text', function(req, res, next) {
     var bills = require(__dirname + '/lib/bills'); 
     var path = '/'+req.params.year+'/'+req.params.name;
     bills.getBillByPath(path, function(bill) {
-        res.render('bill-text', { layout: null, bill: bill });
+        if (bill == undefined) {
+            res.status(404).render('page-not-found', {
+                title: "Page not found"
+            });
+        } else {
+            res.render('bill-text', { layout: null, bill: bill });
+        }
     });
 });
 
