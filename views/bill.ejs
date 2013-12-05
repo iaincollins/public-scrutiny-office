@@ -66,13 +66,13 @@
                     <p class="lead"><%= bill.description %></p>
                     <p>
                         <!-- LikeBtn.com BEGIN -->
-                        <span data-identifier="<%= bill.path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Yes" data-i18n_dislike="No" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
+                        <span data-identifier="<%= bill.path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Approve" data-i18n_dislike="Disapprove" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
                         <script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
                         <!-- LikeBtn.com END -->
                     </p>
                 </div>
             </div>
-            <h1>The Bill</h1>
+            <h2 style="font-weight: 400;">The Bill</h2>
             <script>
                 function resizeIframe(obj) {
                     obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';

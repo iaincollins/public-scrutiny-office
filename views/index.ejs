@@ -11,7 +11,7 @@
                         <span class="pull-left" style="display: inline-block;">
                             Public Scrutiny Office
                             <br/>
-                            <small>What's going on in Parliament</small>
+                            <small>Review and comment on draft legislation</small>
                         </span>
                     </h1>
                 </div>
@@ -110,7 +110,7 @@
                                    </span>
                                </p>
                                 <!-- LikeBtn.com BEGIN -->
-                                <span data-identifier="<%= bills[i].path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Yes" data-i18n_dislike="No" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
+                                <span data-identifier="<%= bills[i].path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Approve" data-i18n_dislike="Disapprove" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
                                 <script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
                                 <!-- LikeBtn.com END -->
                             </div>
@@ -120,10 +120,7 @@
             </ul>
         </div>
         <div class="col-sm-4">
-            <h2>What's going on</h2>
-            <p class="text-muted">
-                Discussions related to bills before Parliament.
-            </p>
+            <h2>Upcoming debates</h2>
             <% var lastEvent = null;
                 for (var i=0; i<events.length; i++) {
                     var date = phpjs.date('l, jS F', new Date(Date.parse(events[i].date)) );
@@ -134,7 +131,7 @@
                         
                         lastEvent = events[i].date;
             %>
-            <h4><i class="fa fa-calendar"></i> <%= date %></h4>
+            <h4 style="margin-top: 20px;"><i class="fa fa-calendar"></i> <%= date %></h4>
             <ul class="fa-ul">
             <%      }   %>
                 <li>

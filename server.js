@@ -40,11 +40,11 @@ app.get('/', function(req, res, next) {
 });
 
 app.get('/about', function(req, res, next) {
-    res.render('about', {});
+    res.render('about', { title: "About the Public Scrutiny Office" });
 });
 
 app.get('/faq', function(req, res, next) {
-    res.render('faq', {});
+    res.render('faq', { title: "Public Scrutiny Office FAQ" });
 });
 
 app.get('/members', function(req, res, next) {
@@ -83,7 +83,7 @@ app.get('/bills/:year/:name', function(req, res, next) {
     var bills = require(__dirname + '/lib/bills');
     var path = '/'+req.params.year+'/'+req.params.name; 
     bills.getBillByPath(path, function(bill) {
-        res.render('bill', { bill: bill });
+        res.render('bill', { bill: bill, title: bill.name+' Bill' });
     });
 });
 
