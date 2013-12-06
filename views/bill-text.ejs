@@ -11,8 +11,32 @@
         <link rel="stylesheet" type="text/css" href="/css/stylesheet.css"/>
     </head>
     <body>
+        <div class="hidden">
+            <h1><%= bill.name %> Bill</h1>
+            <p class="lead"><%= bill.description %></p>
+        </div>
         <div class="bill-text">
             <%- bill.html %>
         </div>
+        <script>
+            // If the frame of the top domain is the same (or fails because it
+            // it can't be acessed due to XSS prevention, which is what happens
+            // in practice) then we bust out of the frame.
+            try {
+              if (top.document.domain != self.document.domain)
+                  top.location.href = self.location.href;
+            } catch(e) {
+            
+               top.location.href = self.location.href;
+            }
+
+            // If we are not in a frame, then redirect to parent page, which
+            // does display the content in a frame.
+            //
+            // NB: Content is only displayed in a frame because the raw HTML is
+            // often malformed in such a way that HTML parsers are unable to fix.
+            if (top.frames.length == 0)
+                window.location.href = '/bills<%= bill.path %>';
+        </script>
     </body>
 </html>
