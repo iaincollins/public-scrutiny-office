@@ -84,7 +84,9 @@
                     });
                 });
             </script>        
-            <iframe name="bill-text" src="/bills<%= bill.path %>/text" frameborder="0" scrolling="no" id="bill-text" style="width: 100%; border: none;" onload="javascript:resizeIframe(this);"></iframe>            
+            <iframe name="bill-text" src="/bills<%= bill.path %>/content" frameborder="0" scrolling="no" id="bill-text" style="width: 100%; border: none;" onload="javascript:resizeIframe(this);">
+                <a href="/bills<%= bill.path %>/content">View the text of the bill in full.</a>
+            </iframe>
             <hr/>
             <h2>Comments</h2>
             <div id="disqus_thread"></div>

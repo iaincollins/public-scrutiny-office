@@ -94,6 +94,11 @@ app.get('/bills/:year/:name', function(req, res, next) {
 });
 
 app.get('/bills/:year/:name/text', function(req, res, next) {
+    var path = '/'+req.params.year+'/'+req.params.name;
+    res.redirect('/bills/'+req.params.year+'/'+req.params.name+'/content');
+});
+
+app.get('/bills/:year/:name/content', function(req, res, next) {
     // @fixme Use promises instead of callbacks here
     var bills = require(__dirname + '/lib/bills'); 
     var path = '/'+req.params.year+'/'+req.params.name;
@@ -103,7 +108,7 @@ app.get('/bills/:year/:name/text', function(req, res, next) {
                 title: "Page not found"
             });
         } else {
-            res.render('bill-text', { layout: null, bill: bill });
+            res.render('bill-content', { layout: null, bill: bill, title: bill.name+' Bill' });
         }
     });
 });
