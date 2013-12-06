@@ -74,6 +74,21 @@ app.get('/api/bills', function(req, res, next) {
     });
 });
 
+app.get('/sitemap.xml', function(req, res, next) {
+    // @fixme Use promises instead of callbacks here
+    var bills = require(__dirname + '/lib/bills');
+    
+    // Only fetch bills that (a) have text and (b) were updated recently
+    // (Bills that have not bene updated recently must not have been in the
+    // RSS the last time it was parsed so have been dropped or become law.)
+    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
+    var options = { hasHtml: true, lastUpdated: { $gte: yesterday } };
+    bills.getBills(options, function(billsBeforeParliament) {
+        res.setHeader('Content-Type', 'text/plain');
+        res.render('sitemap', { layout: null, bills: billsBeforeParliament });
+    });
+});
+
 app.get('/bills', function(req, res, next) {
     res.redirect('/');
 });

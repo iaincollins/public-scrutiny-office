@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc><%- "http://public-scrutiny-office.org/about/" %></loc>
+        <lastmod>2013-12-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc><%- "http://public-scrutiny-office.org/faq/" %></loc>
+        <lastmod>2013-12-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <% bills.forEach(function(bill) { %>
+    <url>
+        <loc><%- "http://public-scrutiny-office.org/bills"+bill.path %></loc>
+        <lastmod><%- bill.lastUpdated %></lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url><% }); %>    
+</urlset>
