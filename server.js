@@ -67,7 +67,7 @@ app.get('/api/bills', function(req, res, next) {
             });
         }
         billsBeforeParliament.forEach(function(bill, index) {
-            billsBeforeParliament[index].fullTextUrl = "http://public-scrutiny-office.org/bills"+bill.path+"/text";
+            billsBeforeParliament[index].fullTextUrl = "http://public-scrutiny-office.org/bills"+bill.path+"/content";
         });
         res.setHeader('Content-Type', 'application/json');
         res.render('api/bills', { bills: billsBeforeParliament, layout: null });
