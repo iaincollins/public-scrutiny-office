@@ -85,7 +85,9 @@
                 });
             </script>        
             <iframe name="bill-text" src="/bills<%= bill.path %>/content" frameborder="0" scrolling="no" id="bill-text" style="width: 100%; border: none;" onload="javascript:resizeIframe(this);">
-                <a href="/bills<%= bill.path %>/content">View the text of the bill in full.</a>
+            <pre>
+               <%- bill.text %>
+             </pre>
             </iframe>
             <hr/>
             <h2>Comments</h2>

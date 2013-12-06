@@ -100,6 +100,10 @@ a.unstyled {
     background: #008e61;
 }
 
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
 /**
  * Overrides for Raw Parliament CSS so it displays nicely inline
  * (at least until I have time to get round to parsing it).
@@ -129,3 +133,4 @@ a.unstyled {
     cursor: default !important;
     color: inherit;
 }
+

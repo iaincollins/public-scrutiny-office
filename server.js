@@ -82,6 +82,7 @@ app.get('/bills/:year/:name', function(req, res, next) {
     // @fixme Use promises instead of callbacks here
     var bills = require(__dirname + '/lib/bills');
     var path = '/'+req.params.year+'/'+req.params.name; 
+
     bills.getBillByPath(path, function(bill) {
         if (bill == undefined) {
             res.status(404).render('page-not-found', {
