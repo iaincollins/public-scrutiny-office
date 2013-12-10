@@ -4,11 +4,11 @@
             <h1>Frequently Asked Questions</h1>
             <h3>Where does the information on this site come from?</h3>
             <p>
-                The information on this site comes directly from <a href="http://www.parliament.uk">parliament.uk</a> website 
-                and indirectly via <a href="http://theyworkforyou.com">TheyWorkForYou.com</a>. The text for each Bill is joined
+                The information on this site comes directly from the <a href="http://www.parliament.uk">parliament.uk</a> website 
+                and indirectly via <a href="http://theyworkforyou.com">TheyWorkForYou</a>. The text for each Bill is joined
                 together from multiple pages and some reformatting done to make it easier to read.
             </p>
-            <h3>Why can't I find a Bill I know is before Parliament?</h3>
+            <h3>Why can't I find a Bill currently before Parliament?</h3>
             <p>
                 Only Bills that have had text uploaded for them are displayed on this site. Sometimes it takes a day or two for text 
                 to be uploaded, in other cases no text is ever provided (and the the bill is dropped).
@@ -36,14 +36,15 @@
             </p>
             <h3>Is there an API?</h3>
             <p>
-                A JSON API which returns a list of Bills along with some metadata is available.
+                A JSON API which returns a list of Bills along with some metadata is available:<br/>
+                <a href="/bills.json">http://public-scrutiny-office.org/bills.json</a>
             </p>
             <p>
                 The API returns all Bills that are currently before Parliament or have been recently.
-                Unlike the website this also includes Bills for which no text has been submitted yet.
+                This is a more complete list than the website as it also includes Bills for which no text has been submitted yet.
             </p>
             <p>
-                The URL for the API is <a href="/bills.json">http://public-scrutiny-office.org/bills.json</a>
+
             </p>
             <p>
                 You can use the <strong>.hasText</strong> property on a bill to check if there is text available for it and the
