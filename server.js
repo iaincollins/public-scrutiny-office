@@ -96,6 +96,9 @@ app.get('/sitemap.xml', function(req, res, next) {
     });
 });
 
+/**
+ * Handle requests for a specific bill
+ */
 app.get('/bills/:year/:name', function(req, res, next) {
     // @fixme Use promises instead of callbacks here
     var bills = require(__dirname + '/lib/bills');
@@ -105,7 +108,7 @@ app.get('/bills/:year/:name', function(req, res, next) {
     // Optional file extentions are:
     // .json - JSON object of bill (not including bill text)
     // .html - Just the main text of the bill as HTML
-    // .text - Just the main text of the bill as plain tet (UTF-8)
+    // .text - Just the main text of the bill as plain text (UTF-8)
     var fileExtention = null;
     if (filename.length > 1)
         fileExtention = filename[1];
@@ -142,7 +145,9 @@ app.get('/bills/:year/:name', function(req, res, next) {
     });
 });
 
-// Handle 404 Errors
+/**
+ * Handle 404 / Page Not Found errors
+ */
 app.use(function(req, res, next) {
     res.status(404).render('page-not-found', {
         title: "Page not found"
