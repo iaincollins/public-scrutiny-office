@@ -104,23 +104,9 @@ pre {
     white-space: pre-wrap;
     word-wrap: break-word;
 }
-/**
- * Overrides for Raw Parliament CSS so it displays nicely inline
- * (at least until I have time to get round to parsing it).
- */
-.bill-text {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-}
 
-.bill-text .LegContents ol {
+.bill-text ol {
     list-style-type: none !important;
-}
-
-/* Hide page numbers and line numbers*/
-.bill-text .linenumber,
-.bill-txt div.newPage,
-.bill-text br {
-    display: none;    
 }
 
 /**
@@ -128,9 +114,10 @@ pre {
  * Should be able to work round that with some JavaScript.
  * For now am using CSS to hide anchorn links to avoid confusion.
 */
-.bill-text a {
+.bill-text abbr {
     text-decoration: none !important;
     cursor: default !important;
+    border: none !important;
     color: inherit;
 }
 

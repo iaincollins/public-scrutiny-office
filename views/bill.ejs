@@ -74,9 +74,6 @@
             </div>
             <h2 style="font-weight: 400;">The Bill</h2>
             <script>
-                function resizeIframe(obj) {
-                    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-                }
                 $(function() {
                     Pizza.init(document.body, {
                         "show_percent": false,
@@ -84,11 +81,9 @@
                     });
                 });
             </script>        
-            <iframe name="bill-text" src="/bills<%= bill.path %>/content" frameborder="0" scrolling="no" id="bill-text" style="width: 100%; border: none;" onload="javascript:resizeIframe(this);">
-            <pre>
-               <%- bill.text %>
-             </pre>
-            </iframe>
+            <div class="bill-text">
+                <%- bill.html %>
+            </div>
             <hr/>
             <h2>Comments</h2>
             <div id="disqus_thread"></div>

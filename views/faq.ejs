@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-8">
             <h1>Frequently Asked Questions</h1>
             <h3>Where does the information on this site come from?</h3>
             <p>
@@ -18,36 +18,52 @@
                 Sometimes Bills have names that don't entirely relate to what they seem to be about.
             <p>
             <p>
-                Occationally the wrong text may have been uploaded by Parliament. This is due to human error, unfortunately there is 
-                nothing I can do about it. Fortunately it's fairly rare.
+                In addition, very occationally the wrong text may have been uploaded by Parliament due to human error.
+                As there are are over 100 bills before Parliament at any one time and the list is updated daily this
+                happens from time to time.
             </p>
             <h3>Why doesn't the vote counter update when I vote?</h3>
             <p>
                 New votes are incorporated into the tally every few minutes, after checking for duplicate votes in an attempt to minimise ballot stuffing.
                 Although as voting is anonymous, it's not possible to prevent this entirely.
             </p>
+            <h3>I found a broken page, what should I do?</h3>
+            <p>
+                Although steps are taken to prevent this, very occationally a badly formated page is displayed, due to encoding errors on the origional version extracted from the Parliament website.
+            </p>
+            <p>
+                You are welcome to report this as a bug to <a href="mailto:feedback@public-scrutiny-office.org">feedback@public-scrutiny-office.org</a>.
+            </p>
             <h3>Is there an API for this?</h3>
             <p>
-                A simple JSON API which returns a list of Bills and some metadata is now avalible.
+                A simple JSON API which returns a list of Bills along with some metadata.
             </p>
             <p>
-                The URL for the API is <a href="/api/bills">http://public-scrutiny-office.org/api/bills</a>
-            </p>
-            <h4>Notes</h4>
-            <p>
-                The API returns all Bills that are currently before Parliament (or have been in the last 48 hours). Unlike the website this also includes Bills for which no text has been submitted.
+                The API returns all Bills that are currently before Parliament or have been recently.
+                Unlike the website this also includes Bills for which no text has been submitted yet.
             </p>
             <p>
-                To get the full text of each Bill in the response add <strong>?fullText=true</strong> to the end of the URL.
+                The URL for the API is <a href="/bills.json">http://public-scrutiny-office.org/bills.json</a>
             </p>
             <p>
-                You can also use the <strong>fullTextUrl</strong> property on each Bill object to get the full text of an individual Bill.
+                You can use the <strong>.hasText</strong> property on a bill to check if there is text available for it and the
+                <strong>.htmlUrl</strong> and <strong>.textUrl</strong> properties on each Bill object to get the full text of an individual Bill.
             </p>
             <p>
-                The parser attempts to clean up the HTML a little but because the raw HTML is occasionally malformed in such a 
-                way that parsers cannot automatically correct it. To cope with that this site displays the text wrapped inside an
-                iframe and uses CSS to help with the formatting.
+                If you know the URL for a bill you can get info for it in JSON, or just the bill text as HTML or plain text (UTF-8) directly.
             </p>
+            <p>
+                e.g. for <a href="/bills/2013-2014/alan-turing-statutory-pardon">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon</a>
+            </p>
+            <p>
+                <strong>JSON</strong>: <a href="/bills/2013-2014/alan-turing-statutory-pardon.json">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.json</a>
+            <p>
+            <p>
+                <strong>HTML</strong>: <a href="/bills/2013-2014/alan-turing-statutory-pardon.html">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.html</a>
+            <p>
+            <p>
+                <strong>Plain Text</strong>: <a href="/bills/2013-2014/alan-turing-statutory-pardon.text">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.text</a>
+            <p>
             <h3>Where I can download the source for this software?</h3>
             <p>
                  You can find the project on GitHub at 

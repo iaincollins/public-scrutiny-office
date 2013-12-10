@@ -75,7 +75,7 @@ getBills()
 .then(function() {
     // Make sure appropriate indexes exist
     db.bills.ensureIndex( { "path": 1 } );
-    db.bills.ensureIndex( { "hasHtml": 1 } );
+    db.bills.ensureIndex( { "hasText": 1 } );
     db.bills.ensureIndex( { "lastUpdated": 1 } );
     db.events.ensureIndex( { "date": 1 } );
     
@@ -106,7 +106,7 @@ function getBills() {
                 var item = result.rss.channel[0].item[i];
 
                 var bill = {};
-                
+
                 // Accessing the GUID value is kind of funky.
                 // As it's actually a URL, we make our own from an SHA1 hash of the strong.
                 bill.id = crypto.createHash('sha1').update( item.guid[0]._ ).digest("hex");
@@ -114,9 +114,14 @@ function getBills() {
                 bill.url = item.link[0];
                 bill.description = item.description;
                 
-                // @fixme The year range should not be hard coded!
-                // @todo Look at the current month and year and generate accordingly (e.g. either 2013-2014 or 2014-2015)
-                bill.year = '2013-2014';
+                // The 'year' is a range (as sessions go through the new year).
+                //
+                // This looks for the year range portion of the URL (e.g. 
+                // '2013-14') and converts it to a format like '2013-2014').
+                var splitUrl = item.link[0].split('/');
+                var splitYear = splitUrl[4].split('-');
+                var year = splitYear[0];
+                bill.year = year+'-'+(parseInt(year) + 1);
 
                 // Create "human friendly" path from the bill name
                 // e.g. For "Inheritance and Trustees' Powers" generates "/2013-2014/inheritance-and-trustees-powers"

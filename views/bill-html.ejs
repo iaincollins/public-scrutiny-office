@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title><%= title %></title>
+        <link rel="shortcut icon" href="/favicon.ico"/>
+        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/stylesheet.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <h1><%= bill.name %> Bill</h1>
+            <div class="bill-text">
+                <%- bill.html %>
+            </div>
+        </div>
+    </body>
+</html>

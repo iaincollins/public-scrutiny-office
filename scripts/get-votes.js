@@ -46,7 +46,7 @@ getBills()
 function getBills() {
     var deferred = Q.defer();
     var aMonthAgo = phpjs.date('Y-m-d', phpjs.strtotime('1 month ago'));
-    var options = { hasHtml: true, lastUpdated: { $gte: aMonthAgo } };
+    var options = { hasText: true, lastUpdated: { $gte: aMonthAgo } };
     bills.getBills(options, function(bills) {
         deferred.resolve(bills);
     });
