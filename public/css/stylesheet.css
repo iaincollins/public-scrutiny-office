@@ -72,13 +72,8 @@ a.unstyled {
     color: #fff;
 }
 
-.heading h1 {
-    font-family:'Times New Roman',serif;
-}
-
 .heading h1 small {
     color: #afe5d2;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 300;
 }
 
@@ -108,16 +103,3 @@ pre {
 .bill-text ol {
     list-style-type: none !important;
 }
-
-/**
- * Anchor links in an iframe don't work in all browsers (e.g. Firefox).
- * Should be able to work round that with some JavaScript.
- * For now am using CSS to hide anchorn links to avoid confusion.
-*/
-.bill-text abbr {
-    text-decoration: none !important;
-    cursor: default !important;
-    border: none !important;
-    color: inherit;
-}
-

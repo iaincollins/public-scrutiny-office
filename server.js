@@ -40,7 +40,7 @@ app.get('/bills', function(req, res, next) {
         events.upcomingEvents(function(upcomingEvents) {
             res.render('index', { bills: billsBeforeParliament,
                                   events: upcomingEvents,
-                                  title: "Public Scrutiny Office - Bills before Parliament" 
+                                  title: "Public Scrutiny Office - Review and comment on bills before Parliament" 
                                  });
         });
     });
