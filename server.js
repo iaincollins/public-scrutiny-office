@@ -73,8 +73,8 @@ app.get('/bills.json', function(req, res, next) {
             billsBeforeParliament[index].text = undefined;
         });
         billsBeforeParliament.forEach(function(bill, index) {
-            billsBeforeParliament[index].htmlUrl = "http://public-scrutiny-office.org/bills"+bill.path+"/html";
-            billsBeforeParliament[index].textUrl = "http://public-scrutiny-office.org/bills"+bill.path+"/text";
+            billsBeforeParliament[index].htmlUrl = "http://public-scrutiny-office.org/bills"+bill.path+".html";
+            billsBeforeParliament[index].textUrl = "http://public-scrutiny-office.org/bills"+bill.path+".text";
         });
         res.setHeader('Content-Type', 'application/json');
         res.send( JSON.stringify(billsBeforeParliament) );
@@ -120,8 +120,12 @@ app.get('/bills/:year/:name', function(req, res, next) {
                     break;
                 case "json":
                     res.setHeader('Content-Type', 'text/plain; charset="UTF-8"');
-                    bill.htmlUrl = "http://public-scrutiny-office.org/bills"+bill.path+"/html";
-                    bill.textUrl = "http://public-scrutiny-office.org/bills"+bill.path+"/text";
+                    // Don't return (potentially very large) text in JSON object
+                    bill.html = undefined;
+                    bill.text = undefined;
+                    // Provide URLs to the full text in both HTML and plain text
+                    bill.htmlUrl = "http://public-scrutiny-office.org/bills"+bill.path+".html";
+                    bill.textUrl = "http://public-scrutiny-office.org/bills"+bill.path+".text";
                     res.send( JSON.stringify(bill) );
                     break;
                 case "html":
