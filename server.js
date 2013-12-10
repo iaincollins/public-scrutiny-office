@@ -1,3 +1,7 @@
+/**
+ * The Public Scrutiny Office
+ */
+
 var express = require('express');
 var partials = require('express-partials');
 var ejs = require('ejs');
@@ -8,23 +12,35 @@ var phpjs = require('phpjs');
 // Load app config
 var config = require(__dirname + '/lib/config.json');
 
-var app = express();
 
+// Initialise and configure Express and Express Partials
+var app = express();
 app.use(express.static(__dirname + '/public'))
 app.use(partials());
-
 app.set('title', 'Public Scrutiny Office');
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-
 app.engine('ejs', ejs.__express);
-
 partials.register('.ejs', ejs);
+
+/**
+ * Handle requests for static pages.
+ */
+app.get('/about', function(req, res, next) {
+    res.render('about', { title: "About the Public Scrutiny Office" });
+});
+
+app.get('/faq', function(req, res, next) {
+    res.render('faq', { title: "Public Scrutiny Office FAQ" });
+});
 
 app.get('/', function(req, res, next) {
     res.redirect('/bills/');
 });
 
+/**
+ * Handle requests for all bills
+ */
 app.get('/bills', function(req, res, next) {
     // @fixme Use promises instead of callbacks here
     var bills = require(__dirname + '/lib/bills');
@@ -46,18 +62,9 @@ app.get('/bills', function(req, res, next) {
     });
 });
 
-app.get('/about', function(req, res, next) {
-    res.render('about', { title: "About the Public Scrutiny Office" });
-});
-
-app.get('/faq', function(req, res, next) {
-    res.render('faq', { title: "Public Scrutiny Office FAQ" });
-});
-
-app.get('/members', function(req, res, next) {
-    res.render('members', {});
-});
-
+/**
+ * Handle requests for all bills as a JSON response
+ */
 app.get('/bills.json', function(req, res, next) {
     var bills = require(__dirname + '/lib/bills');
 
@@ -81,26 +88,10 @@ app.get('/bills.json', function(req, res, next) {
     });
 });
 
-app.get('/sitemap.xml', function(req, res, next) {
-    // @fixme Use promises instead of callbacks here
-    var bills = require(__dirname + '/lib/bills');
-    
-    // Only fetch bills that (a) have text and (b) were updated recently
-    // (Bills that have not bene updated recently must not have been in the
-    // RSS the last time it was parsed so have been dropped or become law.)
-    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
-    var options = { hasText: true, lastUpdated: { $gte: yesterday } };
-    bills.getBills(options, function(billsBeforeParliament) {
-        res.setHeader('Content-Type', 'text/plain');
-        res.render('sitemap', { layout: null, bills: billsBeforeParliament });
-    });
-});
-
 /**
  * Handle requests for a specific bill
  */
 app.get('/bills/:year/:name', function(req, res, next) {
-    // @fixme Use promises instead of callbacks here
     var bills = require(__dirname + '/lib/bills');
     var filename = req.params.name.split('.');    
     var path = '/'+req.params.year+'/'+filename[0];
@@ -119,6 +110,7 @@ app.get('/bills/:year/:name', function(req, res, next) {
         } else {
             switch(fileExtention) {
                 case null:
+                    // If no file extention, return the normal page for the Bill
                     res.render('bill', { bill: bill, title: bill.name+' Bill' });
                     break;
                 case "json":
@@ -132,13 +124,16 @@ app.get('/bills/:year/:name', function(req, res, next) {
                     res.send( JSON.stringify(bill) );
                     break;
                 case "html":
+                    // For the .html file extention, return just the main text of the bill
                     res.render('bill-html', { layout: null, bill: bill, title: bill.name+' Bill' });
                     break;
                 case "text":
+                    // For the .text file extention, return the plain text of the bill
                     res.setHeader('Content-Type', 'text/plain; charset="UTF-8"');
                     res.send(bill.text);
                     break;
                 default:
+                    // All other file extentions are invalid URLs
                     res.status(404).render('page-not-found', { title: "Page not found" });
             }
         }
@@ -146,7 +141,23 @@ app.get('/bills/:year/:name', function(req, res, next) {
 });
 
 /**
- * Handle 404 / Page Not Found errors
+ * Handle requests for the sitemap
+ */
+app.get('/sitemap.xml', function(req, res, next) {
+    var bills = require(__dirname + '/lib/bills');
+    // Only fetch bills that (a) have text and (b) were updated recently
+    // (Bills that have not bene updated recently must not have been in the
+    // RSS the last time it was parsed so have been dropped or become law.)
+    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
+    var options = { hasText: true, lastUpdated: { $gte: yesterday } };
+    bills.getBills(options, function(billsBeforeParliament) {
+        res.setHeader('Content-Type', 'text/plain');
+        res.render('sitemap', { layout: null, bills: billsBeforeParliament });
+    });
+});
+
+/**
+ * Handle all other requests as 404 / Page Not Found errors
  */
 app.use(function(req, res, next) {
     res.status(404).render('page-not-found', {

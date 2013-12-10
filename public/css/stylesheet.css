@@ -12,30 +12,6 @@ h2,h3,h4 {
     color: #fff;
 }
 
-.votes-pie-wrapper {
-    position: relative;
-    height: 100px;
-    width: 100px;
-    overflow: hidden;
-}
-
-.votes-pie {
-    position: absolute;
-    top: -35px;
-    left: -35px;
-    height: 120px;
-    width: 120px;
-}
-
-ul.votes li:nth-child(1) {
-    color: #ca2335 !important;
-    color: #eee !important;
-}
-
-ul.votes li:nth-child(2) {
-    color: #009461 !important;
-}
-
 ul.bills li {
     margin-top: 20px;
     padding: 10px;
@@ -102,4 +78,33 @@ pre {
 
 .bill-text ol {
     list-style-type: none !important;
+}
+
+ul[data-pie-id] {
+  list-style: none;
+  padding: 10px;
+}
+
+.votes-pie-wrapper {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+}
+
+.votes-pie {
+    position: absolute;
+    top: -35px;
+    left: -35px;
+    height: 120px;
+    width: 120px;
+}
+
+ul.votes li:nth-child(1) {
+    color: #ca2335 !important;
+    color: #eee !important;
+}
+
+ul.votes li:nth-child(2) {
+    color: #009461 !important;
 }
