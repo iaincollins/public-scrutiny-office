@@ -116,7 +116,7 @@ app.get('/bills/:year/:name', function(req, res, next) {
             switch(fileExtention) {
                 case null:
                     // If no file extention, return the normal page for the Bill
-                    res.render('bill', { bill: bill, sponsors: members, title: bill.name+' Bill' });
+                    res.render('bill', { bill: bill, title: bill.name+' Bill' });
                     break;
                 case "json":
                     res.setHeader('Content-Type', 'text/plain; charset="UTF-8"');

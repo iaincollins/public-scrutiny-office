@@ -105,7 +105,7 @@
             <p style="margin-top: 20px;">
                <h3 class="label label-info"><%= bill.type %></h3>
             </p>
-            <% if (sponsors.length > 0) { %>
+            <% if (bill.sponsors.length > 0) { %>
             <h2 style="margin-bottom: 20px;">Sponsored by</h2>
             <% } %>
             <% bill.sponsors.forEach(function(sponsor) { %>
