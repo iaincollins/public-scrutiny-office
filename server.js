@@ -67,41 +67,67 @@ app.get('/bills', function(req, res, next) {
 });
 
 app.get('/bills/:filter', function(req, res, next) {
+    
+    var filename = req.params.filter.split('.');
+    var fileExtention = null;
+    if (filename.length > 1)
+        fileExtention = filename[1];
+        
     // Only fetch bills that (a) have text and (b) were updated recently
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
     var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
     var query = { lastUpdated: { $gte: yesterday } };
     var orderBy = {};
-    var filter = req.params.filter;
+    var filter = filename[0];
 
     // By default only shows bills that have text, UNLESS "all" is selected
     if (filter === "pending") {
         query['hasText'] = false;
-    } else {
-        query['hasText'] = true;
-    }
-        
-    if (filter === "popular") {
+    } else if (filter === "popular") {
         query['$where'] = 'this.upVotes > this.downVotes';
         query = { $query: query };
         query['$orderby'] = { upVotes: -1 };
-    }
-    
-    if (filter === "unpopular") {
+        query['hasText'] = true;
+    } else if (filter === "unpopular") {
         query['$where'] = 'this.downVotes > this.upVotes' ;
         query = { $query: query };
         query['$orderby'] = { downVotes: -1 };
+        query['hasText'] = true;
+    } else {
+        res.status(404).render('page-not-found', { title: "Page not found" });
     }
 
     bills.getBills(query, function(billsBeforeParliament) {
-        events.upcomingEvents(function(upcomingEvents) {
-            res.render('index', { bills: billsBeforeParliament,
-                                  events: upcomingEvents,
-                                  title: "Public Scrutiny Office - Review and comment on bills before Parliament",
-                                  filter: filter
-                                 });
-        });
+        switch(fileExtention) {
+            case null:
+                // If no file extention, return a standard webpage
+                events.upcomingEvents(function(upcomingEvents) {
+                    res.render('index', { bills: billsBeforeParliament,
+                                          events: upcomingEvents,
+                                          title: "Public Scrutiny Office - Review and comment on bills before Parliament",
+                                          filter: filter
+                                         });
+                 });
+                break;
+            case "json":
+                // Don't return the full text
+                billsBeforeParliament.forEach(function(bill, index) {
+                    billsBeforeParliament[index].html = undefined;
+                    billsBeforeParliament[index].text = undefined;
+                });
+                // Return URLs to the full text (in both HTML and plain text)
+                billsBeforeParliament.forEach(function(bill, index) {
+                    billsBeforeParliament[index].htmlUrl = "http://public-scrutiny-office.org/bills"+bill.path+".html";
+                    billsBeforeParliament[index].textUrl = "http://public-scrutiny-office.org/bills"+bill.path+".text";
+                });
+                res.setHeader('Content-Type', 'application/json');
+                res.send( JSON.stringify(billsBeforeParliament) );
+                break;
+            default:
+                // All other file extentions are invalid URLs
+                res.status(404).render('page-not-found', { title: "Page not found" });
+        }
     });
 });
 
@@ -113,13 +139,14 @@ app.get('/bills.json', function(req, res, next) {
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
     var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
-    var query = { lastUpdated: { $gte: yesterday } };
+    var query = { hasText: true, lastUpdated: { $gte: yesterday } };
     bills.getBills(query, function(billsBeforeParliament) {
         // Don't return the full text
         billsBeforeParliament.forEach(function(bill, index) {
             billsBeforeParliament[index].html = undefined;
             billsBeforeParliament[index].text = undefined;
         });
+        // Return URLs to the full text (in both HTML and plain text)
         billsBeforeParliament.forEach(function(bill, index) {
             billsBeforeParliament[index].htmlUrl = "http://public-scrutiny-office.org/bills"+bill.path+".html";
             billsBeforeParliament[index].textUrl = "http://public-scrutiny-office.org/bills"+bill.path+".text";
@@ -133,7 +160,7 @@ app.get('/bills.json', function(req, res, next) {
  * Handle requests for a specific bill
  */
 app.get('/bills/:year/:name', function(req, res, next) {
-    var filename = req.params.name.split('.');    
+    var filename = req.params.name.split('.');
     var path = '/'+req.params.year+'/'+filename[0];
 
     // Optional file extentions are:
@@ -154,7 +181,7 @@ app.get('/bills/:year/:name', function(req, res, next) {
                     res.render('bill', { bill: bill, title: bill.name+' Bill' });
                     break;
                 case "json":
-                    res.setHeader('Content-Type', 'text/plain; charset="UTF-8"');
+                    res.setHeader('Content-Type', 'application/json');
                     // Don't return (potentially very large) text in JSON object
                     bill.html = undefined;
                     bill.text = undefined;

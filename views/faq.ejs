@@ -10,8 +10,12 @@
             </p>
             <h3>Why can't I find a Bill currently before Parliament?</h3>
             <p>
-                Only Bills that have had text for them are displayed on this site. Sometimes it takes a day or two for text 
-                to be provided, in other cases no text for a Bill is ever provided (and the the bill is subsequently dropped).
+                Check the "Pending" Bills tab on the homepage. Sometimes it takes a day or two for text 
+                to be provided. In some cases no text for a Bill is ever provided (and the the bill is subsequently dropped).
+            </p>
+            <p>
+                Bills before the Scottish Parliament are not shown on this site. They do not provide Bills or information about
+                members a useable, machine readable format (enquires have been made about this but they have yet to reply).
             </p>
             <h3>Why doesn't the text of a Bill match its description?</h3>
             <p>
@@ -19,7 +23,7 @@
             <p>
             <p>
                 In addition, very occationally the wrong text may have been uploaded by Parliament due to human error.
-                As there are are over 100 bills before Parliament at any one time and the list is updated daily this
+                As there are are over 100 bills before Parliament at any one time (often accompanied by multiple other documents) and the list is updated daily this
                 happens from time to time.
             </p>
             <h3>Why doesn't the vote counter update when I vote?</h3>
@@ -40,11 +44,10 @@
                 <a href="/bills.json">http://public-scrutiny-office.org/bills.json</a>
             </p>
             <p>
-                The API returns all Bills that are currently before Parliament or have been recently.
-                This is a more complete list than the website as it also includes Bills for which no text has been submitted yet.
-            </p>
-            <p>
-
+                You can also request just the popular or unpopular bills and bills yet to be published:<br/>
+                <a href="/bills/popular.json">http://public-scrutiny-office.org/bills/popular.json</a><br/>
+                <a href="/bills/unpopular.json">http://public-scrutiny-office.org/bills/unpopular.json</a><br/>
+                <a href="/bills/pending.json">http://public-scrutiny-office.org/bills/pending.json</a>
             </p>
             <p>
                 You can use the <strong>.hasText</strong> property on a Bill to check if there is text available for it and the
@@ -60,7 +63,7 @@
                 <strong>JSON</strong>: <a href="/bills/2013-2014/alan-turing-statutory-pardon.json">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.json</a>
             <p>
             <p>
-                <strong>HTML</strong>: <a href="/bills/2013-2014/alan-turing-statutory-pardon.html">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.html</a>
+                <strong>HTML:</strong> <a href="/bills/2013-2014/alan-turing-statutory-pardon.html">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.html</a>
             <p>
             <p>
                 <strong>Plain Text</strong>: <a href="/bills/2013-2014/alan-turing-statutory-pardon.text">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.text</a>
