@@ -5,13 +5,17 @@
 var express = require('express');
 var partials = require('express-partials');
 var ejs = require('ejs');
+var mongoJs = require('mongojs');
+var Q = require('q');       // For promises
+var util = require('util'); // For debugging
 
 // Using PHPJS sparingly for string and date functions.
 var phpjs = require('phpjs');
 
+GLOBAL.db = mongoJs.connect("127.0.0.1/public-scrutiny-office", ["bills", "members", "events"]);
+
 // Load app config
 var config = require(__dirname + '/lib/config.json');
-
 
 // Initialise and configure Express and Express Partials
 var app = express();
@@ -44,7 +48,8 @@ app.get('/', function(req, res, next) {
 app.get('/bills', function(req, res, next) {
     // @fixme Use promises instead of callbacks here
     var bills = require(__dirname + '/lib/bills');
-    
+    var events = require(__dirname + '/lib/events');
+        
     // Only fetch bills that (a) have text and (b) were updated recently
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
@@ -52,7 +57,6 @@ app.get('/bills', function(req, res, next) {
     var options = { hasText: true, lastUpdated: { $gte: yesterday } };
 
     bills.getBills(options, function(billsBeforeParliament) {
-        var events = require(__dirname + '/lib/events');
         events.upcomingEvents(function(upcomingEvents) {
             res.render('index', { bills: billsBeforeParliament,
                                   events: upcomingEvents,
@@ -93,6 +97,7 @@ app.get('/bills.json', function(req, res, next) {
  */
 app.get('/bills/:year/:name', function(req, res, next) {
     var bills = require(__dirname + '/lib/bills');
+    var members = require(__dirname + '/lib/members');
     var filename = req.params.name.split('.');    
     var path = '/'+req.params.year+'/'+filename[0];
 
@@ -111,7 +116,7 @@ app.get('/bills/:year/:name', function(req, res, next) {
             switch(fileExtention) {
                 case null:
                     // If no file extention, return the normal page for the Bill
-                    res.render('bill', { bill: bill, title: bill.name+' Bill' });
+                    res.render('bill', { bill: bill, sponsors: members, title: bill.name+' Bill' });
                     break;
                 case "json":
                     res.setHeader('Content-Type', 'text/plain; charset="UTF-8"');

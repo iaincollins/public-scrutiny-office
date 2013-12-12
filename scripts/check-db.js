@@ -4,13 +4,11 @@
 
 var mongoJs = require('mongojs');
 
-var databaseUrl = "127.0.0.1/public-scrutiny-office";
-var collections = ["bills", "members", "events"];
-var db = mongoJs.connect(databaseUrl, collections);
+GLOBAL.db = mongoJs.connect("127.0.0.1/public-scrutiny-office", ["bills", "members", "events"]);
 
 db.bills.find({}, function(err, bills) {
-    if (err || !bills.length) {
-        console.log("No bills found.");
+    if (err) {
+        console.log("Unable to get bills.");
     } else {
         bills.forEach(function(bill) {
            // console.log(bill);
@@ -20,8 +18,8 @@ db.bills.find({}, function(err, bills) {
 });
 
 db.events.find({}, function(err, events) {
-    if (err || !events.length) {
-        console.log("No events found.");
+    if (err) {
+        console.log("Unable to get events.");
     } else {
         events.forEach(function(event) {
            // console.log(event);
@@ -30,3 +28,13 @@ db.events.find({}, function(err, events) {
     console.log(events.length + " events found.")
 });
 
+db.members.find({}, function(err, members) {
+    if (err) {
+        console.log("Unable to get members.");
+    } else {
+        members.forEach(function(member) {
+           // console.log(member);
+        });
+    }
+    console.log(members.length + " members found.")
+});

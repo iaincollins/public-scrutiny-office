@@ -108,3 +108,15 @@ ul.votes li:nth-child(1) {
 ul.votes li:nth-child(2) {
     color: #009461 !important;
 }
+
+.member[data-party="Conservative"] .fa {
+    color: #0071c1;
+}
+
+.member[data-party="Liberal Democrat"] .fa {
+    color: #ffba00;
+}
+
+.member[data-party="Labour"] .fa {
+    color: #ff0000;
+}

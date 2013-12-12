@@ -94,13 +94,25 @@
                                 </a>      
                                 <p>
                                 <span class="label label-info"><%= bills[i].type %></span>
-                                <% for (var j=0; j<bills[i].sponsors.length; j++) { %>
-                                    <span class="fa-stack">
-                                    <i class="fa fa-user fa-stack-1x"></i>
-                                    <i class="fa fa-square-o fa-stack-2x"></i>
-                                    </span>
-                                  <%= bills[i].sponsors[j] %></span>
-                               <% } %>
+                                <% bills[i].sponsors.forEach(function(sponsor) { %>
+                                    <% if (sponsor.house) { %>
+                                        <span class="member" data-party="<%= sponsor.party %>">
+                                            <span class="fa-stack">
+                                            <i class="fa fa-user fa-stack-1x"></i>
+                                            <i class="fa fa-square-o fa-stack-2x"></i>
+                                            </span>
+                                          <%= sponsor.name %>
+                                        </span>
+                                    <% } else { %>
+                                        <span>
+                                            <span class="fa-stack">
+                                            <i class="fa fa-user fa-stack-1x"></i>
+                                            <i class="fa fa-square-o fa-stack-2x"></i>
+                                            </span>
+                                          <%= sponsor.name %>
+                                        </span>
+                                    <% } %>
+                                <% }); %>
                                </p>
                                <p><a class="unstyled" href="/bills<%= bills[i].path %>"><%= bills[i].description %></a></p>
                                <p>
