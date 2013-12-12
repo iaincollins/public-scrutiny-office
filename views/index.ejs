@@ -23,20 +23,20 @@
     <div class="row">
         <div class="col-sm-8">
             <ul class="nav nav-tabs" style="margin-bottom: 20px;">
-              <li <% if (filter == "recently-active") { %>class="active"<% } %>><a href="/bills/">Recently active</a></li>
+              <li <% if (filter == "recently-active") { %>class="active"<% } %>><a href="/bills/">View all</a></li>
               <li <% if (filter == "popular") { %>class="active"<% } %>><a href="/bills/popular">Popular</a></li>
               <li <% if (filter == "unpopular") { %>class="active"<% } %>><a href="/bills/unpopular">Unpopular</a></li>
               <li <% if (filter == "pending") { %>class="active"<% } %>><a href="/bills/pending">Pending</a></li>
             </ul>
             
             <% if (filter == "recently-active") { %>
-            <p>All Bills currently being discussed in Parliament.</p>
+            <h4>All Bills currently being discussed in Parliament.</h4>
             <% } else if (filter == "popular") { %>
-            <p>Bills before Parliament that have the most upvotes.</p>
+            <h4>Bills before Parliament that have the most upvotes.</h4>
             <% } else if (filter == "unpopular") { %>
-            <p>Bills before Parliament that have the most downvotes.</p>
+            <h4>Bills before Parliament that have the most downvotes.</h4>
             <% } else if (filter == "pending") { %>
-            <p>Bills that have not yet been made available by Parliament (but may be available soon).</p>
+            <h4>Bills that have not yet been made available by Parliament (but may be available soon).</h4>
             <% } %>
             
             <ul class="list-unstyled bills">
