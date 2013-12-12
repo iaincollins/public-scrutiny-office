@@ -65,11 +65,14 @@
                     <h1><%= bill.name %> Bill</h1>
                     <p class="lead"><%= bill.description %></p>
                     <p>
-                        <!-- LikeBtn.com BEGIN -->
-                        <span data-identifier="<%= bill.path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Approve" data-i18n_dislike="Disapprove" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
-                        <script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
-                        <!-- LikeBtn.com END -->
-                    </p>
+                    <div>
+                        <span data-identifier="<%= bill.path %>" class="likebtn-wrapper pull-left" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Approve" data-i18n_dislike="Disapprove" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
+                        <div class="addthis_toolbox addthis_default_style addthis_32x32_style pull-right">
+                            <a class="addthis_button_facebook"></a>
+                            <a class="addthis_button_twitter"></a>
+                            <a class="addthis_button_google_plusone_share"></a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <script>
@@ -81,9 +84,9 @@
                 });
             </script>
             <% if (bill.html === "") { %>
-                <p class="alert alert-warning" style="margin-top: 20px;">
-                    <i class="fa fa-warning"></i>
-                    No text for this bill has been submitted to Parliament yet.
+                <p class="alert alert-info" style="margin-top: 20px;">
+                    <i class="fa fa-info-circle fa-lg"></i>
+                    The text of this Bill has not been published by Parliament yet.
                 </p>
             <% } else { %>
             <h2 style="font-weight: 400;">The Bill</h2>
@@ -119,16 +122,16 @@
                 <% if (sponsor.house) { %>
                     <h4 class="member" data-party="<%= sponsor.party %>">
                         <span class="fa-stack">
+                        <i class="fa fa-square fa-stack-2x"></i>
                         <i class="fa fa-user fa-stack-1x"></i>
-                        <i class="fa fa-square-o fa-stack-2x"></i>
                         </span>
                       <%= sponsor.name %>
                     </h4>
                 <% } else { %>
                     <h4>
                         <span class="fa-stack">
-                        <i class="fa fa-user fa-stack-1x"></i>
                         <i class="fa fa-square-o fa-stack-2x"></i>
+                        <i class="fa fa-user fa-stack-1x"></i>
                         </span>
                       <%= sponsor.name %>
                     </h4>
@@ -168,3 +171,5 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a95ffd67610095" async="async"></script>

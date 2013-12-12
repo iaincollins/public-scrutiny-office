@@ -22,7 +22,15 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
-            <ul class="nav nav-tabs" style="margin-bottom: 20px;">
+            <div style="position: absolute; top: 5px; right: 15px;">
+                <div class="addthis_toolbox addthis_default_style addthis_32x32_style pull-right">
+                    <a class="addthis_button_facebook"></a>
+                    <a class="addthis_button_twitter"></a>
+                    <a class="addthis_button_google_plusone_share"></a>
+                </div>
+            </div>
+            
+            <ul class="nav nav-pills" style="margin-bottom: 30px;">
               <li <% if (filter == "recently-active") { %>class="active"<% } %>><a href="/bills/">View all</a></li>
               <li <% if (filter == "popular") { %>class="active"<% } %>><a href="/bills/popular">Popular</a></li>
               <li <% if (filter == "unpopular") { %>class="active"<% } %>><a href="/bills/unpopular">Unpopular</a></li>
@@ -32,9 +40,9 @@
             <% if (filter == "recently-active") { %>
             <h4>Bills currently being debated in Parliament.</h4>
             <% } else if (filter == "popular") { %>
-            <h4>Bills before Parliament that have the most support.</h4>
+            <h4>Bills before Parliament that have the strongest public support.</h4>
             <% } else if (filter == "unpopular") { %>
-            <h4>Bills before Parliament that are the most contentious.</h4>
+            <h4>The most contentious Bills before Parliament.</h4>
             <% } else if (filter == "pending") { %>
             <h4>Bills that have not yet been made available by Parliament (but may be available soon).</h4>
             <% } %>
@@ -112,16 +120,16 @@
                                     <% if (sponsor.house) { %>
                                         <span class="member" data-party="<%= sponsor.party %>">
                                             <span class="fa-stack">
+                                            <i class="fa fa-square fa-stack-2x"></i>
                                             <i class="fa fa-user fa-stack-1x"></i>
-                                            <i class="fa fa-square-o fa-stack-2x"></i>
                                             </span>
                                           <%= sponsor.name %>
                                         </span>
                                     <% } else { %>
                                         <span>
                                             <span class="fa-stack">
-                                            <i class="fa fa-user fa-stack-1x"></i>
                                             <i class="fa fa-square-o fa-stack-2x"></i>
+                                            <i class="fa fa-user fa-stack-1x"></i>
                                             </span>
                                           <%= sponsor.name %>
                                         </span>
@@ -130,15 +138,12 @@
                                </p>
                                <p><a class="unstyled" href="/bills<%= bills[i].path %>"><%= bills[i].description %></a></p>
                                <p>
-                                   <span class="pull-right">
+                                   <span data-identifier="<%= bills[i].path %>" class="likebtn-wrapper pull-left" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Approve" data-i18n_dislike="Disapprove" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
+                                   <span class="pull-right" style="padding-top: 10px;">
                                        <i class="fa fa-comment fa-flip-horizontal fa-lg"></i>
                                        <a class="unstyled" href="/bills<%= bills[i].path %>#disqus_thread">0 Comments</a>
                                    </span>
                                </p>
-                                <!-- LikeBtn.com BEGIN -->
-                                <span data-identifier="<%= bills[i].path %>" class="likebtn-wrapper" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Approve" data-i18n_dislike="Disapprove" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
-                                <script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
-                                <!-- LikeBtn.com END -->
                             </div>
                         </div>
                    </li>
@@ -169,7 +174,7 @@
                     %>
                     <!--<p><i class="fa-li fa fa-angle-right"></i><a href="<%= events[i].bill.url %>"><%= events[i].name %></a></p>-->
                     <% } else { %>
-                    <p><i class="fa-li fa fa-angle-right"></i><a href="<%= events[i].url %>"><%= events[i].name %></a></p>
+                    <p><i class="fa-li fa fa-angle-right"></i><a href="/bills<%= events[i].bill.path %>"><%= events[i].name %></a></p>
                     <% } %>
                 </li>
             <% } %>
@@ -205,3 +210,5 @@
     (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
 </script>
+<script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a95ffd67610095" async="async"></script>
