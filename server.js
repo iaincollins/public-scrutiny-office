@@ -85,13 +85,13 @@ app.get('/bills/:filter', function(req, res, next) {
     if (filter === "popular") {
         query['$where'] = 'this.upVotes > this.downVotes';
         query = { $query: query };
-        query['orderby'] = { upVotes: -1 };
+        query['$orderby'] = { upVotes: false };
     }
     
     if (filter === "unpopular") {
         query['$where'] = 'this.downVotes > this.upVotes' ;
         query = { $query: query };
-        query['orderby'] = { downVotes: -1 };
+        query['$orderby'] = { downVotes: false };
     }
 
     bills.getBills(query, function(billsBeforeParliament) {
