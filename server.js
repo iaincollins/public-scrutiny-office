@@ -8,6 +8,9 @@ var ejs = require('ejs');
 var mongoJs = require('mongojs');
 var Q = require('q');       // For promises
 var util = require('util'); // For debugging
+var bills = require(__dirname + '/lib/bills');
+var events = require(__dirname + '/lib/events');
+var members = require(__dirname + '/lib/members');
 
 // Using PHPJS sparingly for string and date functions.
 var phpjs = require('phpjs');
@@ -46,21 +49,57 @@ app.get('/', function(req, res, next) {
  * Handle requests for all bills
  */
 app.get('/bills', function(req, res, next) {
-    // @fixme Use promises instead of callbacks here
-    var bills = require(__dirname + '/lib/bills');
-    var events = require(__dirname + '/lib/events');
-        
     // Only fetch bills that (a) have text and (b) were updated recently
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
     var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
-    var options = { hasText: true, lastUpdated: { $gte: yesterday } };
+    var query = { hasText: true, lastUpdated: { $gte: yesterday } };
 
-    bills.getBills(options, function(billsBeforeParliament) {
+    bills.getBills(query, function(billsBeforeParliament) {
         events.upcomingEvents(function(upcomingEvents) {
             res.render('index', { bills: billsBeforeParliament,
                                   events: upcomingEvents,
-                                  title: "Public Scrutiny Office - Review and comment on bills before Parliament" 
+                                  title: "Public Scrutiny Office - Review and comment on bills before Parliament",
+                                  filter: "recently-active" // Default filter
+                                 });
+        });
+    });
+});
+
+app.get('/bills/:filter', function(req, res, next) {
+    // Only fetch bills that (a) have text and (b) were updated recently
+    // (Bills that have not bene updated recently must not have been in the
+    // RSS the last time it was parsed so have been dropped or become law.)
+    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
+    var query = { lastUpdated: { $gte: yesterday } };
+    var orderBy = {};
+    var filter = req.params.filter;
+
+    // By default only shows bills that have text, UNLESS "all" is selected
+    if (filter === "pending") {
+        query['hasText'] = false;
+    } else {
+        query['hasText'] = true;
+    }
+        
+    if (filter === "popular") {
+        query['$where'] = 'this.upVotes > this.downVotes';
+        query = { $query: query };
+        query['orderby'] = { upVotes: -1 };
+    }
+    
+    if (filter === "unpopular") {
+        query['$where'] = 'this.downVotes > this.upVotes' ;
+        query = { $query: query };
+        query['orderby'] = { downVotes: -1 };
+    }
+
+    bills.getBills(query, function(billsBeforeParliament) {
+        events.upcomingEvents(function(upcomingEvents) {
+            res.render('index', { bills: billsBeforeParliament,
+                                  events: upcomingEvents,
+                                  title: "Public Scrutiny Office - Review and comment on bills before Parliament",
+                                  filter: filter
                                  });
         });
     });
@@ -70,14 +109,12 @@ app.get('/bills', function(req, res, next) {
  * Handle requests for all bills as a JSON response
  */
 app.get('/bills.json', function(req, res, next) {
-    var bills = require(__dirname + '/lib/bills');
-
     // Only fetch bills that were updated recently.
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
     var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
-    var options = { lastUpdated: { $gte: yesterday } };
-    bills.getBills(options, function(billsBeforeParliament) {
+    var query = { lastUpdated: { $gte: yesterday } };
+    bills.getBills(query, function(billsBeforeParliament) {
         // Don't return the full text
         billsBeforeParliament.forEach(function(bill, index) {
             billsBeforeParliament[index].html = undefined;
@@ -96,8 +133,6 @@ app.get('/bills.json', function(req, res, next) {
  * Handle requests for a specific bill
  */
 app.get('/bills/:year/:name', function(req, res, next) {
-    var bills = require(__dirname + '/lib/bills');
-    var members = require(__dirname + '/lib/members');
     var filename = req.params.name.split('.');    
     var path = '/'+req.params.year+'/'+filename[0];
 
@@ -149,13 +184,12 @@ app.get('/bills/:year/:name', function(req, res, next) {
  * Handle requests for the sitemap
  */
 app.get('/sitemap.xml', function(req, res, next) {
-    var bills = require(__dirname + '/lib/bills');
     // Only fetch bills that (a) have text and (b) were updated recently
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
     var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
-    var options = { hasText: true, lastUpdated: { $gte: yesterday } };
-    bills.getBills(options, function(billsBeforeParliament) {
+    var query = { hasText: true, lastUpdated: { $gte: yesterday } };
+    bills.getBills(query, function(billsBeforeParliament) {
         res.setHeader('Content-Type', 'text/plain');
         res.render('sitemap', { layout: null, bills: billsBeforeParliament });
     });

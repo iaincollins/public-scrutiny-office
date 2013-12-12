@@ -22,9 +22,23 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#">Bills before Parliament</a></li>
+            <ul class="nav nav-tabs" style="margin-bottom: 20px;">
+              <li <% if (filter == "recently-active") { %>class="active"<% } %>><a href="/bills/">Recently active</a></li>
+              <li <% if (filter == "popular") { %>class="active"<% } %>><a href="/bills/popular">Popular</a></li>
+              <li <% if (filter == "unpopular") { %>class="active"<% } %>><a href="/bills/unpopular">Unpopular</a></li>
+              <li <% if (filter == "pending") { %>class="active"<% } %>><a href="/bills/pending">Pending</a></li>
             </ul>
+            
+            <% if (filter == "recently-active") { %>
+            <p>All Bills currently being discussed in Parliament.</p>
+            <% } else if (filter == "popular") { %>
+            <p>Bills before Parliament that have the most upvotes.</p>
+            <% } else if (filter == "unpopular") { %>
+            <p>Bills before Parliament that have the most downvotes.</p>
+            <% } else if (filter == "pending") { %>
+            <p>Bills that have not yet been made available by Parliament (but may be available soon).</p>
+            <% } %>
+            
             <ul class="list-unstyled bills">
                 <% for (var i=0; i<bills.length; i++) { %>
                     <li class="clearfix" data-href="/bills<%= bills[i].path %>">

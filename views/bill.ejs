@@ -72,7 +72,6 @@
                     </p>
                 </div>
             </div>
-            <h2 style="font-weight: 400;">The Bill</h2>
             <script>
                 $(function() {
                     Pizza.init(document.body, {
@@ -80,10 +79,18 @@
                         "donut": true
                     });
                 });
-            </script>        
+            </script>
+            <% if (bill.html === "") { %>
+                <p class="alert alert-warning" style="margin-top: 20px;">
+                    <i class="fa fa-warning"></i>
+                    No text for this bill has been submitted to Parliament yet.
+                </p>
+            <% } else { %>
+            <h2 style="font-weight: 400;">The Bill</h2>
             <div class="bill-text">
-                <%- bill.html %>
+                    <%- bill.html %>
             </div>
+            <% } %>
             <hr/>
             <h2>Comments</h2>
             <div id="disqus_thread"></div>
