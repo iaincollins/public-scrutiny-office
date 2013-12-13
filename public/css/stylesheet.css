@@ -135,7 +135,7 @@ ul.votes li:nth-child(2) {
 }
 
 .member[data-party] .fa {
-    color: #666;
+    color: #999;
 }
 
 .member[data-party="Conservative"] .fa {

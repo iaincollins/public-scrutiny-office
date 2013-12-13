@@ -136,7 +136,6 @@ function getBills() {
                 // Accessing the GUID value is kind of funky.
                 // As it's actually a URL, we make our own from an SHA1 hash of the strong.
                 bill.id = crypto.createHash('sha1').update( item.guid[0]._ ).digest("hex");
-
                 bill.name = phpjs.trim(item.title);
                 bill.url = item.link[0];
                 bill.description = item.description;
