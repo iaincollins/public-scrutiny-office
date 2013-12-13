@@ -14,16 +14,23 @@ h2,h3,h4 {
 
 .nav.nav-pills li a {
     background: #d6e2ee;
-    padding: 8px 14px;
+    background: none !important;
+    padding: 5px;
     margin-right: 5px;
+}
+
+.nav.nav-pills li a:hover {
+    border-bottom: 4px solid #d6e2ee;
 }
 
 .nav.nav-pills li.active a {
     background: #2b88ce;
+    color: #2b88ce;
+    border-bottom: 4px solid #2b88ce;
 }
 
 .nav.nav-pills li a {
-    border-radius: 20px;
+    border-radius: 0px;
 }
 
 ul.bills li {
@@ -125,6 +132,10 @@ ul.votes li:nth-child(2) {
 
 .member .fa.fa-user {
     color: #fff !important;
+}
+
+.member[data-party] .fa {
+    color: #666;
 }
 
 .member[data-party="Conservative"] .fa {

@@ -30,7 +30,7 @@
                 </div>
             </div>
             
-            <ul class="nav nav-pills" style="margin-bottom: 30px;">
+            <ul class="nav nav-pills" style="margin-bottom: 20px;">
               <li <% if (filter == "recently-active") { %>class="active"<% } %>><a href="/bills/">View all</a></li>
               <li <% if (filter == "popular") { %>class="active"<% } %>><a href="/bills/popular">Popular</a></li>
               <li <% if (filter == "unpopular") { %>class="active"<% } %>><a href="/bills/unpopular">Unpopular</a></li>
@@ -38,13 +38,13 @@
             </ul>
             
             <% if (filter == "recently-active") { %>
-            <h4>Bills currently being debated in Parliament.</h4>
+            <p class="text-muted">Bills currently being debated in Parliament.</p>
             <% } else if (filter == "popular") { %>
-            <h4>Bills before Parliament that have the strongest public support.</h4>
+            <p class="text-muted">Bills before Parliament that have the strongest public support.</p>
             <% } else if (filter == "unpopular") { %>
-            <h4>The most contentious Bills before Parliament.</h4>
+            <p class="text-muted">The most contentious Bills before Parliament.</p>
             <% } else if (filter == "pending") { %>
-            <h4>Bills that have not yet been made available by Parliament (but may be available soon).</h4>
+            <p class="text-muted">Bills that have not yet been made available by Parliament (but may be available soon).</p>
             <% } %>
             
             <ul class="list-unstyled bills">
