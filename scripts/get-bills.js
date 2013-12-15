@@ -104,6 +104,7 @@ getBills()
     db.bills.ensureIndex( { "hasText": 1 } );
     db.bills.ensureIndex( { "lastUpdated": 1 } );
     db.events.ensureIndex( { "date": 1 } );
+    db.members.ensureIndex( { "name": 1, "party": 1 } );
     
     console.log("*** Finished updating the Public Scrutiny Office database");
     db.close();

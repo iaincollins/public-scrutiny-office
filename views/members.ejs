@@ -8,20 +8,20 @@
             <h2>MPs in the House of Commons</h2>
             <div class="row clearfix">
                 <% mps.forEach(function(member) { %>
-                    <h4 class="member col-sm-4 col-md-3" data-party="<%= member.party %>" xstyle="width: 33%; display: inline-block;">
+                    <h4 class="member col-sm-6 col-md-4" data-party="<%= member.party %>" xstyle="width: 33%; display: inline-block;">
                         <span class="fa-stack pull-left">
                         <i class="fa fa-square fa-stack-2x"></i>
                         <i class="fa fa-user fa-stack-1x"></i>
                         </span>
                       <%= member.name %><br/>
-                      <small><%= member.constituency %></small>
+                      <small><%= member.constituency %> MP</small>
                     </h4>
                 <% }); %>
             </div>
             <h2>Peers in the House of Lords</h2>
             <div class="row clearfix">
                 <% peers.forEach(function(member) { %>
-                    <h4 class="member col-sm-4 col-md-3" data-party="<%= member.party %>" xstyle="width: 33%; display: inline-block;">
+                    <h4 class="member col-sm-6 col-md-4" data-party="<%= member.party %>" xstyle="width: 33%; display: inline-block;">
                         <span class="fa-stack pull-left">
                         <i class="fa fa-square fa-stack-2x"></i>
                         <i class="fa fa-user fa-stack-1x"></i>

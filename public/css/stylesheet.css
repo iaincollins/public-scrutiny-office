@@ -130,6 +130,26 @@ ul.votes li:nth-child(2) {
     color: #009461 !important;
 }
 
+.bill-inline-summary {
+    line-height: 32px;
+    margin-bottom: 5px;
+}
+
+.bill-inline-summary .member {
+    position: relative;
+    top: -2px;
+    margin-right: 5px;
+}
+
+.bill-buttons {
+    min-height: 42px;
+    overflow: auto;
+}
+
+.member {
+    height: 38px;
+    overflow: hidden;
+}
 .member .fa-stack.pull-left {
     margin-right: 10px;
 }
@@ -168,4 +188,23 @@ ul.votes li:nth-child(2) {
 
 .member[data-party="Green"] .fa {
     color: #54b90a;
+}
+
+.fa-ul {
+    margin-left: 20px;
+}
+
+.lb-like,
+.lb-dislike {
+    border-radius: 5px !important;
+    background: #fff !important;
+    color: #444 !important;
+}
+
+.lb-like:hover,
+.lb-like:active,
+.lb-dislike:hover,
+.lb-dislike:active {
+    color: #444 !important;
+    background: #ebebeb !important;
 }
