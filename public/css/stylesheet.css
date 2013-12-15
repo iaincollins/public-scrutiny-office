@@ -36,6 +36,7 @@ h2,h3,h4 {
 ul.bills li {
     margin-top: 20px;
     padding: 10px;
+    padding-bottom: 5px;
 }
 
 ul.bills li h3 {
@@ -44,6 +45,7 @@ ul.bills li h3 {
 
 ul.bills li:hover {
     background: #f7ffea !important;
+    background: #eff5fb !important;
     cursor: pointer;
 }
 
@@ -196,19 +198,53 @@ ul.votes li:nth-child(2) {
 
 .lb-like,
 .lb-dislike {
-    border-radius: 5px !important;
+    border-radius: 4px !important;
     background: #fff !important;
-    color: #444 !important;
+    height: 30px !important;
+}
+
+.lb-like *,
+.lb-dislike * {
+    color: #333 !important;
+    font-size: 14px !important;
+    line-height: 14px !important;
+    font-weight: normal !important;
 }
 
 .lb-like:hover,
 .lb-like:active,
 .lb-dislike:hover,
 .lb-dislike:active {
-    color: #444 !important;
     background: #ebebeb !important;
 }
 
+.lb-like *,
+.lb-dislike *,
+.lb-like:hover *,
+.lb-like:active *,
+.lb-dislike:hover *,
+.lb-dislike:active * {
+    color: #333 !important;
+}
+
+.lb-style-padded .lb-like-icon,
+.lb-style-padded .lb-like-label,
+.lb-style-padded .lb-dislike-icon,
+.lb-style-padded .lb-dislike-label,
+.lb-style-drop .lb-like-icon,
+.lb-style-drop .lb-like-label,
+.lb-style-drop .lb-dislike-icon,
+.lb-style-drop .lb-dislike-label {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
+
+/*.lb-like .lb-a,
+.lb-dislike .lb-a {
+    padding-top: 0 !important;
+    top: 0 !important;
+}
+*/
 @media(max-width:767px) {
     .bill-name {
         font-size: 20px;
