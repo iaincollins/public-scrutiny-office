@@ -109,7 +109,7 @@
                             </div>
                             <div class="media-body">
                                 <a class="unstyled" href="/bills<%= bills[i].path %>">
-                                    <h3><i class="fa fa-file-text-o"></i> <%= bills[i].name %> Bill</h3>
+                                    <h3 class="bill-name"><i class="fa fa-file-text-o"></i> <%= bills[i].name %> Bill</h3>
                                 </a>      
                                 <div class="bill-inline-summary">
                                     <span class="label label-info"><%= bills[i].type %></span>
@@ -138,9 +138,10 @@
                                <div class="bill-buttons clearfix">
                                    <span data-identifier="<%= bills[i].path %>" class="likebtn-wrapper pull-left" data-style="padded" data-show_dislike_label="true" data-counter_type="percent" data-counter_clickable="true" data-popup_enabled="false" data-show_copyright="false" data-share_enabled="false" data-i18n_like="Approve" data-i18n_dislike="Disapprove" data-i18n_like_tooltip="Vote for this bill" data-i18n_dislike_tooltip="Vote against this bill"></span>
                                    <span class="pull-right" style="padding: 2px 0;">
-                                       <a class="unstyle btn btn-default" href="/bills<%= bills[i].path %>">Read &amp; comment <i class="fa fa-chevron-right"></i></a>
+                                       <a class="unstyle btn btn-default hidden-xs hidden-sm" href="/bills<%= bills[i].path %>">Read &amp; comment <i class="fa fa-chevron-right"></i></a>
                                    </span>
                                </div>
+                               <a class="unstyle btn btn-default btn-block visible-xs visible-sm" href="/bills<%= bills[i].path %>">Read &amp; comment <i class="fa fa-chevron-right"></i></a>
                             </div>
                         </div>
                    </li>

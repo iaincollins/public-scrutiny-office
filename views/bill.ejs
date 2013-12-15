@@ -161,33 +161,51 @@
                 </div>
             <% }); %>
             <h2>Documents</h2>
-            <h3>Version history</h3>
-            <% for (var i=0; i<bill.documents.versions.length; i++) { %>
-            <p>                
-                <a href="<%= bill.documents.versions[i].url %>"><i class="fa fa-file-o fa-lg"></i> <%= bill.documents.versions[i].name %></a>
-            </p>
-            <% } %>
-            <% if (bill.documents.versions.length == 0) { %>
+            
+            <h3>Revision history</h3>
+            <% if (bill.documents.versions.length > 0) { %>
+            <ul class="fa-ul">
+                <% for (var i=0; i<bill.documents.versions.length; i++) { %>
+                <li>                
+                    <p>
+                        <a href="<%= bill.documents.versions[i].url %>"><i class="fa fa-li fa-file-o fa-lg"></i> <%= bill.documents.versions[i].name %></a>
+                    </p>
+                </li>
+                <% } %>
+            </ul>
+            <% } else { %>
             <p class="text-muted">The text for this bill is not yet available.</p>
             <% } %>
+            
             <h3>Notes</h3>
-            <% for (var i=0; i<bill.documents.notes.length; i++) { %>
-            <p>
-                <a href="<%= bill.documents.notes[i].url %>"><i class="fa fa-file-o fa-lg"></i> <%= bill.documents.notes[i].name %></a>
-            </p>
-            <% } %>
-            <% if (bill.documents.notes.length == 0) { %>
+            <% if (bill.documents.notes.length > 0) { %>
+            <ul class="fa-ul">
+                <% for (var i=0; i<bill.documents.notes.length; i++) { %>
+                <li>                
+                    <p>
+                        <a href="<%= bill.documents.notes[i].url %>"><i class="fa fa-li fa-file-o fa-lg"></i> <%= bill.documents.notes[i].name %></a>
+                    </p>
+                </li>
+                <% } %>
+            </ul>
+            <% } else { %>
             <p class="text-muted">There are no notes available for this bill.</p>
             <% } %>
+            
             <h3>Other documents</h3>
-            <% for (var i=0; i<bill.documents.other.length; i++) { %>
-            <p>
-                <a href="<%= bill.documents.other[i].url %>"><i class="fa fa-file-o fa-lg"></i> <%= bill.documents.other[i].name %></a>
-            </p>
-            <% } %>
-            <% if (bill.documents.other.length == 0) { %>
+            <% if (bill.documents.other.length > 0) { %>
+            <ul class="fa-ul">
+                <% for (var i=0; i<bill.documents.other.length; i++) { %>
+                <li>                
+                    <p>
+                        <a href="<%= bill.documents.other[i].url %>"><i class="fa fa-li fa-file-o fa-lg"></i> <%= bill.documents.other[i].name %></a>
+                    </p>
+                </li>
+                <% } %>
+            </ul>
+            <% } else { %>
             <p class="text-muted">There are no other documents available for this bill.</p>
-            <% } %>
+            <% } %>            
         </div>
     </div>
 </div>
