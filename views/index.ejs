@@ -117,11 +117,13 @@
                                 <% bills[i].sponsors.forEach(function(sponsor) { %>
                                     <% if (sponsor.type) { %>
                                         <span class="member" data-party="<%= sponsor.party %>">
-                                            <span class="fa-stack">
-                                            <i class="fa fa-square fa-stack-2x"></i>
-                                            <i class="fa fa-user fa-stack-1x"></i>
-                                            </span>
-                                          <%= sponsor.name %>
+                                            <a href="/members<%= sponsor.path %>" class="unstyled">
+                                                <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                <i class="fa fa-user fa-stack-1x"></i>
+                                                </span>
+                                                <%= sponsor.name %>
+                                            </a>
                                         </span>
                                     <% } else { %>
                                         <span>
@@ -129,7 +131,7 @@
                                             <i class="fa fa-square-o fa-stack-2x"></i>
                                             <i class="fa fa-user fa-stack-1x"></i>
                                             </span>
-                                          <%= sponsor.name %>
+                                            <%= sponsor.name %>
                                         </span>
                                     <% } %>
                                 <% }); %>

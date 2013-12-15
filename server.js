@@ -52,6 +52,17 @@ app.get('/members', function(req, res, next) {
 
 });
 
+app.get('/members/:memberId/:memberName', function(req, res, next) {
+    members.getMemberById(req.params.memberId)
+    .then(function(member) {
+        if (member === null) {
+            res.status(404).render('page-not-found', { title: "Page not found" });
+        } else {
+            res.render('member', { title: "", member: member });
+        }
+    });
+});
+
 app.get('/faq', function(req, res, next) {
     res.render('faq', { title: "Public Scrutiny Office FAQ" });
 });
