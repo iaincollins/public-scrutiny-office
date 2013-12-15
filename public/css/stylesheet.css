@@ -130,6 +130,10 @@ ul.votes li:nth-child(2) {
     color: #009461 !important;
 }
 
+.member .fa-stack.pull-left {
+    margin-right: 10px;
+}
+
 .member .fa.fa-user {
     color: #fff !important;
 }

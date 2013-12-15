@@ -37,6 +37,21 @@ app.get('/about', function(req, res, next) {
     res.render('about', { title: "About the Public Scrutiny Office" });
 });
 
+app.get('/members', function(req, res, next) {
+    var mps = [];
+    var peers = [];
+    members.getMembers('MP')
+    .then(function(membersOfParliament) {
+        mps = membersOfParliament;
+        return members.getMembers('Peer');
+    })
+    .then(function(membersOfTheLords) {
+        peers = membersOfTheLords;
+        res.render('members', { title: "Members of Parliament (MPs & Peers)", mps: mps, peers: peers });
+    });
+
+});
+
 app.get('/faq', function(req, res, next) {
     res.render('faq', { title: "Public Scrutiny Office FAQ" });
 });
@@ -66,8 +81,7 @@ app.get('/bills', function(req, res, next) {
     });
 });
 
-app.get('/bills/:filter', function(req, res, next) {
-    
+app.get('/bills/:filter', function(req, res, next) {    
     var filename = req.params.filter.split('.');
     var fileExtention = null;
     if (filename.length > 1)
