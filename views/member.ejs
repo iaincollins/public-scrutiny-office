@@ -1,16 +1,29 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
-            <h1><%= member.name %></h1>
-            <p class="lead">
-            <% if (member.type) { %>
-                <% if (member.type === "MP") {%>
-                <%= member.party %> MP for <%= member.constituency %>
-                <% } else if (member.type === "Peer") { %>
-                <%= member.party %> Peer
-                <% } %>
-            <% } %>
-            </p>
+            <div class="media">
+                <img alt="Photograph of <%= member.name %>" 
+                     class="pull-left member-image"
+                     data-party="<%= member.party %>"
+                    <% if (member.image) { %>
+                     src="<%= member.image %>"
+                    <% } else { %>
+                    src="/img/person.png"
+                    <% } %>
+                  />
+                <div class="media-body">
+                    <h1><%= member.name %></h1>
+                    <p class="lead">
+                    <% if (member.type) { %>
+                        <% if (member.type === "MP") {%>
+                        <%= member.party %> MP for <%= member.constituency %>
+                        <% } else if (member.type === "Peer") { %>
+                        <%= member.party %> Peer
+                        <% } %>
+                    <% } %>
+                    </p>
+                </div>
+            </div>
             <h2><i class="fa fa-bullhorn"></i> Leave feedback for <%= member.name %></h2>
             <p class="text-muted">
                 Please note all feedback is publically visible.

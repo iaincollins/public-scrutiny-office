@@ -131,47 +131,36 @@
             <% if (bill.sponsors.length > 0) { %>
             <h2 style="margin-bottom: 10px;">Sponsored by</h2>
             <% } %>
-            <% bill.sponsors.forEach(function(sponsor) { %>
+            <% bill.sponsors.forEach(function(member) { %>
                 <div class="clearfix">
-                <% if (sponsor.type) { %>                
-                    <% if (sponsor.type == "MP") { %>
-                        <h4 class="member" data-party="<%= sponsor.party %>">
-                            <a href="/members<%= sponsor.path %>" class="unstyled">
-                                <span class="fa-stack pull-left">
-                                <i class="fa fa-square fa-stack-2x"></i>
-                                <i class="fa fa-user fa-stack-1x"></i>
-                                </span>
-                              <span class="name"><%= sponsor.name %></span><br/>
-                              <small><%= sponsor.constituency %> MP</small>
-                             </a>
-                        </h4>
-                    <% } else if (sponsor.type == "Peer") { %>
-                        <h4 class="member" data-party="<%= sponsor.party %>">
-                            <a href="/members<%= sponsor.path %>" class="unstyled">
-                                <span class="fa-stack pull-left">
-                                <i class="fa fa-square fa-stack-2x"></i>
-                                <i class="fa fa-user fa-stack-1x"></i>
-                                </span>
-                                <span class="name"><%= sponsor.name %></span><br/>
-                                <small><%= sponsor.party %> Peer</small>
-                            </a>
-                        </h4>
-                    <% } else { %>
-                        <h4>
-                            <span class="fa-stack">
-                            <i class="fa fa-square-o fa-stack-2x"></i>
-                            <i class="fa fa-user fa-stack-1x"></i>
-                            </span>
-                          <span class="name"><%= sponsor.name %></span>
-                        </h4>
-                    <% } %>
+                <% if (member.type) { %>                
+                    <h4 class="member" data-party="<%= member.party %>">
+                        <a href="/members<%= member.path %>" class="unstyled">
+                            <img alt="Photograph of <%= member.name %>" 
+                                 class="member-image"
+                                 data-party="<%= member.party %>"
+                                <% if (member.image) { %>
+                                 src="<%= member.image %>"
+                                <% } else { %>
+                                src="/img/person.png"
+                                <% } %>
+                                 height="48px"
+                            />
+                            <span class="name"><%= member.name %></span><br/>
+                            <% if (member.type == "MP") { %>
+                            <small><%= member.constituency %> MP</small>
+                            <% } else if (member.type == "Peer") { %>
+                            <small><%= member.party %> Peer</small>
+                            <% } %>
+                        </a>
+                    </h4>
                 <% } else { %>
                     <h4>
                         <span class="fa-stack">
                         <i class="fa fa-square-o fa-stack-2x"></i>
                         <i class="fa fa-user fa-stack-1x"></i>
                         </span>
-                      <%= sponsor.name %>
+                      <%= member.name %>
                     </h4>
                 <% } %>
                 </div>

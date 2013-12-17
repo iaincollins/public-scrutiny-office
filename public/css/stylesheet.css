@@ -148,8 +148,31 @@ ul.votes li:nth-child(2) {
     overflow: auto;
 }
 
+.member-image {
+    border-radius: 0px;
+    border-left-width: 6px;
+    padding-left: 2px;
+    border-style: solid;
+}
+
+.media > .member-image {
+    margin-right: 20px;
+    border-left-width: 12px;
+    padding-left: 4px;
+}
+
+h4.member {
+    padding-top: 5px;
+}
+
+h4.member .member-image {
+    margin-right: 10px;
+    position: relative;
+    top: -5px;
+}
+
 .member {
-    height: 38px;
+    height: 48px;
     overflow: hidden;
 }
 .member .fa-stack.pull-left {
@@ -160,36 +183,52 @@ ul.votes li:nth-child(2) {
     color: #fff !important;
 }
 
+.member-image[data-party],
 .member[data-party] .fa {
     color: #999;
+    border-color: #999;
 }
 
+.member-image[data-party="Conservative"],
 .member[data-party="Conservative"] .fa {
     color: #0071c1;
+    border-color: #0071c1;
 }
 
+.member-image[data-party="Liberal Democrat"],
 .member[data-party="Liberal Democrat"] .fa {
     color: #ffba00;
+    border-color: #ffba00;
 }
 
+.member-image[data-party="Labour"],
 .member[data-party="Labour"] .fa {
     color: #ff0000;
+    border-color: #ff0000;
 }
 
+.member-image[data-party="Labour (Co-op)"],
 .member[data-party="Labour (Co-op)"] .fa {
     color: #793682;
+    border-color: #793682;
 }
 
+.member-image[data-party="Democratic Unionist"],
 .member[data-party="Democratic Unionist"] .fa {
     color: #16263f;
+    border-color: #16263f;
 }
 
+.member-image[data-party="Scottish National"],
 .member[data-party="Scottish National"] .fa {
     color: #ffff46;
+    border-color: #ffff46;
 }
 
+.member-image[data-party="Green"],
 .member[data-party="Green"] .fa {
     color: #54b90a;
+    border-color: #54b90a;
 }
 
 .fa-ul {

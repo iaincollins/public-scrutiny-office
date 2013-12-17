@@ -10,12 +10,18 @@
                 <% mps.forEach(function(member) { %>
                     <h4 class="member col-sm-6 col-md-4" data-party="<%= member.party %>" xstyle="width: 33%; display: inline-block;">
                         <a href="/members<%= member.path %>" class="unstyled">
-                            <span class="fa-stack pull-left">
-                            <i class="fa fa-square fa-stack-2x"></i>
-                            <i class="fa fa-user fa-stack-1x"></i>
-                            </span>
-                          <%= member.name %><br/>
-                          <small><%= member.constituency %> MP</small>
+                            <img alt="Photograph of <%= member.name %>" 
+                                 class="pull-left member-image"
+                                 data-party="<%= member.party %>"
+                                 height="48"
+                                 <% if (member.image) { %>
+                                     src="<%= member.image %>"
+                                 <% } else { %>
+                                     src="/img/person.png"
+                                <% } %>
+                            />
+                            <%= member.name %><br/>
+                            <small><%= member.constituency %> MP</small>
                       </a>
                     </h4>
                 <% }); %>
@@ -25,10 +31,16 @@
                 <% peers.forEach(function(member) { %>
                     <h4 class="member col-sm-6 col-md-4" data-party="<%= member.party %>" xstyle="width: 33%; display: inline-block;">
                         <a href="/members<%= member.path %>" class="unstyled">
-                            <span class="fa-stack pull-left">
-                            <i class="fa fa-square fa-stack-2x"></i>
-                            <i class="fa fa-user fa-stack-1x"></i>
-                            </span>
+                            <img alt="Photograph of <%= member.name %>" 
+                                 class="pull-left member-image"
+                                 data-party="<%= member.party %>"
+                                 height="48"
+                                 <% if (member.image) { %>
+                                     src="<%= member.image %>"
+                                 <% } else { %>
+                                     src="/img/person.png"
+                                <% } %>
+                            />
                             <%= member.name %><br/>
                             <small><%= member.party %> Peer</small>
                         </a>
