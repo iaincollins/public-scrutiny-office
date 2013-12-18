@@ -168,6 +168,8 @@ h4.member {
 h4.member .member-image {
     margin-right: 10px;
     position: relative;
+    top: 0px;
+    float: left;
     top: -5px;
 }
 

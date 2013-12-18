@@ -84,7 +84,7 @@
             <% if (bill.html === "") { %>
                 <p class="alert alert-info" style="margin-top: 20px;">
                     <i class="fa fa-info-circle fa-lg"></i>
-                    The text of this Bill has not been published by Parliament yet.
+                    <a href="<%= bill.url %>">See the Parliament website for details. <i class="fa fa-external-link"></i></a>
                 </p>
             <% } else { %>
                 <% if (bill.name === "Energy") { %>
@@ -179,7 +179,7 @@
                 <% } %>
             </ul>
             <% } else { %>
-            <p class="text-muted">The text for this bill is not yet available.</p>
+            <p class="text-muted">The text for this bill is not available.</p>
             <% } %>
             
             <h3>Notes</h3>
