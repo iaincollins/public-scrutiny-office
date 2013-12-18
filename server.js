@@ -53,15 +53,30 @@ app.get('/members', function(req, res, next) {
 });
 
 app.get('/members/:memberId/:memberName', function(req, res, next) {
+    var member;
     members.getMemberById(req.params.memberId)
-    .then(function(member) {
+    .then(function(memberObject) {
+        member = memberObject;
+        if (member === null) {
+            return null;
+        } else {
+            var deferred = Q.defer(); 
+            var query = {  $query: { sponsors: { $elemMatch: { _id: req.params.memberId } } }, $orderby: { lastUpdated: -1 } };
+            bills.getBills(query, function(billsByMember) {
+                deferred.resolve(billsByMember);
+            });
+            return deferred.promise;
+        }
+    })
+    .then(function(billsByMember) {
         if (member === null) {
             res.status(404).render('page-not-found', { title: "Page not found" });
         } else {
-            res.render('member', { title: "", member: member });
+            res.render('member', { title: member.name, member: member, bills: billsByMember });
         }
     });
 });
+
 
 app.get('/faq', function(req, res, next) {
     res.render('faq', { title: "Public Scrutiny Office FAQ" });
