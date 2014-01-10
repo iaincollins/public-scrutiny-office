@@ -1,0 +1,183 @@
+<div class="container-fluid" style="position: relative; top: -20px; margin-bottom: 10px;">
+    <div class="heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1>
+                        <span class="fa-stack fa-lg pull-left logo hidden-xs">
+                            <i class="fa fa-bullhorn fa-stack-1x"></i>
+                            <i class="fa fa-sun-o fa-stack-2x"></i>
+                        </span>
+                        <span class="pull-left" style="display: inline-block;">
+                            Public Scrutiny Office
+                            <br/>
+                            <small>What's going on in the UK Parliament</small>
+                        </span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+        
+            <a href="/bills" class="unstyled">
+                <div class="commons-jumbo">
+                    <h2>
+                        Explore Bills before Parliament
+                        <i class="fa fa-chevron-right pull-right"></i>
+                    </h2>
+                </div>
+            </a>
+            <p class="text-muted" style="padding-top: 0;">
+                <small>Parliamentary copyright images are reproduced with the permission of Parliament.</small>
+            </p>
+
+            <div class="row">
+                 <div class="col-sm-12">
+                    <h2>Parliament on YouTube</h2>
+                    <div id="youtube-player"></div>
+                    <script>
+                        // This is a hack from a JS fiddle 
+                        (function() {
+                            function createPlayer(jqe, video, options) {
+                                var ifr = $('iframe', jqe);
+                                if (ifr.length === 0) {
+                                    ifr = $('<iframe scrolling="no">');
+                                    ifr.addClass('player');
+                                }
+                                var src = 'http://www.youtube.com/embed/' + video.id;
+                                if (options.playopts) {
+                                    src += '?';
+                                    for (var k in options.playopts) {
+                                        src+= k + '=' + options.playopts[k] + '&';
+                                    }  
+                                    src += '_a=b';
+                                }
+                                ifr.attr('src', src);
+                                jqe.append(ifr);  
+                            }
+    
+                            function createCarousel(jqe, videos, options) {
+                                var car = $('div.carousel', jqe);
+                                if (car.length === 0) {
+                                    car = $('<div>');
+                                    car.addClass('carousel');
+                                    jqe.append(car);
+            
+                                }
+                                $.each(videos, function(i,video) {
+                                    options.thumbnail(car, video, options); 
+                                });
+                            }
+    
+                            function createThumbnail(jqe, video, options) {
+                                var imgurl = video.thumbnails[0].url;
+                                var img = $('img[src="' + imgurl + '"]');
+                                if (img.length !== 0) return;
+                                img = $('<img>');    
+                                img.addClass('thumbnail');
+                                jqe.append(img);
+                                img.attr('src', imgurl);
+                                img.attr('title', video.title);
+                                img.click(function() {
+                                    options.player(options.maindiv, video, $.extend(true,{},options,{playopts:{autoplay:1}}));
+                                });
+                            }
+    
+                            var defoptions = {
+                                autoplay: false,
+                                user: null,
+                                carousel: createCarousel,
+                                player: createPlayer,
+                                thumbnail: createThumbnail,
+                                loaded: function() {},
+                                playopts: {
+                                    autoplay: 0,
+                                    egm: 1,
+                                    autohide: 1,
+                                    fs: 1,
+                                    showinfo: 0
+                                }
+                            };
+    
+                            $.fn.extend({
+                                youTubeChannel: function(options) {
+                                    var md = $(this);
+                                    md.addClass('youtube');
+                                    md.addClass('youtube-channel');
+                                    var allopts = $.extend(true, {}, defoptions, options);
+                                    allopts.maindiv = md;
+                                    $.getJSON('http://gdata.youtube.com/feeds/users/' + allopts.user + '/uploads?alt=json-in-script&format=5&callback=?', null, function(data) {
+                                        var feed = data.feed;
+                                        var videos = [];
+                                        $.each(feed.entry, function(i, entry) {
+                                            var video = {
+                                                title: entry.title.$t,
+                                                id: entry.id.$t.match('[^/]*$'),
+                                                thumbnails: entry.media$group.media$thumbnail
+                                            };
+                                            videos.push(video);
+                                        });
+                                        allopts.allvideos = videos;
+                                        allopts.carousel(md, videos, allopts);
+                                        allopts.player(md, videos[0], allopts);
+                                        allopts.loaded(videos, allopts);
+                                    });
+                                } 
+                            });
+
+                        })();
+
+                        $(function() {
+                            $('#youtube-player').youTubeChannel({ user: 'UKParliament' });
+                        });
+                    </script>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>About the Public Scrutiny Office</h2>
+                    <p class="lead">
+                        Discover, vote and comment on new legislation before in Parliament.
+                    <p>
+                    <p>
+                        This site is a not-for-profit, the software behind it is <a href="https://github.com/iaincollins/public-scrutiny-office">open source</a>. Not affiliated with <a href="http://parliament.uk">parliament.uk</a>.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-sm-4">
+            <div class="news-sidebar-heading">
+                <h2>In the media</h2>
+            </div>
+            <script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fnews.google.com%2Fnews%2Ffeeds%3Fhl%3Den%26gl%3Dus%26q%3Duk%2Bparliament%26um%3D1%26ie%3DUTF-8%26output%3Drss&num=10&utf=y&date=y"></script>
+          </div>
+    </div>
+</div>
+<script>
+    $(document).on('click', 'ul.bills li', function(e){
+        if ($(e.target).parents('.likebtn-wrapper').length) {
+            // ignore clicks on the voting buttons
+            return;
+        } else if ($(e.target).parents('*[href]').length || $(e.target).attr('href')) {
+            // ignore clicks on the links themselves (so people can still right click)
+            return;
+        } else {
+            window.location = $(this).data('href');
+        }
+    });
+
+    $(function() {
+        Pizza.init(document.body, {
+            "show_percent": false,
+            "donut": true
+        });
+    });
+</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a95ffd67610095" async="async"></script>
+<script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>

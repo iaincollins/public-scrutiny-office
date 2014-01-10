@@ -1,32 +1,12 @@
-<div class="container-fluid" style="position: relative; top: -20px;">
-    <div class="heading">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h1>
-                        <span class="fa-stack fa-lg pull-left logo hidden-xs">
-                            <i class="fa fa-bullhorn fa-stack-1x"></i>
-                            <i class="fa fa-sun-o fa-stack-2x"></i>
-                        </span>
-                        <span class="pull-left" style="display: inline-block;">
-                            Public Scrutiny Office
-                            <br/>
-                            <small>Feedback on legislation before Parliament</small>
-                        </span>
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container">
     <div class="row">
         <div class="col-sm-8">
+
             <div class="addthis_toolbox addthis_default_style addthis_32x32_style pull-right hidden-xs">
                 <a class="addthis_button_twitter pull-right"></a>
                 <a class="addthis_button_facebook pull-right"></a>
             </div>
-            
+
             <ul class="nav nav-pills" style="margin-bottom: 20px;">
               <li <% if (filter == "recently-active") { %>class="active"<% } %>><a href="/bills/">View all</a></li>
               <li <% if (filter == "popular") { %>class="active"<% } %>><a href="/bills/popular">Popular</a></li>
@@ -35,15 +15,19 @@
             </ul>
             
             <% if (filter == "recently-active") { %>
-            <p class="text-muted">Bills currently being debated in Parliament.</p>
+                <h1>Bills before Parliament</h1>
+                <p class="lead">All Bills currently before Parliament</p>
             <% } else if (filter == "popular") { %>
-            <p class="text-muted">Bills before Parliament that have the strongest public support.</p>
+                <h1>Popular Bills</h1>
+                <p class="lead">Bills with the strongest public support</p>
             <% } else if (filter == "unpopular") { %>
-            <p class="text-muted">The most contentious Bills before Parliament.</p>
+                <h1>Unpopular Bills</h1>
+                <p class="lead">The most contentious Bills</small>
             <% } else if (filter == "pending") { %>
-            <p class="text-muted">Bills that have not yet been made available by Parliament (but may be available soon).</p>
+                <h1>Pending Bills</h1>
+                <p class="lead">New Bills that have yet to be published</p>
             <% } %>
-            
+
             <ul class="list-unstyled bills">
                 <% for (var i=0; i<bills.length; i++) { %>
                     <li class="clearfix" data-href="/bills<%= bills[i].path %>">
@@ -156,13 +140,20 @@
             </ul>
         </div>
         <div class="col-sm-4">
-            <h2 style="margin-top: 0;">Upcoming debates</h2>
+            <div class="events-sidebar-heading">
+                <h2>Upcoming discussions of Bills</h2>
+            </div>
+            
             <% var lastEvent = null;
                 for (var i=0; i<events.length; i++) {
                     var date = phpjs.date('l, jS F', new Date(Date.parse(events[i].date)) );
 
+                    // Only list discussions of Bills
+                    // @todo Create method to do only fetch Events by Type (instead of using a regex)
+                    if (events[i].name.match(/ Bill/) > -1)
+                        continue;
+                        
                     if (lastEvent != events[i].date) {
-                    
                         if (lastEvent != null) { %></ul><% }
                         
                         lastEvent = events[i].date;

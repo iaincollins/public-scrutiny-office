@@ -83,7 +83,13 @@ app.get('/faq', function(req, res, next) {
 });
 
 app.get('/', function(req, res, next) {
-    res.redirect('/bills/');
+    res.redirect('/news/');
+});
+
+app.get('/news', function(req, res, next) {
+    events.upcomingEvents(function(upcomingEvents) {
+         res.render('news', { events: upcomingEvents });
+    });
 });
 
 /**
@@ -98,9 +104,9 @@ app.get('/bills', function(req, res, next) {
 
     bills.getBills(query, function(billsBeforeParliament) {
         events.upcomingEvents(function(upcomingEvents) {
-            res.render('index', { bills: billsBeforeParliament,
+            res.render('bills', { bills: billsBeforeParliament,
                                   events: upcomingEvents,
-                                  title: "Public Scrutiny Office - Review and comment on bills before Parliament",
+                                  title: "Public Scrutiny Office - What's going on in the UK Parliament",
                                   filter: "recently-active" // Default filter
                                  });
         });
@@ -143,9 +149,9 @@ app.get('/bills/:filter', function(req, res, next) {
             case null:
                 // If no file extention, return a standard webpage
                 events.upcomingEvents(function(upcomingEvents) {
-                    res.render('index', { bills: billsBeforeParliament,
+                    res.render('bills', { bills: billsBeforeParliament,
                                           events: upcomingEvents,
-                                          title: "Public Scrutiny Office - Review and comment on bills before Parliament",
+                                          title: "Public Scrutiny Office - What's going on in the UK Parliament",
                                           filter: filter
                                          });
                  });
