@@ -11,7 +11,7 @@
                         <span class="pull-left" style="display: inline-block;">
                             Public Scrutiny Office
                             <br/>
-                            <small>Review and comment on bills before Parliament</small>
+                            <small>Feedback on legislation before Parliament</small>
                         </span>
                     </h1>
                 </div>
@@ -188,7 +188,7 @@
     </div>
 </div>
 <script>
-    $(document).on('click touch', 'ul.bills li', function(e){
+    $(document).on('click', 'ul.bills li', function(e){
         if ($(e.target).parents('.likebtn-wrapper').length) {
             // ignore clicks on the voting buttons
             return;
