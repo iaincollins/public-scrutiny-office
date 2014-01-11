@@ -87,9 +87,7 @@ app.get('/', function(req, res, next) {
 });
 
 app.get('/news', function(req, res, next) {
-    events.upcomingEvents(function(upcomingEvents) {
-         res.render('news', { events: upcomingEvents });
-    });
+    res.render('news', {});
 });
 
 /**
