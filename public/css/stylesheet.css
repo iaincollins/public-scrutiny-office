@@ -74,6 +74,7 @@ h2,h3,h4 {
     color: #fff;
     padding: 20px;
     height: 300px;
+    margin-right: -20px;
 }
 
 .box-jumbo h2,
@@ -201,7 +202,11 @@ a.unstyled {
     font-size: 42px;
 }
 
-.heading h1 small {
+.heading h3 {
+    padding-bottom: 50px;
+}
+
+.heading small {
     color: #afe5d2;
     font-weight: 300;
 }
