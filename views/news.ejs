@@ -75,12 +75,47 @@
             </div>
 
             <div class="row">
+                <div class="col-sm-6">
+                    <div class="bills-jumbo most-popular">
+                        <h3><a href="/bills/popular">Most popular</a></h3>
+                        <ul class="fa-ul">
+                            <%
+                                for (var i=0; i<popularBills.length; i++) {
+                                    if (i>=5)
+                                        break;
+                            %>
+                                <li>
+                                    <a href="/bills<%= popularBills[i].path %>"><i class="fa fa-li fa-chevron-right"></i><%= popularBills[i].name %> Bill</a>
+                                </li>
+                            <% } %>
+                        </ul>
+                     </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="bills-jumbo least-popular">
+                        <h3><a href="/bills/unpopular">Least popular</a></h3>
+                        <ul class="fa-ul">
+                            <%
+                                for (var i=0; i<unpopularBills.length; i++) {
+                                    if (i>=5)
+                                        break;
+                            %>
+                                <li>
+                                    <a href="/bills<%= unpopularBills[i].path %>"><i class="fa fa-li fa-chevron-right"></i><%= unpopularBills[i].name %> Bill</a>
+                                </li>
+                            <% } %>
+                        </ul>
+                     </div>
+                </div>
+            </div>
+            
+            <div class="row">
                  <div class="col-sm-12">
                     <h2>
                         <i class="fa fa-youtube-play"></i> Parliament TV
                     </h2>
                     <p class="lead">
-                        <small>Follow <a href="http://www.youtube.com/user/UKParliament/videos">Parliament on YouTube</a> or watch live on <a href="http://www.parliamentlive.tv">parliamentlive.tv</a></small>
+                        <small>Catch up with <a href="http://www.youtube.com/user/UKParliament/videos">Parliament on YouTube</a> or watch live on <a href="http://www.parliamentlive.tv">parliamentlive.tv</a></small>
                     </p>
                     <div id="youtube-player"></div>
                     <p>
@@ -93,10 +128,10 @@
                 <div class="col-sm-12">
                     <br/>
                     <p class="text-muted">
-                         This site is not-for-profit. It is not affiliated with <a href="http://parliament.uk">parliament.uk</a>.
+                         This site is not-for-profit and aimed at making Parliament easier to engage with. It is not affiliated with <a href="http://parliament.uk">parliament.uk</a>.
                     </p>
                     <p class="text-muted">
-                        Contributions, suggestions and ideas welcome! <a href="/about">More about this site.</a>
+                        Contributions, suggestions and ideas welcome! <a href="/about">More information.</a>
                     </p>
                 </div>
             </div>
@@ -105,6 +140,7 @@
         <div class="col-sm-4">
             <div class="news-sidebar-heading">
                 <h2>In the media</h2>
+                <p class="text-muted"><i class="fa fa-external-link"></i> news links are external</p>
             </div>
             <script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fnews.google.com%2Fnews%2Ffeeds%3Fhl%3Den%26gl%3Dus%26q%3Duk%2Bparliament%26um%3D1%26ie%3DUTF-8%26output%3Drss&num=10&utf=y&date=y"></script>
           </div>
@@ -128,10 +164,9 @@
 
     $('#youtube-player').youTubeChannel({ user: 'UKParliament' });
 
-    $(function() {
-        Pizza.init(document.body, {
-            "show_percent": false,
-            "donut": true
-        });
+    $(document).ready(function() {
+        var height = Math.max($(".most-popular").height(), $(".least-popular").height());
+        $(".most-popular").height(height);
+        $(".least-popular").height(height);
     });
 </script>

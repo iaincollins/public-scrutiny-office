@@ -87,7 +87,32 @@ app.get('/', function(req, res, next) {
 });
 
 app.get('/news', function(req, res, next) {
-    res.render('news', {});
+    
+    // Only fetch bills that (a) have text and (b) were updated recently
+    // (Bills that have not bene updated recently must not have been in the
+    // RSS the last time it was parsed so have been dropped or become law.)
+    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
+//    var query = { lastUpdated: { $gte: yesterday } };
+    var popularBillsQuery,unpopularBillsQuery,popularBills,unpopularBills;
+    
+    popularBillsQuery = {};
+    popularBillsQuery['$query'] = { $where: 'this.upVotes > this.downVotes' };
+    popularBillsQuery['$orderby'] = { upVotes: -1 };
+    popularBillsQuery['hasText'] = true;
+
+    unpopularBillsQuery = {};
+    unpopularBillsQuery['$query'] = { $where: 'this.downVotes > this.upVotes' };
+    unpopularBillsQuery['$orderby'] = { downVotes: -1 };
+    unpopularBillsQuery['hasText'] = true;
+
+    bills.getBills(popularBillsQuery, function(popularBillsBeforeParliament) {
+        bills.getBills(unpopularBillsQuery, function(unpopularBillsBeforeParliament) {
+            res.render('news', { popularBills: popularBillsBeforeParliament,
+                                 unpopularBills: unpopularBillsBeforeParliament
+                               });
+        });
+    });
+
 });
 
 /**

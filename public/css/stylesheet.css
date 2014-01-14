@@ -52,20 +52,51 @@ h2,h3,h4 {
 
 .news-sidebar-heading {
     position: relative;
-    background: url(/img/newspapers.jpg) 130px center;
+    background: url(/img/newspapers.jpg) 150px center;
     background-repeat: no-repeat;
     width: 100%;
     padding: 0;
     margin-bottom: 20px;
 }
 
-.news-sidebar-heading h2 {
+.news-sidebar-heading h3 {
     width: 100%;
     margin: 0;
-    padding: 15px;
+    padding: 10px 0;
     padding-left: 0;
     font-size: 28px;
     line-height: 28px;
+}
+
+.bills-jumbo {
+   padding: 0 20px 5px 20px;
+   width: 100%;
+   margin: 10px 0;
+}
+
+.bills-jumbo h3 {
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    padding: 10px;
+    margin: 0 -20px 10px -20px;
+}
+
+.bills-jumbo ul li {
+    margin: 5px 0;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.bills-jumbo a {
+    color: #fff !important;
+}
+
+.bills-jumbo.most-popular {
+    background: #3D9970;
+}
+
+.bills-jumbo.least-popular {
+    background: #85144B;
 }
 
 .box-jumbo {
@@ -138,6 +169,10 @@ h2,h3,h4 {
     border-color: #0e6b43;
     border-radius: 0;
     color: #fff;
+}
+
+.nav.navbar-nav a {
+    font-size: 16px;
 }
 
 .nav.nav-pills li a {
@@ -474,6 +509,7 @@ ul.rss-items li {
 }
 
 .youtube .carousel {
+    display: none;
     width: 20%;
     height: 100%;
     overflow: auto;
@@ -493,7 +529,7 @@ ul.rss-items li {
 }
 
 .youtube iframe.player {
-    width: 80%;
+    width: 100%;
     height: 340px;
     overflow: auto;
     border: 0;
