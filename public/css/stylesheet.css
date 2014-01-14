@@ -52,11 +52,12 @@ h2,h3,h4 {
 
 .news-sidebar-heading {
     position: relative;
-    background: url(/img/newspapers.jpg) 150px center;
+    background: url(/img/newspapers.jpg) 135px center;
     background-repeat: no-repeat;
     width: 100%;
     padding: 0;
-    margin-bottom: 20px;
+    margin: 0 0 20px 0;
+    margin-top: -20px;
 }
 
 .news-sidebar-heading h3 {
@@ -69,21 +70,21 @@ h2,h3,h4 {
 }
 
 .bills-jumbo {
-   padding: 0 20px 5px 20px;
+   padding: 0 15px 5px 15px;
    width: 100%;
-   margin: 10px 0;
+   margin: 20px 0;
 }
 
 .bills-jumbo h3 {
     background: rgba(0,0,0,0.5);
     color: #fff;
     padding: 10px;
-    margin: 0 -20px 10px -20px;
+    margin: 0 -15px 12px -15px;
 }
 
 .bills-jumbo ul li {
-    margin: 5px 0;
-    font-size: 18px;
+    margin: 8px 0;
+    font-size: 16px;
     line-height: 22px;
 }
 
@@ -105,17 +106,15 @@ h2,h3,h4 {
     color: #fff;
     padding: 20px;
     height: 300px;
-    margin-right: -20px;
 }
 
-.box-jumbo h2,
-.box-jumbo h4 {
+.box-jumbo h2 {
     font-weight: 100;
     font-family: 'Helvetica Neue', Helvetica, Arial , sans-serif;
+    margin-top: 0;
 }
 
-.box-jumbo h2 strong,
-.box-jumbo h4 strong {
+.box-jumbo strong {
     font-weight: 600;
     font-family: 'Helvetica Neue', Helvetica, 'Arial Black', sans-serif;
 }
@@ -253,6 +252,12 @@ a.unstyled {
     margin-right: 20px;
     color: #0b5535;
     text-shadow: 0px 2px 1px #00a676, 0px -2px 1px #06311f;
+}
+
+.heading-inverted {
+    background: #000;
+    color: #fff;
+    padding: 5px 10px;
 }
 
 .label {
