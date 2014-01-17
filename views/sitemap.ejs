@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
+        <loc>http://public-scrutiny-office.org/news/</loc>
+        <lastmod>2013-12-06</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
         <loc>http://public-scrutiny-office.org/about/</loc>
         <lastmod>2013-12-06</lastmod>
         <changefreq>monthly</changefreq>
@@ -34,12 +40,12 @@
         <loc>http://public-scrutiny-office.org/bills/</loc>
         <lastmod><%- phpjs.date('Y-m-d') %></lastmod>
         <changefreq>daily</changefreq>
-        <priority>0.5</priority>
+        <priority>1.0</priority>
     </url><% bills.forEach(function(bill) { %>
     <url>
         <loc>http://public-scrutiny-office.org/bills<%- bill.path %></loc>
         <lastmod><%- bill.lastUpdated %></lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <changefreq>weeklyy</changefreq>
+        <priority>1.0</priority>
     </url><% }); %>
 </urlset>

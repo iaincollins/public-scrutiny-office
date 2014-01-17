@@ -92,24 +92,25 @@ app.get('/news', function(req, res, next) {
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
     var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
-//    var query = { lastUpdated: { $gte: yesterday } };
-    var popularBillsQuery,unpopularBillsQuery,popularBills,unpopularBills;
     
-    popularBillsQuery = {};
-    popularBillsQuery['$query'] = { $where: 'this.upVotes > this.downVotes' };
+    var popularBillsQuery = {};
+    popularBillsQuery['$query'] = { $where: 'this.upVotes > this.downVotes', lastUpdated: { $gte: yesterday } };
     popularBillsQuery['$orderby'] = { upVotes: -1 };
     popularBillsQuery['hasText'] = true;
 
-    unpopularBillsQuery = {};
-    unpopularBillsQuery['$query'] = { $where: 'this.downVotes > this.upVotes' };
+    var unpopularBillsQuery = {};
+    unpopularBillsQuery['$query'] = { $where: 'this.downVotes > this.upVotes', lastUpdated: { $gte: yesterday } };
     unpopularBillsQuery['$orderby'] = { downVotes: -1 };
     unpopularBillsQuery['hasText'] = true;
 
-    bills.getBills(popularBillsQuery, function(popularBillsBeforeParliament) {
-        bills.getBills(unpopularBillsQuery, function(unpopularBillsBeforeParliament) {
-            res.render('news', { popularBills: popularBillsBeforeParliament,
-                                 unpopularBills: unpopularBillsBeforeParliament
-                               });
+    bills.getBills({ lastUpdated: { $gte: yesterday } }, function(billsBeforeParliament) {
+        bills.getBills(popularBillsQuery, function(popularBillsBeforeParliament) {
+            bills.getBills(unpopularBillsQuery, function(unpopularBillsBeforeParliament) {
+                res.render('news', { bills: billsBeforeParliament,
+                                     popularBills: popularBillsBeforeParliament,
+                                     unpopularBills: unpopularBillsBeforeParliament
+                                   });
+            });
         });
     });
 
