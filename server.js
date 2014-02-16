@@ -33,8 +33,20 @@ partials.register('.ejs', ejs);
 /**
  * Handle requests for static pages.
  */
+app.get('/news/', function(req, res, next) {
+    res.redirect('/');
+});
+app.get('/more', function(req, res, next) {
+    res.render('more', { title: "More about the Public Scrutiny Office" });
+});
 app.get('/about', function(req, res, next) {
     res.render('about', { title: "About the Public Scrutiny Office" });
+});
+app.get('/faq', function(req, res, next) {
+    res.render('faq', { title: "Public Scrutiny Office FAQ" });
+});
+app.get('/api-documentation', function(req, res, next) {
+    res.render('api-documentation', { title: "Public Scrutiny Office API Documentation" });
 });
 
 app.get('/members', function(req, res, next) {
@@ -77,16 +89,7 @@ app.get('/members/:memberId/:memberName', function(req, res, next) {
     });
 });
 
-
-app.get('/faq', function(req, res, next) {
-    res.render('faq', { title: "Public Scrutiny Office FAQ" });
-});
-
 app.get('/', function(req, res, next) {
-    res.redirect('/news/');
-});
-
-app.get('/news', function(req, res, next) {
     
     // Only fetch bills that (a) have text and (b) were updated recently
     // (Bills that have not bene updated recently must not have been in the
@@ -106,7 +109,7 @@ app.get('/news', function(req, res, next) {
     bills.getBills({ lastUpdated: { $gte: yesterday } }, function(billsBeforeParliament) {
         bills.getBills(popularBillsQuery, function(popularBillsBeforeParliament) {
             bills.getBills(unpopularBillsQuery, function(unpopularBillsBeforeParliament) {
-                res.render('news', { bills: billsBeforeParliament,
+                res.render('index', { bills: billsBeforeParliament,
                                      popularBills: popularBillsBeforeParliament,
                                      unpopularBills: unpopularBillsBeforeParliament
                                    });

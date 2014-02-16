@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>API Documentation</h1>
+            <h3>Fetch Bills before Parliament</h3>
+            <p>
+                You can fetch the list of Bills before Parliament (along with some metadata about each Bill) by using:
+            </p>
+            <p>
+                <a href="/bills.json">http://public-scrutiny-office.org/bills.json</a>
+            </p>
+            <p>
+                You can also request just the most (or least) popular Bills and Bills yet to be published:
+            </p>
+            <p>
+                <a href="/bills/popular.json">http://public-scrutiny-office.org/bills/popular.json</a><br/>
+                <a href="/bills/unpopular.json">http://public-scrutiny-office.org/bills/unpopular.json</a><br/>
+                <a href="/bills/pending.json">http://public-scrutiny-office.org/bills/pending.json</a>
+            </p>
+            <h3>Fetching information about a specific Bill</h3>
+            <p>
+                You can use the <strong>.hasText</strong> property on a Bill to check if there is text available for it and the
+                <strong>.htmlUrl</strong> and <strong>.textUrl</strong> properties on each Bill object to get the full text of an individual Bill.
+            </p>
+            <p>
+                If you know the URL for a bill you can get info for it in JSON, or just the bill text as HTML or plain text (UTF-8) directly by appending an appropriate file extention.
+            </p>
+            <p>
+                e.g. for <a href="/bills/2013-2014/alan-turing-statutory-pardon">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon</a>
+            </p>
+            <p>
+                <strong>JSON</strong>: <a href="/bills/2013-2014/alan-turing-statutory-pardon.json">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.json</a>
+            </p>
+            <p>
+                <strong>HTML:</strong> <a href="/bills/2013-2014/alan-turing-statutory-pardon.html">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.html</a>
+            </p>
+            <p>
+                <strong>Plain Text</strong>: <a href="/bills/2013-2014/alan-turing-statutory-pardon.text">http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.text</a>
+            </p>
+            <h3>Fetching information about an MP or Peer</h3>
+            <p>
+                There is currently not an API for members on this site, please see the <a href="http://data.parliament.uk/membersdataplatform/">UK Parliament - Members' Names Data Platform</a>.
+            </p>
+            <p>
+                An API exposing some information about members and Bills they have sponsored (and related information) is planned.
+            </o>
+        </div>
+    </div>
+</div>

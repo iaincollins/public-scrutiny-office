@@ -49,6 +49,22 @@ h2,h3,h4 {
     line-height: 18px;
 }
 
+.box-feedback {
+    padding: 5px 10px;
+    background: #645ea8;
+    color: #fff;
+}
+
+.box-feedback a {
+    color: #fff !important;
+}
+
+.box-feedback h3 {
+    background: rgba(0,0,0,0.5);
+    margin: -5px -10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
 
 .news-sidebar-heading {
     position: relative;
@@ -57,7 +73,6 @@ h2,h3,h4 {
     width: 100%;
     padding: 0;
     margin: 0 0 20px 0;
-    margin-top: -20px;
 }
 
 .news-sidebar-heading h3 {
@@ -384,12 +399,10 @@ h3.member .member-image {
     height: 48px;
     overflow: hidden;
 }
-.member .fa-stack.pull-left {
+.member .fa-user {
     margin-right: 10px;
-}
-
-.member .fa.fa-user {
-    color: #fff !important;
+    padding: 5px;
+    border-left: 5px solid #999;
 }
 
 .member-image[data-party],
