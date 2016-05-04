@@ -20,7 +20,7 @@ var config = require(__dirname + '/../lib/config.json');
 
 var date = new Date();
 
-GLOBAL.db = mongoJs.connect("127.0.0.1/public-scrutiny-office", ["bills", "members", "events"]);
+global.db = mongoJs.connect("127.0.0.1/public-scrutiny-office", ["bills", "members", "events"]);
         
 console.log("*** Updating the Public Scrutiny Office database");
 

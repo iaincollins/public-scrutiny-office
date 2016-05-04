@@ -4,7 +4,7 @@
 
 var mongoJs = require('mongojs');
 
-GLOBAL.db = mongoJs.connect("127.0.0.1/public-scrutiny-office", ["bills", "members", "events"]);
+global.db = mongoJs.connect("127.0.0.1/public-scrutiny-office", ["bills", "members", "events"]);
 
 db.bills.find({}, function(err, bills) {
     if (err) {

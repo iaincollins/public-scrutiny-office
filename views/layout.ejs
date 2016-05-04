@@ -12,7 +12,8 @@
         <link rel="shortcut icon" href="/favicon.ico"/>
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"/>
-        <link rel="stylesheet" type="text/css" href="/css/stylesheet.css?v=11"/>
+        <link rel="stylesheet" type="text/css" href="/css/stylesheet.css?v=12"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
         <script src="/js/snap.svg.js"></script>
@@ -23,6 +24,7 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+          
     </head>
     <body>
         <div class="navbar navbar-default" role="navigation">
@@ -34,15 +36,41 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="/">Public Scrutiny Office</a>
+            <a href="/" class="navbar-brand visible-xs"><i class="material-icons">gavel</i> Public Scrutiny Office</a>
             </div>
             <div class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
-                <li><a href="/bills/">Bills</a></li>
-                <li><a href="/members/">Members</a></li>
-                <li><a href="/more/">More…</a></li>
+                <li><a href="/bills/"><i class="material-icons">library_books</i> Bills</a></li>
+                <li><a href="/members/"><i class="material-icons">account_circle</i> Members</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/more/"><i class="material-icons">info</i> More information…</a></li>
               </ul>
             </div><!--/.nav-collapse -->
+          </div>
+        </div>
+        <div class="container-fluid" style="position: relative; top: -20px; margin-bottom: 10px;">
+          <div class="heading">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h1 class="hidden-xs">
+                    <i class="material-icons pull-left">gavel</i>
+                    <span class="pull-left" style="display: inline-block;">
+                      Public Scrutiny Office
+                      <br/>
+                      <small>What's going on in the UK Parliament</small>
+                    </span>
+                  </h1>
+                  <h3 class="visible-xs">
+                    <span class="pull-left" style="display: inline-block;">
+                      What's going on<br>
+                      in the UK Parliament
+                    </span>
+                  </h3>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <%- body %>

@@ -15,7 +15,7 @@ var members = require(__dirname + '/lib/members');
 // Using PHPJS sparingly for string and date functions.
 var phpjs = require('phpjs');
 
-GLOBAL.db = mongoJs.connect("127.0.0.1/public-scrutiny-office", ["bills", "members", "events"]);
+global.db = mongoJs.connect("127.0.0.1/public-scrutiny-office", ["bills", "members", "events"]);
 
 // Load app config
 var config = require(__dirname + '/lib/config.json');
@@ -34,7 +34,10 @@ partials.register('.ejs', ejs);
  * Handle requests for static pages.
  */
 app.get('/news/', function(req, res, next) {
-    res.redirect('/');
+    res.redirect('/bills');
+});
+app.get('/', function(req, res, next) {
+    res.redirect('/bills');
 });
 app.get('/more', function(req, res, next) {
     res.render('more', { title: "More about the Public Scrutiny Office" });

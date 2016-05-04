@@ -3,12 +3,12 @@
         <div class="col-sm-12">
             <h1>Members of Parliament</h1>
             <p class="lead">
-                Members of Parliament who have sponsored bills.
+                Members of Parliament and Peers in the House of Lords who have sponsored Bills.
             <p>
             <h2>MPs in the House of Commons</h2>
             <div class="row clearfix">
                 <% mps.forEach(function(member) { %>
-                    <h4 class="member col-sm-6 col-md-4" data-party="<%= member.party %>" xstyle="width: 33%; display: inline-block;">
+                    <h4 class="member col-sm-6 col-md-4" data-party="<%= member.party %>">
                         <a href="/members<%= member.path %>" class="unstyled">
                             <img alt="Photograph of <%= member.name %>" 
                                  class="pull-left member-image"
@@ -29,7 +29,7 @@
             <h2>Peers in the House of Lords</h2>
             <div class="row clearfix">
                 <% peers.forEach(function(member) { %>
-                    <h4 class="member col-sm-6 col-md-4" data-party="<%= member.party %>" xstyle="width: 33%; display: inline-block;">
+                    <h4 class="member col-sm-6 col-md-4" data-party="<%= member.party %>">
                         <a href="/members<%= member.path %>" class="unstyled">
                             <img alt="Photograph of <%= member.name %>" 
                                  class="pull-left member-image"

@@ -1,13 +1,13 @@
 {
   "name": "public-scrutiny-office",
-  "description": "Public Scrutiny Office",
-  "version": "0.0.1",
+  "description": "Public Scrutiny Office website",
+  "version": "0.0.2",
   "private": true,
   "dependencies": {
     "express": "3.*",
     "express-partials": "*",
     "ejs": "*",
-    "mongojs": "*",
+    "mongojs": "0.10.0",
     "xml2js": "*",
     "phpjs": "*",
     "request": "*",

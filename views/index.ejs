@@ -1,173 +1,99 @@
-<div class="container-fluid" style="position: relative; top: -20px; margin-bottom: 10px;">
-    <div class="heading">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h1 class="hidden-xs">
-                        <span class="fa-stack fa-lg pull-left logo hidden-xs">
-                            <i class="fa fa-bullhorn fa-stack-1x"></i>
-                            <i class="fa fa-sun-o fa-stack-2x"></i>
-                        </span>
-                        <span class="pull-left" style="display: inline-block;">
-                            Public Scrutiny Office
-                            <br/>
-                            <small>What's going on in the UK Parliament</small>
-                        </span>
-                    </h1>
-                    <h3 class="visible-xs">
-                        <span class="pull-left" style="display: inline-block;">
-                            Public Scrutiny Office
-                            <br/>
-                            <small>What's going on in the UK Parliament</small>
-                        </span>
-                    </h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container">
-    <div class="row">
-        <div class="col-sm-8">
-        
-            <div class="row">
-                <div class="col-sm-4 hidden-xs">
-                    <div class="box-jumbo">
-                        <a href="/bills" class="unstyled visible-lg">
-                            <h2>
-                                <strong>Discover</strong><br/>
-                                <strong>vote</strong> &amp;<br/>
-                                <strong>comment</strong><br/>
-                                on new legislation
-                            </h2>
-                        </a>
-                        <a href="/bills" class="unstyled visible-sm visible-md">
-                            <p class="lead">
-                                <strong>Discover</strong><br/>
-                                <strong>vote</strong> &amp;<br/>
-                                <strong>comment</strong><br/>
-                                on new legislation
-                            </p>
-                        </a>
-                    </div>
-                </div>
-                 <div class="col-sm-8">
-                    <a href="/bills" class="unstyled">
-                        <div class="commons-jumbo">
-                            <h2>
-                                <%= bills.length %> Bills before Parliament
-                                <i class="fa fa-chevron-right pull-right"></i>
-                            </h2>
-                        </div>
-                    </a>
-                </div>
+  <div class="row">
+    <div class="col-sm-8">
+    
+      <div class="row">
+         <div class="col-sm-12">
+          <a href="/bills" class="unstyled">
+            <div class="commons-jumbo">
+              <h2>
+                <%= bills.length %> Bills before Parliament
+                <i class="fa fa-chevron-right pull-right"></i>
+              </h2>
             </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="bills-jumbo most-popular">
-                        <h3><a href="/bills/popular">Most popular</a></h3>
-                        <ul class="fa-ul">
-                            <%
-                                for (var i=0; i<popularBills.length; i++) {
-                                    if (i>=5)
-                                        break;
-                            %>
-                                <li>
-                                    <a href="/bills<%= popularBills[i].path %>"><i class="fa fa-li fa-chevron-right"></i><%= popularBills[i].name %> Bill</a>
-                                </li>
-                            <% } %>
-                        </ul>
-                     </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="bills-jumbo least-popular">
-                        <h3><a href="/bills/unpopular">Least popular</a></h3>
-                        <ul class="fa-ul">
-                            <%
-                                for (var i=0; i<unpopularBills.length; i++) {
-                                    if (i>=5)
-                                        break;
-                            %>
-                                <li>
-                                    <a href="/bills<%= unpopularBills[i].path %>"><i class="fa fa-li fa-chevron-right"></i><%= unpopularBills[i].name %> Bill</a>
-                                </li>
-                            <% } %>
-                        </ul>
-                     </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                 <div class="col-sm-12">
-                    <h2 class="heading-inverted" style="margin-top: 10px; margin-bottom: 0;">
-                        <i class="fa fa-youtube-play"></i> Parliament TV
-                    </h2>
-                    <div id="youtube-player"></div>
-                    <p class="lead">
-                        <small>Catch up with <a href="http://www.youtube.com/user/UKParliament/videos">Parliament on YouTube</a> or watch live on <a href="http://www.parliamentlive.tv">parliamentlive.tv</a></small>
-                    </p>
-                    <p>
-                        You can also watch sessions from Parliament live via <a href="http://www.bbc.co.uk/democracylive/bbc_parliament/">BBC Parliament LIVE</a> either online or via terrestrial TV or satellite.
-                    </p>
-                </div>
-            </div>
+          </a>
         </div>
+      </div>
 
-        <div class="col-sm-4">
-            <div class="box-feedback">
-                <h3><a href="http://feedback.public-scrutiny-office.org">Feedback &amp; discussion</a></h3>
-                <p>
-                    Interested in parliamentary data, the services on parliament.uk or have any questions?
-                </p>
-                <h4>
-                    <i class="fa fa-chevron-right"></i> <a href="http://feedback.public-scrutiny-office.org">feedback.public-scrutiny-office.org</a>
-                <h4/>
-            </div>
-            <div class="news-sidebar-heading">
-                <h2>In the media</h2>
-                <p class="text-muted"><i class="fa fa-external-link"></i> news links are external</p>
-            </div>
-            <script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fnews.google.com%2Fnews%2Ffeeds%3Fhl%3Den%26gl%3Dus%26q%3Duk%2Bparliament%26um%3D1%26ie%3DUTF-8%26output%3Drss&num=10&utf=y&date=y"></script>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="bills-jumbo most-popular">
+            <h2>Most Popular Bills</h2>
+            <ul class="fa-ul">
+              <%
+                for (var i=0; i<popularBills.length; i++) {
+                  if (i>=10)
+                    break;
+              %>
+                <li>
+                  <i class="fa fa-li fa-angle-right text-muted"></i> <a href="/bills<%= popularBills[i].path %>"><%= popularBills[i].name %> Bill</a>
+                </li>
+              <% } %>
+            </ul>
+           </div>
         </div>
+        <div class="col-sm-6">
+          <div class="bills-jumbo least-popular">
+            <h2>Most Criticized Bills</h2>
+            <ul class="fa-ul">
+              <%
+                for (var i=0; i<unpopularBills.length; i++) {
+                  if (i>=10)
+                    break;
+              %>
+                <li>
+                  <i class="fa fa-li fa-angle-right text-muted"></i> <a href="/bills<%= unpopularBills[i].path %>"></i><%= unpopularBills[i].name %> Bill</a>
+                </li>
+              <% } %>
+            </ul>
+           </div>
+        </div>
+      </div>
+  
     </div>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <p class="text-muted">
-                 This not-for-profit site is aimed at making Parliament easier to engage with. It is not affiliated with <a href="http://parliament.uk">parliament.uk</a>.
-            </p>
-            <p class="text-muted">
-                Parliamentary copyright images are reproduced with the permission of Parliament.
-            </p>
-            <p class="text-muted">
-                <a href="/about">About the Public Scrutiny Office</a>
-            </p>
-        </div>
+    <div class="col-sm-4">
+      <div class="news-sidebar-heading">
+        <h2>In the media</h2>
+        <p class="text-muted"><i class="fa fa-external-link"></i> news links are external</p>
+      </div>
+      <script src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fnews.google.com%2Fnews%2Ffeeds%3Fhl%3Den%26gl%3Dus%26q%3Duk%2Bparliament%26um%3D1%26ie%3DUTF-8%26output%3Drss&num=10&utf=y&date=y"></script>
     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <p class="text-muted">
+         This not-for-profit site is aimed at making Parliament easier to engage with. It is not affiliated with <a href="http://parliament.uk">parliament.uk</a>.
+      </p>
+      <p class="text-muted">
+        Parliamentary copyright images are reproduced with the permission of Parliament.
+      </p>
+      <p class="text-muted">
+        <a href="/about">About the Public Scrutiny Office</a>
+      </p>
+    </div>
+  </div>
 
 </div>
-<script type="text/javascript" src="/js/youtube-player.js"></script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a95ffd67610095" async="async"></script>
 <script type="text/javascript" src="//likebtn.com/js/widget.js" async="async"></script>
 <script>
-    $(document).on('click', 'ul.bills li', function(e){
-        if ($(e.target).parents('.likebtn-wrapper').length) {
-            // ignore clicks on the voting buttons
-            return;
-        } else if ($(e.target).parents('*[href]').length || $(e.target).attr('href')) {
-            // ignore clicks on the links themselves (so people can still right click)
-            return;
-        } else {
-            window.location = $(this).data('href');
-        }
-    });
+  $(document).on('click', 'ul.bills li', function(e){
+    if ($(e.target).parents('.likebtn-wrapper').length) {
+      // ignore clicks on the voting buttons
+      return;
+    } else if ($(e.target).parents('*[href]').length || $(e.target).attr('href')) {
+      // ignore clicks on the links themselves (so people can still right click)
+      return;
+    } else {
+      window.location = $(this).data('href');
+    }
+  });
 
-    $('#youtube-player').youTubeChannel({ user: 'UKParliament' });
-
-    $(document).ready(function() {
-        var height = Math.max($(".most-popular").height(), $(".least-popular").height());
-        $(".most-popular").height(height);
-        $(".least-popular").height(height);
-    });
+  $(document).ready(function() {
+    var height = Math.max($(".most-popular").height(), $(".least-popular").height());
+    $(".most-popular").height(height);
+    $(".least-popular").height(height);
+  });
 </script>

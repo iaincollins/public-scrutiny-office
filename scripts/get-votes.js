@@ -19,7 +19,7 @@ var billParser = require(__dirname + '/../lib/billparser');
 var bills = require(__dirname + '/../lib/bills'); 
 var config = require(__dirname + '/../lib/config.json');
 
-GLOBAL.db = mongoJs.connect("127.0.0.1/public-scrutiny-office", ["bills", "members", "events"]);
+global.db = mongoJs.connect("127.0.0.1/public-scrutiny-office", ["bills", "members", "events"]);
 
 getBills()
 .then(function(billsBeforeParliament) {
