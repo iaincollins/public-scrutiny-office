@@ -3,6 +3,7 @@
         <div class="col-sm-9">
             <div class="media">
                 <div class="media-object pull-left hidden-xs">
+                  <!--
                     <div class="votes-pie-wrapper" style="margin-top: 20px;">
                         <div id="bill-<%= bill.id %>-votes" class="votes-pie"></div>
                     </div>
@@ -56,6 +57,7 @@
                     </h4>
                         <% } %>
                     <% } %>
+                  -->
                 </div>
                 <div class="media-body">
                     <h1><%= bill.name %> Bill</h1>
@@ -69,14 +71,6 @@
                     </div>
                 </div>
             </div>
-            <script>
-                $(function() {
-                    Pizza.init(document.body, {
-                        "show_percent": false,
-                        "donut": true
-                    });
-                });
-            </script>
             <% if (bill.html === "") { %>
                 <p class="alert alert-info" style="margin-top: 20px;">
                     <a href="<%= bill.url %>">The text of this Bill is not available. See the Parliament website for more details. <i class="fa fa-external-link"></i></a>

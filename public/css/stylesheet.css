@@ -212,8 +212,8 @@ h3,h4 {
 
 ul.bills li {
   margin-top: 20px;
-  padding: 10px;
-  padding-bottom: 5px;
+  padding-bottom: 15px;
+  border-bottom: 4px solid #eef7e4;
 }
 
 ul.bills li h3 {
