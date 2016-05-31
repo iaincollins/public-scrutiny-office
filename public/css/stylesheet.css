@@ -200,7 +200,7 @@ h3,h4 {
 
 @media(max-width:767px) {
   .nav.nav-pills li a {
-    font-size: 14px;
+    font-size: 10px;
   }
 }
 
