@@ -94,19 +94,19 @@ app.get('/', function(req, res, next) {
     // Only fetch bills that (a) have text and (b) were updated recently
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
-    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
+    var timestamp = phpjs.date('Y-m-d', phpjs.strtotime('30 days ago'));
     
     var popularBillsQuery = {};
-    popularBillsQuery['$query'] = { $where: 'this.upVotes > this.downVotes', lastUpdated: { $gte: yesterday } };
+    popularBillsQuery['$query'] = { $where: 'this.upVotes > this.downVotes', lastUpdated: { $gte: timestamp } };
     popularBillsQuery['$orderby'] = { upVotes: -1 };
     popularBillsQuery['hasText'] = true;
 
     var unpopularBillsQuery = {};
-    unpopularBillsQuery['$query'] = { $where: 'this.downVotes > this.upVotes', lastUpdated: { $gte: yesterday } };
+    unpopularBillsQuery['$query'] = { $where: 'this.downVotes > this.upVotes', lastUpdated: { $gte: timestamp } };
     unpopularBillsQuery['$orderby'] = { downVotes: -1 };
     unpopularBillsQuery['hasText'] = true;
 
-    bills.getBills({ lastUpdated: { $gte: yesterday } }, function(billsBeforeParliament) {
+    bills.getBills({ lastUpdated: { $gte: timestamp } }, function(billsBeforeParliament) {
         bills.getBills(popularBillsQuery, function(popularBillsBeforeParliament) {
             bills.getBills(unpopularBillsQuery, function(unpopularBillsBeforeParliament) {
                 res.render('index', { bills: billsBeforeParliament,
@@ -126,8 +126,8 @@ app.get('/bills', function(req, res, next) {
     // Only fetch bills that (a) have text and (b) were updated recently
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
-    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
-    var query = { hasText: true, lastUpdated: { $gte: yesterday } };
+    var timestamp = phpjs.date('Y-m-d', phpjs.strtotime('30 days ago'));
+    var query = { hasText: true, lastUpdated: { $gte: timestamp } };
 
     bills.getBills(query, function(billsBeforeParliament) {
         events.upcomingEvents(function(upcomingEvents) {
@@ -149,8 +149,8 @@ app.get('/bills/:filter', function(req, res, next) {
     // Only fetch bills that (a) have text and (b) were updated recently
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
-    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
-    var query = { lastUpdated: { $gte: yesterday } };
+    var timestamp = phpjs.date('Y-m-d', phpjs.strtotime('30 days ago'));
+    var query = { lastUpdated: { $gte: timestamp } };
     var orderBy = {};
     var filter = filename[0];
 
@@ -211,8 +211,8 @@ app.get('/bills.json', function(req, res, next) {
     // Only fetch bills that were updated recently.
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
-    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
-    var query = { hasText: true, lastUpdated: { $gte: yesterday } };
+    var timestamp = phpjs.date('Y-m-d', phpjs.strtotime('30 days ago'));
+    var query = { hasText: true, lastUpdated: { $gte: timestamp } };
     bills.getBills(query, function(billsBeforeParliament) {
         // Don't return the full text
         billsBeforeParliament.forEach(function(bill, index) {
@@ -287,8 +287,8 @@ app.get('/sitemap.xml', function(req, res, next) {
     // Only fetch bills that (a) have text and (b) were updated recently
     // (Bills that have not bene updated recently must not have been in the
     // RSS the last time it was parsed so have been dropped or become law.)
-    var yesterday = phpjs.date('Y-m-d', phpjs.strtotime('1 day ago'));
-    var query = { hasText: true, lastUpdated: { $gte: yesterday } };
+    var timestamp = phpjs.date('Y-m-d', phpjs.strtotime('30 days ago'));
+    var query = { hasText: true, lastUpdated: { $gte: timestamp } };
     bills.getBills(query, function(billsBeforeParliament) {
         res.setHeader('Content-Type', 'text/plain');
         res.render('sitemap', { layout: null, bills: billsBeforeParliament });
