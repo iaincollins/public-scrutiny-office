@@ -202,6 +202,10 @@ h3,h4 {
   .nav.nav-pills li a {
     font-size: 10px;
   }
+  
+  .bill-buttons .likebtn-label {
+    display: none;
+  }
 }
 
 .nav.nav-pills li a:hover {
