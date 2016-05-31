@@ -39,9 +39,6 @@ app.get('/news/', function(req, res, next) {
 app.get('/', function(req, res, next) {
     res.redirect('/bills');
 });
-app.get('/more', function(req, res, next) {
-    res.render('more', { title: "More about the Public Scrutiny Office" });
-});
 app.get('/about', function(req, res, next) {
     res.render('about', { title: "About the Public Scrutiny Office" });
 });

@@ -17,15 +17,15 @@ The API returns all Bills that are currently before Parliament or have been rece
 
 You can use the .hasText property on a Bill to check if there is text available for it and the .htmlUrl and .textUrl properties on each Bill object to get the full text of an individual Bill.
 
-If you know the URL for a bill you can get info for it in JSON, or just the bill text as HTML or plain text (UTF-8) directly by appending an appropriate file extention to the URL.
+If you know the URL for a bill you can get info for it in JSON, or just the bill text as HTML or plain text (UTF-8) directly by appending an appropriate file extension to the URL.
 
-e.g. for http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon
+e.g. for http://public-scrutiny-office.org/bills/2015-2016/investigatory-powers
 
-JSON: http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.json
+JSON: http://public-scrutiny-office.org/bills/2015-2016/investigatory-powers.json
 
-HTML: http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.html
+HTML: http://public-scrutiny-office.org/bills/2015-2016/investigatory-powers.html
 
-Plain Text: http://public-scrutiny-office.org/bills/2013-2014/alan-turing-statutory-pardon.text
+Plain Text: http://public-scrutiny-office.org/bills/2015-2016/investigatory-powers.text
 
 ## Installation instructions
 

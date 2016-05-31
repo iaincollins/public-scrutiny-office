@@ -1,5 +1,7 @@
 /* @todo Currently just lazily overrides Bootstrap theme hosted on bootstrapcdn.*/
-
+body {
+  font-size: 16px;
+}
 h1 {
   margin-top: 0px;
 }

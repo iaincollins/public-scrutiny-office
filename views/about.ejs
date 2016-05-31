@@ -1,59 +1,72 @@
 <div class="container">
-    <div class="row">
-        <div class="col-sm-8">
-            <h1>About this website</h1>
-            <p class="lead">
-                This site is designed to make what goes on in the UK Parliament<br/>
-                more transparent and easier to engage with.
-            </p>
-            <h2>History</h2>
-            <p>
-                This project stems from a weekend hack I did for <a href="http://rewiredstate.org/hacks/uk-parliament-hack-2013">Parliament Hack 2013</a> (<a href="https://twitter.com/search?q=rsparly2013&src=typd">#RSPARLY2013</a>), an event run by <a href="http://www.parliament.uk">Parliament</a>
-                and <a href="http://rewiredstate.org">Rewired State</a> to co-incide with Parliament Week.
-                
-            </p>
-            <p>
-                The concept seemed well received and the hack won an award. As I liked the idea myself, I've decided to 
-                keep it going. The code was pretty awful though so I decided to port the hack from PHP to nodejs and mongodb,
-                using express, express-partials and ejs for templating and layout and varnish cache on Ubuntu in production.
-            </p>
-            <p>
-                It's still in early development and not all the features from the hack have been ported over, but it is
-                better written, faster and much less buggy than the original. It relies a lot of dirty data taken from
-                screen scraping because APIs are just not available for everything it does yet.
-            </p>
-            <h2>Acknowledgements</h2>
-            <p>
-                I'd like to thank <a href="http://www.parliament.uk">Parliament</a> for organising the <a href="http://rewiredstate.org/hacks/uk-parliament-hack-2013">Parliament Hack</a> and being on hand to help with questions about protocol,
-                <a href="http://rewiredstate.org">Rewired State</a> for running it and <a href="http://mysociety.org">mySociety</a> for their API's at <a href="http://theyworkforyou.com">TheyWorkForYou</a> - and of course all the people who contributed
-                to the free software this site was built with.
-            </p>
-            <p>
-                I'd also like to thank <a href="http://theyworkforyou.com">TheyWorkForYou</a> for providing images of MP's and Peers. <a href="http://www.dods.co.uk">Dods</a> hold the copyright for the official images and 
-                have explicitly refused permission for me to use the images on this site (contrary to the guidance on <a href="http://www.parliament.uk/about/images/">parliament.uk/about/images</a>).
-            </p>
-            <h2>Getting in touch</h2>
-            <p>
-                I'm very open to ideas about how I can improve the site, both for the public and for Members of Parliament.
-            </p>
-            <p>
-                If you have any suggestions or questions, my email address is
-                <a href="mailto:me@iaincollins.com">me@iaincollins.com</a>.
-            </p>
-            <p>
-                You can find me on Twitter as <a href="http://twitter.com/iaincollins">@iaincollins</a>.
-            </p>
-            <h2><i class="fa fa-github"></i> This is free software</h2>
-            <p>
-                <strong>This is free and unencumbered software released into the public domain.</strong>
-            </p>
-            <p>
-                 You can find the project on GitHub at 
-                <a href="https://github.com/iaincollins/public-scrutiny-office">https://github.com/iaincollins/public-scrutiny-office</a>
-            </p>
-            <p>
-                Contributions are most welcome! If you're not a developer you can help out by <a href="https://github.com/iaincollins/public-scrutiny-office/issues">submitting bugs and ideas</a>.
-            </p>
-        </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>About this website</h1>
+      <p class="lead">
+        This site is designed to make what goes on in the UK Parliament more transparent and easier to engage with.
+      </p>
+      <p>
+        This site allows you to browse and cast your own vote on Bills and provides a simple API for Bills and allows you to fetch them as plain text and JSON.
+      </p>
+      <p>
+        The project started out at<a href="http://rewiredstate.org/hacks/uk-parliament-hack-2013">Parliament Hack 2013</a> (<a href="https://twitter.com/search?q=rsparly2013&src=typd">#RSPARLY2013</a>); an event run by <a href="http://www.parliament.uk">Parliament</a>
+        and <a href="http://rewiredstate.org">Rewired State</a> to co-incide with Parliament Week.
+      </p>
+      <p>
+        As of 2016 we are looking to move the API to use an structured data schema for Bills and Members and Events and at ways to editorialise events in Parliament.
+      </p>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>• <a href="/faq">Frequently Asked Questions</a></h3>
+      <h3>• <a href="/api-documentation">API Documentation</a></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+     <h2>Acknowledgements</h2>
+     <p>
+       I'd like to thank <a href="http://www.parliament.uk">Parliament</a> for organising the <a href="http://rewiredstate.org/hacks/uk-parliament-hack-2013">Parliament Hack</a> and being on hand to help with questions about protocol,
+       <a href="http://rewiredstate.org">Rewired State</a> for running it and <a href="http://mysociety.org">mySociety</a> for their API's at <a href="http://theyworkforyou.com">TheyWorkForYou</a> - and of course all the people who contributed
+       to the free software this site was built with.
+     </p>
+     <p>
+       I'd also like to thank <a href="http://theyworkforyou.com">TheyWorkForYou</a> for providing images of MP's and Peers. <a href="http://www.dods.co.uk">Dods</a> hold the copyright for the official images and 
+       have explicitly refused permission for me to use the images on this site (contrary to the guidance on <a href="http://www.parliament.uk/about/images/">parliament.uk/about/images</a>).
+     </p>
+     <h2>Getting in touch</h2>
+     <p>
+       I'm very open to ideas about how I can improve the site, both for the public and for Members of Parliament.
+     </p>
+     <p>
+       If you have any suggestions or questions, my email address is
+       <a href="mailto:me@iaincollins.com">me@iaincollins.com</a>.
+     </p>
+     <p>
+       You can find me on Twitter as <a href="http://twitter.com/iaincollins">@iaincollins</a>.
+     </p>
+     <h2><i class="fa fa-github"></i> This is free software</h2>
+     <p>
+       <strong>This is free and unencumbered software released into the public domain.</strong>
+     </p>
+     <p>
+        You can find the project on GitHub at 
+       <a href="https://github.com/iaincollins/public-scrutiny-office">https://github.com/iaincollins/public-scrutiny-office</a>
+     </p>
+     <p>
+       Contributions are most welcome! If you're not a developer you can help out by <a href="https://github.com/iaincollins/public-scrutiny-office/issues">submitting bugs and ideas</a>.
+     </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Other resources</h2>
+      <h3>• <a href="http://www.parliament.uk">UK Parliament website</a></h3>
+      <h3>• <a href="http://data.parliament.uk/membersdataplatform/">UK Parliament API for MPs &amp; Peers</a></h3>
+      <h3>• <a href="http://www.theyworkforyou.com">TheyWorkForYou</a></h3>
+      <h3>• <a href="https://www.writetothem.com">WriteToThem</a></h3>
+      <h3>• <a href="http://www.edms.org.uk">Early Day Motions</a></h3>
+    </div>
+  </div>
 </div>
