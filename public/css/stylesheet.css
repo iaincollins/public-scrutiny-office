@@ -196,6 +196,12 @@ h3,h4 {
   margin-right: 5px;
 }
 
+@media(max-width:767px) {
+  .nav.nav-pills li a {
+    font-size: 14px;
+  }
+}
+
 .nav.nav-pills li a:hover {
   border-bottom: 4px solid #eef7e4;
 }
@@ -585,8 +591,6 @@ ul.rss-items li {
     line-height: 20px;
   }
 }
-
-
 
 @media(min-width:768px) {
   .navbar .collapse.navbar-collapse {
